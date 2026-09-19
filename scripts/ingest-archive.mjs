@@ -7,15 +7,33 @@
  * output. Post filenames are never transformed — they are the live
  * `/post/<slug>` URLs and `tests/slug-parity.test.mjs` enforces that.
  *
- *   node scripts/ingest-archive.mjs [archiveDir]
+ *   node scripts/ingest-archive.mjs [archiveDir] [--force]
+ *
+ * The content in `src/content` has since been edited: posts carry categories,
+ * the homepage carries Joel's current facts rather than the Wix copy, and
+ * several dead Wix links were repaired. So this refuses to overwrite anything
+ * that already exists unless `--force` is passed. It is a first-import tool,
+ * not a sync.
  */
-import { cp, mkdir, readFile, readdir, writeFile, rm } from 'node:fs/promises';
+import { cp, mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const archiveDir = path.resolve(process.argv[2] ?? '/home/ubuntu/wix-extract/archive');
+const args = process.argv.slice(2);
+const force = args.includes('--force');
+const archiveDir = path.resolve(
+  args.find((arg) => !arg.startsWith('--')) ?? '/home/ubuntu/wix-extract/archive',
+);
+const skipped = [];
+
+/** True when the destination may be written. */
+function mayWrite(file) {
+  if (force || !existsSync(file)) return true;
+  skipped.push(path.relative(repoRoot, file));
+  return false;
+}
 
 const postsOut = path.join(repoRoot, 'src/content/posts');
 const pagesOut = path.join(repoRoot, 'src/content/pages');
@@ -39,23 +57,30 @@ const REHOSTED_FILES = {
 async function ingestImages() {
   await mkdir(imagesOut, { recursive: true });
   const files = await readdir(path.join(archiveDir, 'images'));
+  let written = 0;
   for (const file of files) {
-    await cp(path.join(archiveDir, 'images', file), path.join(imagesOut, file));
+    const target = path.join(imagesOut, file);
+    if (!mayWrite(target)) continue;
+    await cp(path.join(archiveDir, 'images', file), target);
+    written += 1;
   }
-  return files.length;
+  return written;
 }
 
 async function ingestPosts() {
-  await rm(postsOut, { recursive: true, force: true });
   await mkdir(postsOut, { recursive: true });
   const files = (await readdir(path.join(archiveDir, 'posts'))).filter((f) => f.endsWith('.mdx'));
+  let written = 0;
   for (const file of files) {
+    const target = path.join(postsOut, file);
+    if (!mayWrite(target)) continue;
     const source = await readFile(path.join(archiveDir, 'posts', file), 'utf8');
     // Archive images live one level up from `posts/`; ours live in src/assets.
     const rewritten = source.replaceAll('../images/', `${IMAGE_PREFIX}/`);
-    await writeFile(path.join(postsOut, file), rewritten);
+    await writeFile(target, rewritten);
+    written += 1;
   }
-  return files.length;
+  return written;
 }
 
 /**
@@ -101,25 +126,33 @@ function rewritePageValue(value, missingImages) {
 }
 
 async function ingestPages() {
-  await rm(pagesOut, { recursive: true, force: true });
   await mkdir(pagesOut, { recursive: true });
   const files = (await readdir(path.join(archiveDir, 'pages'))).filter((f) => f.endsWith('.json'));
   const missingImages = [];
+  let written = 0;
   for (const file of files) {
     const name = path.basename(file, '.json');
+    const target = path.join(pagesOut, `${PAGE_RENAMES[name] ?? name}.json`);
+    if (!mayWrite(target)) continue;
     const data = JSON.parse(await readFile(path.join(archiveDir, 'pages', file), 'utf8'));
     const rewritten = rewritePageValue(data, missingImages);
-    const outName = `${PAGE_RENAMES[name] ?? name}.json`;
-    await writeFile(path.join(pagesOut, outName), `${JSON.stringify(rewritten, null, 2)}\n`);
+    await writeFile(target, `${JSON.stringify(rewritten, null, 2)}\n`);
+    written += 1;
   }
-  return { count: files.length, missingImages };
+  return { count: written, missingImages };
 }
 
 const images = await ingestImages();
 const posts = await ingestPosts();
 const pages = await ingestPages();
 
-console.log(`ingest-archive: ${posts} posts, ${pages.count} page datasets, ${images} images`);
+console.log(`ingest-archive: wrote ${posts} posts, ${pages.count} page datasets, ${images} images`);
+if (skipped.length > 0) {
+  console.log(
+    `ingest-archive: left ${skipped.length} existing file(s) alone. ` +
+      'They have been edited since the import; pass --force to overwrite.',
+  );
+}
 if (pages.missingImages.length > 0) {
   console.log(`ingest-archive: nulled ${pages.missingImages.length} undownloadable image reference(s):`);
   for (const ref of pages.missingImages) console.log(`  - ${ref}`);

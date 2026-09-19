@@ -75,48 +75,82 @@ const posts = defineCollection({
     }),
 });
 
+const cta = z.object({ label: z.string(), href: z.string() });
+
+/**
+ * The homepage is the one page that is authored rather than migrated — it
+ * carries Joel's current facts, not the Wix copy — so it gets a shape built
+ * for the template instead of the scraped section-and-repeater shape.
+ */
 const home = defineCollection({
   loader: glob({ pattern: 'home.json', base: PAGES_BASE }),
   schema: (ctx) =>
     pageMeta.extend({
+      hero: z.object({
+        greeting: z.string(),
+        name: z.string(),
+        /** Markdown paragraphs; `**bold**` gets the accent treatment. */
+        body: z.array(z.string()).min(1),
+        cta,
+        image: archivedImage(ctx),
+        /** The spec table beside the hero. */
+        facts: z.array(z.object({ key: z.string(), value: z.string() })),
+      }),
+      /** Logo strip. None of these were links on Wix and none are here. */
+      partners: z.object({
+        heading: z.string(),
+        items: z.array(z.object({ title: z.string(), image: archivedImage(ctx) })),
+      }),
       sections: z.array(
         z.object({
           id: z.string(),
-          heading: z.string().nullable().default(null),
-          /** Markdown paragraphs. */
-          body: z.array(z.string()).default([]),
-          items: z
-            .array(
-              linkedItem(ctx).partial({ title: true }).extend({
-                /** The 01–04 skills carry a display number. */
-                number: z.string().optional(),
-              }),
-            )
-            .nullable()
-            .default(null),
-          images: z.array(archivedImage(ctx)).nullable().default(null),
-          cta: z.object({ label: z.string(), href: z.string() }).nullable().default(null),
-          /**
-           * Three testimonials, not one: Wix server-rendered a single carousel
-           * slide, and the rest were recovered from a browser render.
-           */
-          testimonials: z
-            .array(
-              z.object({
-                quote: z.string(),
-                /** The raw "Name, Role, Company" line, split out below. */
-                attribution: z.string().nullable().default(null),
-                name: z.string().nullable().default(null),
-                role: z.string().nullable().default(null),
-                company: z.string().nullable().default(null),
-                /** Which carousel slide the extraction recovered this from. */
-                seenVia: z.string().optional(),
-              }),
-            )
-            .optional(),
-          note: z.string().optional(),
+          number: z.string(),
+          heading: z.string(),
+          kicker: z.string(),
+          body: z.array(z.string()),
+          image: archivedImage(ctx).optional(),
+          roleTitle: z.string().optional(),
+          roleTag: z.string().optional(),
+          cta: cta.optional(),
         }),
       ),
+      skills: z.object({
+        number: z.string(),
+        heading: z.string(),
+        items: z.array(
+          z.object({
+            number: z.string(),
+            title: z.string(),
+            /** Split so the first phrase can carry the accent weight. */
+            lead: z.string(),
+            rest: z.string(),
+          }),
+        ),
+      }),
+      /**
+       * Three, not one: Wix server-rendered a single carousel slide and the
+       * other two were recovered from a browser render during extraction.
+       */
+      testimonials: z.object({
+        number: z.string(),
+        heading: z.string(),
+        items: z
+          .array(
+            z.object({
+              quote: z.string(),
+              name: z.string(),
+              role: z.string(),
+              company: z.string(),
+            }),
+          )
+          .length(3),
+      }),
+      writing: z.object({
+        number: z.string(),
+        heading: z.string(),
+        kicker: z.string(),
+        cta,
+      }),
     }),
 });
 

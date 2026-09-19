@@ -2,225 +2,155 @@
   "page": "home",
   "path": "/",
   "sourceUrl": "https://www.joelpolanco.me/",
-  "title": "Joel Polanco | Product Management Blog | Customer Discovery Coaching | Product Management Templates | Product Management Career Coaching",
-  "description": "Joel Polanco is a senior product manager dedicated to helping technical founders save time and emotional distress through his customer discovery coaching. This site is his product management blog and place he posts his templates, resources, and recommended reading.",
-  "ogTitle": "Joel Polanco | Product Management Blog | Customer Discovery Coaching | Product Management Templates | Product Management Career Coaching",
-  "ogDescription": "Joel Polanco is a senior product manager dedicated to helping technical founders save time and emotional distress through his customer discovery coaching. This site is his product management blog and place he posts his templates, resources, and recommended reading.",
-  "canonicalUrl": "https://www.joelpolanco.me",
+  "title": "Joel Polanco — Senior Product Manager",
+  "description": "Joel Polanco is a senior product manager in Intel's Data Center and AI Group, writing about product management and coaching technical founders on customer discovery.",
+  "ogTitle": "Joel Polanco — Senior Product Manager",
+  "ogDescription": "Senior product manager in Intel's Data Center and AI Group. Writing about product management and coaching technical founders on customer discovery.",
+  "canonicalUrl": "https://joelpolanco.me",
+  "hero": {
+    "greeting": "Hi, I'm",
+    "name": "Joel Polanco",
+    "body": [
+      "I'm a **senior product manager** who loves to solve hard problems, meet new people, and have some fun along the way. I'm a big fan of slash careers and pursuing one's passions through side bets.",
+      "Currently, I've been focused on transitioning my org to an **AI-first mindset** and identifying ways to transform the business through AI tools."
+    ],
+    "cta": { "label": "Read the blog", "href": "/blog" },
+    "image": {
+      "alt": "Joel Polanco",
+      "local": "../../assets/images/home-c0cb3a-8cb39630427b46bba1ae600811297b00-952f882e.jpg"
+    },
+    "facts": [
+      { "key": "Role", "value": "Senior Product Manager" },
+      { "key": "Org", "value": "Intel, Data Center and AI Group" },
+      { "key": "Focus", "value": "Data Center Computing" },
+      { "key": "Coaching", "value": "Customer discovery for founders" }
+    ]
+  },
+  "partners": {
+    "heading": "Worked with",
+    "items": [
+      {
+        "title": "LogRocket",
+        "image": {
+          "alt": "LogRocket",
+          "local": "../../assets/images/home-c0cb3a-f14dc0e1de664aeda8bf42bb63276565-a6346729.webp"
+        }
+      },
+      {
+        "title": "Maryland Energy Innovation Accelerator",
+        "image": {
+          "alt": "Maryland Energy Innovation Accelerator",
+          "local": "../../assets/images/home-c0cb3a-26968f635ed040e89fd6e58b901f5d42-ce70856b.jpg"
+        }
+      },
+      {
+        "title": "Ionic Devices",
+        "image": {
+          "alt": "Ionic Devices",
+          "local": "../../assets/images/home-c0cb3a-ab4c3c98e7194b64b79990299eb8c722-6fa6aa37.jpg"
+        }
+      },
+      {
+        "title": "NSF I-Corps",
+        "image": {
+          "alt": "NSF I-Corps",
+          "local": "../../assets/images/home-c0cb3a-136f5a09df3641149e84496e25d28f58-1718cbe6.jpeg"
+        }
+      }
+    ]
+  },
   "sections": [
     {
-      "id": "comp-m4szahsl",
-      "heading": "Hi, I'm Joel Polanco",
+      "id": "background",
+      "number": "01",
+      "heading": "Background",
+      "kicker": "Semiconductors to product",
       "body": [
-        "I'm a senior product manager who loves to solve hard problems, meet new people, and have some fun along the way. I'm a big fan of slash careers and pursuing one's passions through side bets.",
-        "Currently, I'm writing about product management, advising a pre-seed [battery startup](https://www.ionic-devices.com/), and [coaching future founders](https://desertpacificicorps.org/) on customer discovery."
+        "I started out my career as a semiconductor fab process engineer. I'm an engineer at heart but have a **passion for business and technology**.",
+        "After I earned my MBA, I moved into several analyst roles before making a home in product management. I'm most comfortable when I'm working with engineers developing scalable solutions to customer problems."
       ],
-      "items": null,
-      "images": [
-        {
-          "alt": "Joel Polanco Headshot",
-          "local": "../../assets/images/home-c0cb3a-0282bfce29c843849c1f893a032354ce-9f3e29c2.jpg",
-          "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_0282bfce29c843849c1f893a032354ce~mv2.jpg/v1/crop/x_349,y_0,w_1443,h_1332/fill/w_348,h_325,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/c0cb3a_0282bfce29c843849c1f893a032354ce~mv2.jpg"
-        }
-      ],
-      "cta": {
-        "label": "Check out my blog",
-        "href": "https://www.joelpolanco.me/blog"
+      "image": {
+        "alt": "Joel Polanco as a semiconductor fab process engineer",
+        "local": "../../assets/images/home-c0cb3a-d59e583a37d5483e9b31ae110b3ad8b7-4fcee3b8.jpg"
       }
     },
     {
-      "id": "comp-m4udji8c",
-      "heading": "Partners",
-      "body": [],
-      "items": [
-        {
-          "title": "Logrocket Logo Square",
-          "description": null,
-          "link": null,
-          "image": {
-            "alt": "Logrocket Logo Square",
-            "local": "../../assets/images/home-c0cb3a-f14dc0e1de664aeda8bf42bb63276565-a6346729.webp",
-            "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_f14dc0e1de664aeda8bf42bb63276565~mv2.webp/v1/fill/w_129,h_129,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/LogRocket-Logo-Square-Insight-Platforms.webp"
-          },
-          "extraText": null
-        },
-        {
-          "title": "MEIA Logo",
-          "description": null,
-          "link": null,
-          "image": {
-            "alt": "MEIA Logo",
-            "local": "../../assets/images/home-c0cb3a-26968f635ed040e89fd6e58b901f5d42-ce70856b.jpg",
-            "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_26968f635ed040e89fd6e58b901f5d42~mv2.jpg/v1/fill/w_129,h_129,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/1630608461938%20(2)_jfif.jpg"
-          },
-          "extraText": null
-        },
-        {
-          "title": "Ionic Devices Logo",
-          "description": null,
-          "link": null,
-          "image": {
-            "alt": "Ionic Devices Logo",
-            "local": "../../assets/images/home-c0cb3a-ab4c3c98e7194b64b79990299eb8c722-6fa6aa37.jpg",
-            "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_ab4c3c98e7194b64b79990299eb8c722~mv2.jpg/v1/fill/w_129,h_129,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/ionic-devices-sq-logo_edited.jpg"
-          },
-          "extraText": null
-        },
-        {
-          "title": "NSF I-Corps Logo",
-          "description": null,
-          "link": null,
-          "image": {
-            "alt": "NSF I-Corps Logo",
-            "local": "../../assets/images/home-c0cb3a-136f5a09df3641149e84496e25d28f58-1718cbe6.jpeg",
-            "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_136f5a09df3641149e84496e25d28f58~mv2.jpeg/v1/fill/w_129,h_129,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/icorps_logo_f2.jpeg"
-          },
-          "extraText": null
-        }
-      ],
-      "images": [
-        {
-          "alt": "Logrocket Logo Square",
-          "local": "../../assets/images/home-c0cb3a-f14dc0e1de664aeda8bf42bb63276565-a6346729.webp",
-          "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_f14dc0e1de664aeda8bf42bb63276565~mv2.webp/v1/fill/w_129,h_129,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/LogRocket-Logo-Square-Insight-Platforms.webp"
-        },
-        {
-          "alt": "MEIA Logo",
-          "local": "../../assets/images/home-c0cb3a-26968f635ed040e89fd6e58b901f5d42-ce70856b.jpg",
-          "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_26968f635ed040e89fd6e58b901f5d42~mv2.jpg/v1/fill/w_129,h_129,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/1630608461938%20(2)_jfif.jpg"
-        },
-        {
-          "alt": "Ionic Devices Logo",
-          "local": "../../assets/images/home-c0cb3a-ab4c3c98e7194b64b79990299eb8c722-6fa6aa37.jpg",
-          "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_ab4c3c98e7194b64b79990299eb8c722~mv2.jpg/v1/fill/w_129,h_129,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/ionic-devices-sq-logo_edited.jpg"
-        },
-        {
-          "alt": "NSF I-Corps Logo",
-          "local": "../../assets/images/home-c0cb3a-136f5a09df3641149e84496e25d28f58-1718cbe6.jpeg",
-          "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_136f5a09df3641149e84496e25d28f58~mv2.jpeg/v1/fill/w_129,h_129,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/icorps_logo_f2.jpeg"
-        }
-      ],
-      "cta": null
-    },
-    {
-      "id": "comp-m4x8tbuu",
-      "heading": "My Background",
+      "id": "current-role",
+      "number": "02",
+      "heading": "Current Role",
+      "kicker": "Intel, Data Center and AI Group",
+      "roleTitle": "Senior Product Manager",
+      "roleTag": "Data Center Computing",
       "body": [
-        "I started out my career as a semiconductor fab process engineer. I'm an engineer at heart but have a passion for business and technology.",
-        "After I earned my MBA, I moved into several analyst roles before making a home in product management. I'm most comfortable when I am working with engineers developing scalable solutions to customer problems."
+        "I'm a product manager in the Data Center and AI Group at Intel, working on data center computing.",
+        "Most of my attention right now goes to moving my organization to an AI-first way of working: finding where AI tools genuinely change how the business runs, and being honest about where they don't.",
+        "Outside of Intel I coach future founders on **customer discovery**, and spend my time on personal finance, investing, reading and writing."
       ],
-      "items": null,
-      "images": [
-        {
-          "alt": "Joel Polanco Semiconductor Fab Process Engineer",
-          "local": "../../assets/images/home-c0cb3a-d59e583a37d5483e9b31ae110b3ad8b7-4fcee3b8.jpg",
-          "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_d59e583a37d5483e9b31ae110b3ad8b7~mv2.jpg/v1/fill/w_227,h_225,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/c0cb3a_d59e583a37d5483e9b31ae110b3ad8b7~mv2.jpg"
-        },
-        {
-          "alt": "Joel Polanco Color Headshot",
-          "local": "../../assets/images/home-c0cb3a-8cb39630427b46bba1ae600811297b00-952f882e.jpg",
-          "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_8cb39630427b46bba1ae600811297b00~mv2.jpg/v1/fill/w_227,h_225,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/c0cb3a_8cb39630427b46bba1ae600811297b00~mv2.jpg"
-        }
-      ],
-      "cta": null
-    },
-    {
-      "id": "comp-m4x8wjmw",
-      "heading": "My Current Role",
-      "body": [
-        "Senior Product Manager",
-        "I'm currently a product manager in the Edge Computing Group at Intel. I work on an industry solutions team and am responsible for Intel's retail point-of-sale business.",
-        "My other interests include personal finance, investing, reading, writing, and advising future founders on customer discovery."
-      ],
-      "items": null,
-      "images": [
-        {
-          "alt": "Semiconductor Technology",
-          "local": "../../assets/images/home-11062b-efb1b630b7f34fc69c3bd82d90b60339-39f06214.jpg",
-          "renderedSrc": "https://static.wixstatic.com/media/11062b_efb1b630b7f34fc69c3bd82d90b60339~mv2.jpg/v1/fill/w_325,h_225,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/11062b_efb1b630b7f34fc69c3bd82d90b60339~mv2.jpg"
-        },
-        {
-          "alt": "Retail Point-of-Sale",
-          "local": "../../assets/images/home-11062b-8d6d5a5bf3f94436bb09678073d1741e-430b9913.jpeg",
-          "renderedSrc": "https://static.wixstatic.com/media/11062b_8d6d5a5bf3f94436bb09678073d1741e~mv2.jpeg/v1/fill/w_325,h_217,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/11062b_8d6d5a5bf3f94436bb09678073d1741e~mv2.jpeg"
-        },
-        {
-          "alt": "LinkedIn",
-          "local": "../../assets/images/home-6ea5b4a88f0b4f91945b40499aa0af00-2ee971e8.png",
-          "renderedSrc": "https://static.wixstatic.com/media/6ea5b4a88f0b4f91945b40499aa0af00.png/v1/fill/w_39,h_39,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/6ea5b4a88f0b4f91945b40499aa0af00.png"
-        }
-      ],
-      "cta": {
-        "label": "View my LinkedIn",
-        "href": "http://www.linkedin.com/in/jpolanco"
+      "cta": { "label": "View my LinkedIn", "href": "https://www.linkedin.com/in/jpolanco" },
+      "image": {
+        "alt": "Semiconductor wafer technology",
+        "local": "../../assets/images/home-11062b-efb1b630b7f34fc69c3bd82d90b60339-39f06214.jpg"
       }
-    },
-    {
-      "id": "comp-m4ug98dl",
-      "heading": "My Skills",
-      "body": [],
-      "items": [
-        {
-          "number": "01",
-          "title": "Product Management",
-          "description": "B2B, IoT, Analytics & Semiconductor"
-        },
-        {
-          "number": "02",
-          "title": "Business Strategy",
-          "description": "Computing, IoT, IT & OT"
-        },
-        {
-          "number": "03",
-          "title": "Customer Discovery",
-          "description": "Hardware, software, & cleantech"
-        },
-        {
-          "number": "04",
-          "title": "Content marketing",
-          "description": "Product management, growth & technology trends"
-        }
-      ],
-      "images": null,
-      "cta": null
-    },
-    {
-      "id": "comp-m58lr1d4",
-      "heading": null,
-      "body": [
-        "> \"Our company faced an overwhelming amount of information. From the customer discovery plan to the detailed methods of analysis, Joel's expertise was evident every step of the way.\"",
-        "Marie Eric, Co-Founder, Tastee Tape"
-      ],
-      "items": null,
-      "images": null,
-      "cta": null,
-      "testimonials": [
-        {
-          "name": "Marie Eric",
-          "role": "Co-Founder",
-          "company": "Tastee Tape",
-          "quote": "Our company faced an overwhelming amount of information. From the customer discovery plan to the detailed methods of analysis, Joel's expertise was evident every step of the way.",
-          "attribution": "Marie Eric, Co-Founder, Tastee Tape",
-          "seenVia": "nav-click-1"
-        },
-        {
-          "name": "Keith Gregorzyk Ph.D.",
-          "role": "Founder",
-          "company": "Ionic Devices",
-          "quote": "Joel’s guidance through this process was incredible. We worked together to iterate on our customer segments, our business model, and ultimately funding direction. I wouldn’t have been able to do any of this without Joel.",
-          "attribution": "Keith Gregorzyk Ph.D., Founder, Ionic Devices",
-          "seenVia": "nav-click-2"
-        },
-        {
-          "name": "Mike Ducker",
-          "role": "Director",
-          "company": "Maryland Energy Innovation Accelerator",
-          "quote": "Joel has been an amazing coach for our start-ups! He has helped many our startups think through the process of connecting product value to attenable first market segments.",
-          "attribution": "Mike Ducker, Director, Maryland Energy Innovation Accelerator",
-          "seenVia": "nav-click-3"
-        }
-      ],
-      "note": "Wix server-renders only one slide; the full set was captured from a browser."
     }
-  ]
+  ],
+  "skills": {
+    "number": "03",
+    "heading": "What I'm hired for",
+    "items": [
+      {
+        "number": "01",
+        "title": "Product Management",
+        "lead": "B2B",
+        "rest": ", IoT, analytics & semiconductor"
+      },
+      {
+        "number": "02",
+        "title": "Business Strategy",
+        "lead": "Computing",
+        "rest": ", IoT, IT & OT"
+      },
+      {
+        "number": "03",
+        "title": "Customer Discovery",
+        "lead": "Hardware",
+        "rest": ", software & cleantech"
+      },
+      {
+        "number": "04",
+        "title": "Forward Deployed AI Product Manager",
+        "lead": "Large enterprises",
+        "rest": " adopting AI tools"
+      }
+    ]
+  },
+  "testimonials": {
+    "number": "04",
+    "heading": "What people say",
+    "items": [
+      {
+        "quote": "Our company faced an overwhelming amount of information. From the customer discovery plan to the detailed methods of analysis, Joel's expertise was evident every step of the way.",
+        "name": "Marie Eric",
+        "role": "Co-Founder",
+        "company": "Tastee Tape"
+      },
+      {
+        "quote": "Joel's guidance through this process was incredible. We worked together to iterate on our customer segments, our business model, and ultimately funding direction. I wouldn't have been able to do any of this without Joel.",
+        "name": "Keith Gregorzyk Ph.D.",
+        "role": "Founder",
+        "company": "Ionic Devices"
+      },
+      {
+        "quote": "Joel has been an amazing coach for our start-ups! He has helped many of our startups think through the process of connecting product value to attainable first market segments.",
+        "name": "Mike Ducker",
+        "role": "Director",
+        "company": "Maryland Energy Innovation Accelerator"
+      }
+    ]
+  },
+  "writing": {
+    "number": "05",
+    "heading": "Recent writing",
+    "kicker": "Mostly product management",
+    "cta": { "label": "All 23 posts", "href": "/blog" }
+  }
 }

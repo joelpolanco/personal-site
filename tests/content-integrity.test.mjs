@@ -57,10 +57,10 @@ test('every image a page dataset references exists in src/assets', () => {
 });
 
 test('the homepage carries all three testimonials', () => {
-  const section = page('home').sections.find((s) => Array.isArray(s.testimonials));
-  assert.ok(section, 'the testimonial section is missing');
+  // Wix server-rendered one carousel slide; the other two were only found by
+  // driving a browser, so losing them again would be easy and invisible.
   assert.deepEqual(
-    section.testimonials.map((t) => t.name),
+    page('home').testimonials.items.map((t) => t.name),
     ['Marie Eric', 'Keith Gregorzyk Ph.D.', 'Mike Ducker'],
   );
 });
@@ -81,9 +81,8 @@ test('resources keeps all 22 entries and the homepage keeps four numbered skills
     page('resources').groups.reduce((total, group) => total + group.items.length, 0),
     22,
   );
-  const skills = page('home').sections.find((s) => s.heading === 'My Skills');
   assert.deepEqual(
-    skills.items.map((item) => item.number),
+    page('home').skills.items.map((item) => item.number),
     ['01', '02', '03', '04'],
   );
 });
@@ -100,9 +99,47 @@ test('the Intel RSP case study is served from our own origin, not Wix', () => {
     links.includes('/files/intel-rfid-sensor-platform.pdf'),
     'the re-hosted PDF link was reverted to the Wix URL, which dies at cutover',
   );
+});
+
+test('nothing links to a Wix-hosted file or a known-dead URL', () => {
+  // Wix `_files/ugd` assets stop resolving the moment the plan is cancelled,
+  // and these five URLs were already 404 at extraction time.
+  const DEAD = [
+    'joelpolanco.me/_files/',
+    'marketscale.com/shows/to-the-edge-and-beyond',
+    'marketscale.com/shows/health-and-life-sciences-at-the-edge',
+  ];
+  const offenders = readdirSync(pagesDir)
+    .filter((file) => file.endsWith('.json'))
+    .flatMap((file) => {
+      const raw = readFileSync(path.join(pagesDir, file), 'utf8');
+      return DEAD.filter((dead) => raw.includes(dead)).map((dead) => `${file}: ${dead}`);
+    });
+  assert.deepEqual(offenders, []);
+});
+
+test('every post has one of the six categories, and none of them is empty', () => {
+  const source = readFileSync(path.join(repoRoot, 'src/config/categories.ts'), 'utf8');
+  const known = [...source.matchAll(/^\s*id: '([a-z0-9-]+)',$/gm)].map((match) => match[1]);
+  assert.equal(known.length, 6);
+
+  const used = readdirSync(postsDir)
+    .filter((file) => /\.mdx?$/.test(file))
+    .map((file) => {
+      const raw = readFileSync(path.join(postsDir, file), 'utf8');
+      const match = raw.match(/^category:\s*"([^"]+)"/m);
+      assert.ok(match, `${file} has no category`);
+      return match[1];
+    });
+
   assert.deepEqual(
-    links.filter((link) => link?.includes('joelpolanco.me/_files/')),
+    used.filter((category) => !known.includes(category)),
     [],
-    'a portfolio link still points at a Wix-hosted file',
+    'a post uses a category that is not in src/config/categories.ts',
+  );
+  assert.deepEqual(
+    known.filter((category) => !used.includes(category)),
+    [],
+    'a category has no posts — remove it or file something under it',
   );
 });
