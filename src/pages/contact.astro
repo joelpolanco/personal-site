@@ -1,0 +1,103 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHead from '../components/PageHead.astro';
+import ContactForm from '../components/ContactForm.astro';
+
+const contact = await getEntry('contact', 'contact');
+if (!contact) throw new Error('src/content/pages/contact.json is missing');
+const { blocks, form } = contact.data;
+
+/**
+ * Joel's five reasons came out of Wix as one numbered blob in a single string.
+ * Split back into list items so they read as a list.
+ */
+const reasons = (blocks[0]?.body[0] ?? '')
+  .split(/\n+/)
+  .map((line) => line.replace(/^\d+\.\s*/, '').trim())
+  .filter(Boolean);
+---
+
+<BaseLayout
+  title="Contact"
+  description={contact.data.description}
+  canonical="https://joelpolanco.me/contact"
+>
+  <PageHead
+    number="05"
+    title="Let's talk"
+    lede="Fill in your details and I'll get back to you in the next 24–48 hours."
+  >
+    <Fragment slot="eyebrow">Get in touch</Fragment>
+  </PageHead>
+
+  <section class="sw-section sw-section--flush">
+    <div class="sw-shell sw-grid">
+      <div class="sw-c1-3 sw-section__head">
+        <span class="sw-section__num">01</span>
+        <h2 class="sw-section__title">
+          {blocks[0]?.heading ?? 'How can I help?'}
+          <span>Five good reasons</span>
+        </h2>
+        <ol class="sw-reasons">
+          {reasons.map((reason) => <li>{reason}</li>)}
+        </ol>
+      </div>
+
+      <div class="sw-c5-8">
+        <ContactForm submitLabel={form.submitLabel} successMessage={form.successMessage} />
+
+        <p class="sw-contact-alt">
+          Prefer somewhere else? I'm on
+          <a
+            class="sw-textlink"
+            href="https://www.linkedin.com/in/jpolanco"
+            rel="me noopener noreferrer"
+            target="_blank">LinkedIn<span aria-hidden="true"> &#8599;</span></a
+          >.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .sw-reasons {
+    margin: 1.5rem 0 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: reason;
+    border-top: 1px solid var(--hairline);
+  }
+
+  .sw-reasons li {
+    counter-increment: reason;
+    display: grid;
+    grid-template-columns: 1.75rem 1fr;
+    gap: 0.5rem;
+    padding-block: 0.6875rem;
+    border-bottom: 1px solid var(--hairline);
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: var(--fg-soft);
+  }
+
+  .sw-reasons li::before {
+    content: '0' counter(reason);
+    color: var(--accent-ink);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.1em;
+    padding-top: 0.2rem;
+  }
+
+  .sw-contact-alt {
+    margin: 2rem 0 0;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--hairline);
+    font-size: 0.9375rem;
+    color: var(--fg-soft);
+    max-width: 40rem;
+  }
+</style>

@@ -1,0 +1,147 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleJsonLd from '../../components/seo/ArticleJsonLd.astro';
+import { getCategory } from '../../config/categories';
+import { formatDate, getPublishedPosts, type Post } from '../../lib/posts';
+import { ogImagePath } from '../../config/site';
+import { renderInline } from '../../lib/inline-markdown';
+
+/**
+ * These paths are the reason the migration exists. Every one of the 23 slugs
+ * is an indexed URL, and `tests/slug-parity.test.mjs` fails the build if any
+ * filename drifts.
+ */
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getPublishedPosts();
+  return posts.map((post, index) => ({
+    params: { slug: post.id },
+    props: {
+      post,
+      // The list is newest first, so the newer neighbour is the previous index.
+      newer: posts[index - 1] ?? null,
+      older: posts[index + 1] ?? null,
+    },
+  }));
+};
+
+type Props = { post: Post; newer: Post | null; older: Post | null };
+
+const { post, newer, older } = Astro.props as Props;
+const { data } = post;
+const { Content } = await render(post);
+
+const category = getCategory(data.category);
+const updated = data.updatedDate && data.updatedDate.getTime() !== data.pubDate.getTime();
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  ogType="article"
+  ogImage={ogImagePath(post.id)}
+>
+  <ArticleJsonLd slot="head" post={post} />
+
+  <article>
+    <header class="sw-posthead">
+      <div class="sw-shell sw-grid">
+        <div class="sw-c1-8">
+          <p class="sw-label">
+            <span class="sw-label__num">{category.number}</span>
+            <span>{category.name}</span>
+          </p>
+          <h1 class="sw-posthead__title">{data.title}</h1>
+          <p class="sw-posthead__desc">{data.description}</p>
+        </div>
+
+        <div class="sw-c10-3">
+          <dl class="sw-postmeta">
+            <div>
+              <dt>Published</dt>
+              <dd><time datetime={data.pubDate.toISOString()}>{formatDate(data.pubDate)}</time></dd>
+            </div>
+            {
+              updated && data.updatedDate && (
+                <div>
+                  <dt>Updated</dt>
+                  <dd>
+                    <time datetime={data.updatedDate.toISOString()}>
+                      {formatDate(data.updatedDate)}
+                    </time>
+                  </dd>
+                </div>
+              )
+            }
+            {
+              data.readingTime && (
+                <div>
+                  <dt>Length</dt>
+                  <dd>{data.readingTime}</dd>
+                </div>
+              )
+            }
+            <div>
+              <dt>Filed in</dt>
+              <dd><a href={`/blog/${category.id}`}>{category.name}</a></dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </header>
+
+    <div class="sw-shell sw-grid" style="padding-block: clamp(2.5rem, 5vw, 4rem)">
+      <div class="sw-c1-8">
+        {data.firstAppearedIn && <p class="sw-credit" set:html={renderInline(data.firstAppearedIn)} />}
+        <div class="sw-prose">
+          <Content />
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <section class="sw-shell" style="padding-bottom: clamp(2.5rem, 5vw, 4rem)" aria-label="More posts">
+    <nav class="sw-adjacent">
+      {
+        older ? (
+          <a class="sw-adjacent__item" href={`/post/${older.id}`}>
+            <span class="sw-adjacent__dir">&#8592; Older</span>
+            <span class="sw-adjacent__title">{older.data.title}</span>
+          </a>
+        ) : (
+          <span />
+        )
+      }
+      {
+        newer ? (
+          <a class="sw-adjacent__item sw-adjacent__item--next" href={`/post/${newer.id}`}>
+            <span class="sw-adjacent__dir">Newer &#8594;</span>
+            <span class="sw-adjacent__title">{newer.data.title}</span>
+          </a>
+        ) : (
+          <span />
+        )
+      }
+    </nav>
+
+    <p style="margin-top: 2rem">
+      <a class="sw-btn sw-btn--ghost" href="/blog">
+        All posts
+        <span class="sw-btn__arrow" aria-hidden="true">&#8594;</span>
+      </a>
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  /* dl rows wrap each pair in a div; the list styling expects the row. */
+  .sw-postmeta > div {
+    display: grid;
+    grid-template-columns: 5.5rem 1fr;
+    gap: 0.75rem;
+    padding-block: 0.625rem;
+    border-bottom: 1px solid var(--hairline);
+    font-size: 0.8125rem;
+  }
+</style>

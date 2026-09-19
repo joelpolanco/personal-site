@@ -1,0 +1,41 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import PostCover from './PostCover.astro';
+import { getCategory } from '../config/categories';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const { data } = post;
+
+const published = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+  timeZone: 'UTC',
+}).format(data.pubDate);
+---
+
+<article class="sw-postcard">
+  <a href={`/post/${post.id}`} tabindex="-1" aria-hidden="true">
+    <PostCover
+      title={data.title}
+      slug={post.id}
+      category={data.category}
+      readingTime={data.readingTime}
+    />
+  </a>
+
+  <h3 class="sw-postcard__title">
+    <a href={`/post/${post.id}`}>{data.title}</a>
+  </h3>
+
+  <p class="sw-postcard__desc">{data.description}</p>
+
+  <p class="sw-postcard__meta">
+    <span>{getCategory(data.category).name}</span>
+    <span><time datetime={data.pubDate.toISOString()}>{published}</time></span>
+  </p>
+</article>

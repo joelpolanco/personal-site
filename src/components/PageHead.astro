@@ -1,0 +1,32 @@
+---
+/** The title block every interior page opens with. */
+interface Props {
+  number: string;
+  title: string;
+  lede?: string | null;
+  /** Right-hand rail, e.g. "23 posts · 6 categories". */
+  count?: string | null;
+}
+
+const { number, title, lede = null, count = null } = Astro.props;
+---
+
+<section class="sw-pagehead">
+  <div class="sw-shell sw-grid">
+    <div class="sw-c1-8">
+      <p class="sw-label">
+        <span class="sw-label__num">{number}</span>
+        <span><slot name="eyebrow">{title}</slot></span>
+      </p>
+      <h1 class="sw-pagehead__title">{title}</h1>
+      {lede && <p class="sw-pagehead__lede">{lede}</p>}
+    </div>
+    {
+      count && (
+        <div class="sw-c10-3">
+          <p class="sw-pagehead__count">{count}</p>
+        </div>
+      )
+    }
+  </div>
+</section>

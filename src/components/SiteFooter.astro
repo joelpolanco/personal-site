@@ -1,0 +1,43 @@
+---
+import { nav, footerLinks, site } from '../config/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="sw-footer sw-layer">
+  <div class="sw-shell sw-grid">
+    <div class="sw-c1-4">
+      <p class="sw-footer__brand">{site.name}</p>
+      <p class="sw-footer__meta">Senior Product Manager &middot; Intel, Data Center and AI Group</p>
+      <p class="sw-footer__meta">&copy; {year} {site.name}</p>
+    </div>
+
+    <nav class="sw-c5-8 sw-grid" aria-label="Footer">
+      <div class="sw-c1-6 sw-footer__col">
+        <h2>Pages</h2>
+        <ul class="sw-footer__list sw-footer__list--inline">
+          {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        </ul>
+      </div>
+      <div class="sw-c7-6 sw-footer__col">
+        <h2>Elsewhere</h2>
+        <ul class="sw-footer__list">
+          {
+            footerLinks.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  rel={item.external ? 'me noopener noreferrer' : undefined}
+                  target={item.external ? '_blank' : undefined}
+                >
+                  {item.label}
+                  {item.external && <span aria-hidden="true"> &#8599;</span>}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </nav>
+  </div>
+</footer>

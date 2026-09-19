@@ -1,0 +1,72 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
+import PostCard from '../../components/PostCard.astro';
+import CategoryNav from '../../components/CategoryNav.astro';
+import { categories } from '../../config/categories';
+import { countByCategory, getPublishedPosts, type Post } from '../../lib/posts';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getPublishedPosts();
+  return categories.map((category) => ({
+    params: { category: category.id },
+    props: {
+      category,
+      posts: posts.filter((post) => post.data.category === category.id),
+      counts: countByCategory(posts),
+      total: posts.length,
+    },
+  }));
+};
+
+type Props = {
+  category: (typeof categories)[number];
+  posts: Post[];
+  counts: ReturnType<typeof countByCategory>;
+  total: number;
+};
+
+const { category, posts, counts, total } = Astro.props as Props;
+---
+
+<BaseLayout
+  title={`${category.name} — Blog`}
+  description={`${category.summary} ${posts.length} posts by Joel Polanco.`}
+>
+  <PageHead
+    number={category.number}
+    title={category.name}
+    lede={category.summary}
+    count={`${posts.length} of ${total} posts`}
+  >
+    <Fragment slot="eyebrow">Blog category</Fragment>
+  </PageHead>
+
+  <section class="sw-section sw-section--flush">
+    <div class="sw-shell">
+      <CategoryNav counts={counts} current={category.id} total={total} />
+
+      {
+        posts.length > 0 ? (
+          <ul class="sw-posts" style="margin-top: clamp(2rem, 4vw, 3rem)">
+            {posts.map((post) => (
+              <li>
+                <PostCard post={post} />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div class="sw-empty" style="margin-top: 2.5rem">
+            <h2 class="sw-empty__title">Nothing filed here yet</h2>
+            <p>This category has no posts at the moment. The rest of the blog is one click away.</p>
+            <a class="sw-btn sw-btn--ghost" href="/blog">
+              All posts
+              <span class="sw-btn__arrow" aria-hidden="true">&#8594;</span>
+            </a>
+          </div>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

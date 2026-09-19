@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/PageHead.astro';
+import PostCard from '../../components/PostCard.astro';
+import CategoryNav from '../../components/CategoryNav.astro';
+import { categories } from '../../config/categories';
+import { countByCategory, getPublishedPosts } from '../../lib/posts';
+
+const posts = await getPublishedPosts();
+const counts = countByCategory(posts);
+---
+
+<BaseLayout
+  title="Blog"
+  description="Joel Polanco writes about product management, customer discovery, growth and the shift to AI-first ways of working."
+>
+  <PageHead
+    number="04"
+    title="Blog"
+    lede="Twenty-three posts on product management — most of them first written for LogRocket, all of them filed into six categories that Wix never gave them."
+    count={`${posts.length} posts · ${categories.length} categories`}
+  >
+    <Fragment slot="eyebrow">Writing</Fragment>
+  </PageHead>
+
+  <section class="sw-section sw-section--flush">
+    <div class="sw-shell">
+      <CategoryNav counts={counts} total={posts.length} />
+
+      {
+        posts.length > 0 ? (
+          <ul class="sw-posts" style="margin-top: clamp(2rem, 4vw, 3rem)">
+            {posts.map((post) => (
+              <li>
+                <PostCard post={post} />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div class="sw-empty" style="margin-top: 2.5rem">
+            <h2 class="sw-empty__title">Nothing published yet</h2>
+            <p>
+              There are no posts here right now. The feed stays at the same address, so subscribing
+              still works.
+            </p>
+            <a class="sw-btn sw-btn--ghost" href="/blog-feed.xml">
+              Subscribe by RSS
+            </a>
+          </div>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

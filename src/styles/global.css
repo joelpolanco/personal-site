@@ -1,16 +1,54 @@
 @import 'tailwindcss';
 
-/* Self-hosted variable fonts so the site never depends on a third-party CDN. */
-@import '@fontsource-variable/fraunces';
-@import '@fontsource-variable/source-serif-4';
+/*
+ * Inter only. The three other families were carried for the design
+ * comparison; the Swiss direction sets everything in one grotesque, and every
+ * family loaded is a family downloaded.
+ */
 @import '@fontsource-variable/inter';
-@import '@fontsource-variable/jetbrains-mono';
+
+@import './site.css';
 
 @theme {
-  --font-display: 'Fraunces Variable', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
-  --font-serif: 'Source Serif 4 Variable', Charter, Georgia, 'Times New Roman', serif;
-  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-  --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-sans:
+    'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial,
+    sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+/* ==========================================================================
+   Design tokens — the Swiss grid direction, promoted to the site's system.
+   ========================================================================== */
+
+:root {
+  /* Monochrome plus one saturated accent. */
+  --bg: #ffffff;
+  --bg-sunk: #f4f4f3;
+  --fg: #101010;
+  --fg-soft: #5b5b5b;
+  --fg-faint: #6e6e6e;
+  --hairline: #e3e3e1;
+  --grid-line: #f0f0ee;
+  --accent: #e5230c;
+  /* Darker cut of the accent, for text that must clear 4.5:1 on white. */
+  --accent-ink: #c81c08;
+
+  --cols: 12;
+  --gap: clamp(0.75rem, 1.6vw, 1.5rem);
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --maxw: 84rem;
+  --space-section: clamp(3.25rem, 7vw, 6rem);
+
+  --focus-ring: var(--accent);
+  --focus-ring-offset: 3px;
+  --selection-bg: var(--accent);
+  --selection-fg: #ffffff;
+  --skip-bg: var(--fg);
+  --skip-fg: #ffffff;
+
+  color-scheme: light;
+  background: var(--bg);
+  color: var(--fg);
 }
 
 @layer base {
@@ -38,7 +76,7 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Every direction inherits a visible, high-contrast focus ring. */
+  /* Visible, high-contrast focus for every interactive element. */
   :focus-visible {
     outline: 2px solid var(--focus-ring, currentColor);
     outline-offset: var(--focus-ring-offset, 3px);
@@ -46,8 +84,8 @@
   }
 
   ::selection {
-    background: var(--selection-bg, #000);
-    color: var(--selection-fg, #fff);
+    background: var(--selection-bg);
+    color: var(--selection-fg);
   }
 }
 
@@ -63,7 +101,6 @@
   border: 0;
 }
 
-/* Skip link shared by all directions. */
 .skip-link {
   position: absolute;
   left: 0.75rem;
@@ -73,8 +110,8 @@
   padding: 0.6rem 1rem;
   font-size: 0.8125rem;
   font-weight: 600;
-  background: var(--skip-bg, #000);
-  color: var(--skip-fg, #fff);
+  background: var(--skip-bg);
+  color: var(--skip-fg);
   transition: transform 140ms ease;
 }
 

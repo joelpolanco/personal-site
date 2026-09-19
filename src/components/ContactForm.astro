@@ -1,0 +1,163 @@
+---
+/**
+ * The form markup for `POST /api/contact`.
+ *
+ * It is a real form with a real action, so it works with JavaScript disabled —
+ * the endpoint answers a plain form post with a 303 back to
+ * `/contact?status=…`. The script below upgrades that to an inline submit with
+ * per-field errors when JavaScript is available.
+ */
+import { HONEYPOT_FIELD } from '../lib/contact/validate';
+
+interface Props {
+  submitLabel: string;
+  successMessage: string;
+}
+
+const { submitLabel, successMessage } = Astro.props;
+
+/** Set by the no-JavaScript redirect; read on the server so it renders in HTML. */
+const status = Astro.url.searchParams.get('status');
+
+const STATUS_COPY: Record<string, { tone: 'ok' | 'error'; message: string }> = {
+  ok: { tone: 'ok', message: successMessage },
+  invalid: { tone: 'error', message: 'Please check the highlighted fields and try again.' },
+  'rate-limited': {
+    tone: 'error',
+    message: 'That is a few too many messages in a row. Please try again in an hour.',
+  },
+  unavailable: {
+    tone: 'error',
+    message: 'The contact form is temporarily unavailable. LinkedIn is the fastest route today.',
+  },
+  'send-failed': {
+    tone: 'error',
+    message: 'That message could not be sent just now. Please try again in a moment.',
+  },
+  malformed: { tone: 'error', message: 'That submission could not be read. Please try again.' },
+};
+
+const initial = status ? STATUS_COPY[status] : undefined;
+---
+
+<form class="sw-form" method="post" action="/api/contact" novalidate data-contact-form>
+  <p
+    class={`sw-status sw-status--${initial?.tone ?? 'ok'}`}
+    role="status"
+    aria-live="polite"
+    hidden={!initial}
+    data-status
+  >
+    {initial?.message}
+  </p>
+
+  <div class="sw-field" data-field="first-name">
+    <label for="first-name">
+      First name <span class="sw-field__opt">(optional)</span>
+    </label>
+    <input type="text" id="first-name" name="first-name" autocomplete="given-name" />
+    <p class="sw-field__error" data-error-for="first-name"></p>
+  </div>
+
+  <div class="sw-field" data-field="last-name">
+    <label for="last-name">
+      Last name <span class="sw-field__opt">(optional)</span>
+    </label>
+    <input type="text" id="last-name" name="last-name" autocomplete="family-name" />
+    <p class="sw-field__error" data-error-for="last-name"></p>
+  </div>
+
+  <div class="sw-field sw-field--wide" data-field="email">
+    <label for="email">Email</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      required
+      autocomplete="email"
+      placeholder="you@company.com"
+      aria-describedby="email-error"
+    />
+    <p class="sw-field__error" id="email-error" data-error-for="email"></p>
+  </div>
+
+  <div class="sw-field sw-field--wide" data-field="message">
+    <label for="message">Message</label>
+    <textarea
+      id="message"
+      name="message"
+      required
+      placeholder="What are you working on, and where are you stuck?"
+      aria-describedby="message-error"></textarea>
+    <p class="sw-field__error" id="message-error" data-error-for="message"></p>
+  </div>
+
+  <div class="sw-trap" aria-hidden="true">
+    <label for={HONEYPOT_FIELD}>Leave this field empty</label>
+    <input type="text" id={HONEYPOT_FIELD} name={HONEYPOT_FIELD} tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="sw-form__actions">
+    <button class="sw-btn" type="submit">
+      {submitLabel}
+      <span class="sw-btn__arrow" aria-hidden="true">&#8594;</span>
+    </button>
+    <span class="sw-field__opt" style="font-size: 0.8125rem">Usually a reply within 24&ndash;48 hours.</span>
+  </div>
+</form>
+
+<script is:inline define:vars={{ successMessage }}>
+  const form = document.querySelector('[data-contact-form]');
+  if (form) {
+    const status = form.querySelector('[data-status]');
+    const button = form.querySelector('button[type="submit"]');
+    const buttonLabel = button.innerHTML;
+
+    const show = (tone, message) => {
+      status.className = `sw-status sw-status--${tone}`;
+      status.textContent = message;
+      status.hidden = false;
+    };
+
+    const clearErrors = () => {
+      for (const field of form.querySelectorAll('[data-field]')) field.removeAttribute('data-invalid');
+      for (const slot of form.querySelectorAll('[data-error-for]')) slot.textContent = '';
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      clearErrors();
+      button.disabled = true;
+      button.textContent = 'Sending…';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(form),
+        });
+        const result = await response.json();
+
+        if (result.ok) {
+          form.reset();
+          show('ok', result.message || successMessage);
+          status.focus?.();
+          return;
+        }
+
+        for (const [field, message] of Object.entries(result.errors ?? {})) {
+          form.querySelector(`[data-field="${field}"]`)?.setAttribute('data-invalid', '');
+          const slot = form.querySelector(`[data-error-for="${field}"]`);
+          if (slot) slot.textContent = message;
+        }
+        show('error', result.message || 'That did not go through. Please try again.');
+      } catch {
+        // Offline, or the request never reached the worker.
+        show('error', 'That message could not be sent. Check your connection and try again.');
+      } finally {
+        button.disabled = false;
+        button.innerHTML = buttonLabel;
+      }
+    });
+  }
+</script>

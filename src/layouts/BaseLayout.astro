@@ -1,44 +1,98 @@
 ---
+/**
+ * The site shell: head metadata, skip link, grid guides, header, footer.
+ *
+ * Every page goes through here, so canonical URLs, OG tags and the feed link
+ * are declared once rather than per page.
+ */
 import '../styles/global.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { site, absoluteUrl, ogImagePath, FEED_PATH } from '../config/site';
 
 interface Props {
   title: string;
   description: string;
-  /** Applied to <html> so each direction can scope its own token block. */
-  direction?: string;
-  bodyClass?: string;
-  colorScheme?: 'light' | 'dark' | 'light dark';
-  themeColor?: string;
+  /** Page-specific OG card; defaults to the site-wide one. */
+  ogImage?: string;
+  /** `article` on post pages so social cards render as articles. */
+  ogType?: 'website' | 'article';
+  /** Overrides the canonical URL, e.g. when a route has several paths. */
+  canonical?: string;
   noindex?: boolean;
+  /** Extra <body> classes. */
+  bodyClass?: string;
 }
 
 const {
   title,
   description,
-  direction,
-  bodyClass = '',
-  colorScheme = 'light',
-  themeColor = '#ffffff',
+  ogImage = ogImagePath(),
+  ogType = 'website',
+  canonical,
   noindex = false,
+  bodyClass = '',
 } = Astro.props;
+
+const canonicalUrl = canonical ?? absoluteUrl(Astro.url.pathname.replace(/(.)\/$/, '$1'));
+
+/** The tab title already carries the site name on interior pages. */
+const documentTitle = title.includes(site.name) ? title : `${title} — ${site.name}`;
 ---
 
 <!doctype html>
-<html lang="en" data-direction={direction} style={`color-scheme: ${colorScheme}`}>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title}</title>
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+
+    <title>{documentTitle}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content={themeColor} />
-    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="theme-color" content="#ffffff" />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${site.name} — Blog`}
+      href={FEED_PATH}
+    />
+
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content={site.locale} />
+    <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={absoluteUrl(ogImage)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absoluteUrl(ogImage)} />
+
     <slot name="head" />
   </head>
-  <body class={bodyClass}>
-    <slot />
+  <body class={`sw ${bodyClass}`.trim()}>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="sw-guides" aria-hidden="true">
+      <div class="sw-guides__inner">
+        {Array.from({ length: 12 }).map(() => <div class="sw-guides__col"></div>)}
+      </div>
+    </div>
+
+    <SiteHeader />
+
+    <main id="main" class="sw-main sw-layer">
+      <slot />
+    </main>
+
+    <SiteFooter />
   </body>
 </html>

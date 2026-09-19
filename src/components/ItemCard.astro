@@ -1,0 +1,85 @@
+---
+/**
+ * One entry in the portfolio, resources or media repeaters.
+ *
+ * Handles the case that matters here: an entry whose destination is gone. Two
+ * Intel podcasts and one talk clip have no working URL, and they still belong
+ * on the page as work Joel did — so the card renders, unlinked, and says so
+ * rather than sending anyone to a 404.
+ */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { renderInline } from '../lib/inline-markdown';
+
+interface Props {
+  title: string;
+  description?: string | null;
+  href?: string | null;
+  image?: ImageMetadata | null;
+  imageAlt?: string | null;
+  /** Shown instead of the host when there is no destination. */
+  goneLabel?: string;
+  /** `16/9` for media thumbnails, `1/1` for square logos. */
+  aspect?: string;
+}
+
+const {
+  title,
+  description = null,
+  href = null,
+  image = null,
+  imageAlt = null,
+  goneLabel = 'Link no longer available',
+  aspect = '16 / 9',
+} = Astro.props;
+
+const isExternal = href !== null && /^https?:\/\//.test(href);
+const host = isExternal ? new URL(href).hostname.replace(/^www\./, '') : null;
+---
+
+<li class="sw-card">
+  {
+    image && (
+      <div class="sw-card__media" style={`aspect-ratio: ${aspect}`}>
+        <Image
+          src={image}
+          alt={imageAlt ?? ''}
+          width={640}
+          height={360}
+          widths={[320, 640]}
+          sizes="(max-width: 40rem) 100vw, 33vw"
+          loading="lazy"
+        />
+      </div>
+    )
+  }
+
+  <h3 class="sw-card__title">
+    {
+      href ? (
+        <a
+          href={href}
+          rel={isExternal ? 'noopener noreferrer' : undefined}
+          target={isExternal ? '_blank' : undefined}
+        >
+          {title}
+        </a>
+      ) : (
+        title
+      )
+    }
+  </h3>
+
+  {description && <p class="sw-card__desc" set:html={renderInline(description)} />}
+
+  <p class="sw-card__meta">
+    {
+      href ? (
+        <span class="sw-card__host">{host ?? 'joelpolanco.me'}</span>
+      ) : (
+        <span class="sw-gone">{goneLabel}</span>
+      )
+    }
+    {href && isExternal && <span aria-hidden="true">&#8599;</span>}
+  </p>
+</li>

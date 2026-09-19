@@ -1,0 +1,46 @@
+---
+/**
+ * A post's cover, set from its title rather than photographed.
+ *
+ * The Wix hero images were mostly upscaled thumbnails — sixteen of twenty-three
+ * were under 1000px wide at the original — and a stock photo of a laptop says
+ * nothing a title does not. Four variants, chosen deterministically from the
+ * slug, give an index page rhythm without any of them being decoration.
+ *
+ * `src/lib/og-image.ts` renders the same idea as a PNG for social cards.
+ */
+import { getCategory, type CategoryId } from '../config/categories';
+
+interface Props {
+  title: string;
+  slug: string;
+  category: CategoryId;
+  readingTime?: string | null;
+  /** The cover is decorative beside a visible title, so hide it from AT. */
+  decorative?: boolean;
+}
+
+const { title, slug, category, readingTime = null, decorative = true } = Astro.props;
+
+/** Stable small hash, so a post keeps the same variant across builds. */
+function variantFor(value: string): number {
+  let hash = 0;
+  for (const char of value) hash = (hash * 31 + char.codePointAt(0)!) >>> 0;
+  return (hash % 4) + 1;
+}
+---
+
+<div
+  class={`sw-cover sw-cover--${variantFor(slug)}`}
+  role={decorative ? 'presentation' : undefined}
+  aria-hidden={decorative ? 'true' : undefined}
+>
+  <p class="sw-cover__meta">
+    <span>{getCategory(category).name}</span>
+    {readingTime && <span>{readingTime}</span>}
+  </p>
+  <div>
+    <p class="sw-cover__title">{title}</p>
+    <div class="sw-cover__rule"></div>
+  </div>
+</div>

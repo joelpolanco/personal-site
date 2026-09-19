@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { nav } from '../config/site';
+
+const destinations = nav.filter((item) => item.href !== '/');
+---
+
+<BaseLayout
+  title="Page not found"
+  description="That page does not exist on joelpolanco.me."
+  noindex
+>
+  <section class="sw-404">
+    <div class="sw-shell sw-grid">
+      <div class="sw-c1-8">
+        <p class="sw-404__code">404</p>
+        <h1 class="sw-pagehead__title">This page doesn&rsquo;t exist</h1>
+        <p class="sw-pagehead__lede">
+          If you followed a link to an article, every post from the old site still lives at its
+          original address — the blog index is the quickest way to find it.
+        </p>
+        <p style="margin-top: 2rem">
+          <a class="sw-btn" href="/blog">
+            Browse all 23 posts
+            <span class="sw-btn__arrow" aria-hidden="true">&#8594;</span>
+          </a>
+        </p>
+      </div>
+
+      <div class="sw-c10-3">
+        <ul class="sw-facts">
+          {
+            destinations.map((item) => (
+              <li>
+                <span class="sw-facts__key">Go to</span>
+                <span class="sw-facts__val">
+                  <a href={item.href} style="color: inherit">
+                    {item.label}
+                  </a>
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

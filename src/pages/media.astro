@@ -1,0 +1,121 @@
+---
+import { Image } from 'astro:assets';
+import { getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHead from '../components/PageHead.astro';
+import ItemCard from '../components/ItemCard.astro';
+
+const media = await getEntry('media', 'media');
+if (!media) throw new Error('src/content/pages/media.json is missing');
+const { appearances, talkClips } = media.data;
+
+const available = appearances.filter((item) => item.videoAvailable);
+/**
+ * The Zeda.io episode was deleted or made private: YouTube serves no thumbnail
+ * in any size and has no oEmbed record. It stays listed as an appearance Joel
+ * made, with no link and no invented artwork.
+ */
+const retired = appearances.filter((item) => !item.videoAvailable);
+---
+
+<BaseLayout
+  title="Media"
+  description="Talks, podcasts and video appearances by Joel Polanco on product management, customer discovery and edge computing."
+>
+  <PageHead
+    number="03"
+    title="Media"
+    lede="Podcasts, summit talks and roundtables — mostly about customer discovery and how products actually get built."
+    count={`${appearances.length} appearances · ${talkClips.length} clips`}
+  >
+    <Fragment slot="eyebrow">Talks and podcasts</Fragment>
+  </PageHead>
+
+  <section class="sw-section">
+    <div class="sw-shell">
+      <div class="sw-grid" style="margin-bottom: 2rem">
+        <div class="sw-c1-3">
+          <span class="sw-section__num">01</span>
+          <h2 class="sw-section__title">
+            Appearances
+            <span>Video and podcast</span>
+          </h2>
+        </div>
+      </div>
+
+      <ul class="sw-cards sw-cards--two">
+        {
+          available.map((item) => (
+            <li class="sw-card">
+              <a class="sw-card__media" href={item.url} rel="noopener noreferrer" target="_blank">
+                {item.thumbnail.local && (
+                  <Image
+                    src={item.thumbnail.local}
+                    alt=""
+                    width={960}
+                    height={540}
+                    widths={[480, 960]}
+                    sizes="(max-width: 40rem) 100vw, 45vw"
+                    loading="lazy"
+                  />
+                )}
+              </a>
+              <h3 class="sw-card__title">
+                <a href={item.url} rel="noopener noreferrer" target="_blank">
+                  {item.title}
+                </a>
+              </h3>
+              <p class="sw-card__meta">
+                <span class="sw-card__host">youtube.com</span>
+                <span aria-hidden="true">&#8599;</span>
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+
+      {
+        retired.length > 0 && (
+          <div class="sw-empty" style="margin-top: 2.5rem">
+            <h3 class="sw-empty__title">Also appeared on</h3>
+            {retired.map((item) => (
+              <p style="color: var(--fg); font-weight: 500; margin-bottom: 0.5rem">{item.title}</p>
+            ))}
+            <p>
+              This one is no longer on YouTube — the video was removed or made private, so there is
+              nothing to link to and no thumbnail to show.
+            </p>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="sw-section sw-section--flush">
+    <div class="sw-shell">
+      <div class="sw-grid" style="margin-bottom: 2rem">
+        <div class="sw-c1-3">
+          <span class="sw-section__num">02</span>
+          <h2 class="sw-section__title">
+            Talk clips
+            <span>Short excerpts</span>
+          </h2>
+        </div>
+      </div>
+      <ul class="sw-cards">
+        {
+          talkClips.map((clip) => (
+            <ItemCard
+              title={clip.title}
+              description={clip.description}
+              href={clip.link}
+              image={clip.image?.local ?? null}
+              imageAlt=""
+              goneLabel="No recording online"
+            />
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

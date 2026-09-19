@@ -7,6 +7,7 @@ import type { APIRoute, GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
 import { renderOgImage, type OgImageInput } from '../../lib/og-image';
 import { site } from '../../config/site';
+import { getCategory } from '../../config/categories';
 
 export const prerender = true;
 
@@ -22,13 +23,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return [
     {
       params: { slug: 'default' },
-      props: { title: site.name, eyebrow: 'Product management, customer discovery' } as OgImageInput,
+      props: {
+        title: site.name,
+        eyebrow: 'Product management',
+        meta: 'joelpolanco.me',
+      } as OgImageInput,
     },
     ...posts.map((post) => ({
       params: { slug: post.id },
       props: {
         title: post.data.title,
-        eyebrow: dateFormat.format(post.data.pubDate),
+        eyebrow: getCategory(post.data.category).name,
+        meta: dateFormat.format(post.data.pubDate),
       } as OgImageInput,
     })),
   ];

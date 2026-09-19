@@ -3,9 +3,9 @@
  * resvg rasterizes the SVG. Both run in Node during prerender, so nothing here
  * ships to the Cloudflare worker.
  *
- * The card is intentionally design-agnostic — black type on warm white, one
- * rule, no ornament — because the visual direction is not chosen yet. It reads
- * as deliberate today and is a small, isolated file to restyle later.
+ * The card is the same idea as `PostCover.astro`, in a format Twitter and
+ * LinkedIn can read: Swiss palette, the category as an accent eyebrow, the
+ * title set tight, one rule.
  */
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -24,9 +24,11 @@ const fontsDir = path.resolve(process.cwd(), 'src/assets/fonts');
 const WIDTH = 1200;
 const HEIGHT = 630;
 
-const INK = '#16150f';
-const MUTED = '#5c574a';
-const PAPER = '#faf8f3';
+/* Mirrors the tokens in `global.css`; satori cannot read CSS custom properties. */
+const INK = '#101010';
+const MUTED = '#6e6e6e';
+const PAPER = '#ffffff';
+const ACCENT = '#c81c08';
 
 let fontCache: Awaited<ReturnType<typeof loadFonts>> | null = null;
 
@@ -63,8 +65,10 @@ function clamp(text: string, max: number): string {
 
 export type OgImageInput = {
   title: string;
-  /** Shown under the title: a date line for posts, a tagline otherwise. */
+  /** Accent line above the title: the category for posts, a tagline otherwise. */
   eyebrow?: string | null;
+  /** Muted line opposite the eyebrow, e.g. the publication date. */
+  meta?: string | null;
 };
 
 type Element = {
@@ -77,7 +81,7 @@ const el = (type: string, style: Record<string, unknown>, children?: unknown): E
   props: { style, children },
 });
 
-function card({ title, eyebrow }: OgImageInput): Element {
+function card({ title, eyebrow, meta }: OgImageInput): Element {
   return el(
     'div',
     {
@@ -92,29 +96,30 @@ function card({ title, eyebrow }: OgImageInput): Element {
       fontFamily: 'Inter',
     },
     [
-      el('div', { display: 'flex', flexDirection: 'column', gap: 24 }, [
-        eyebrow
-          ? el(
-              'div',
-              {
-                display: 'flex',
-                fontSize: 24,
-                fontWeight: 400,
-                letterSpacing: 2,
-                textTransform: 'uppercase',
-                color: MUTED,
-              },
-              clamp(eyebrow, 64),
-            )
-          : null,
+      el('div', { display: 'flex', flexDirection: 'column', gap: 28 }, [
         el(
           'div',
-          { display: 'flex', fontSize: 60, fontWeight: 600, lineHeight: 1.15, letterSpacing: -1 },
+          {
+            display: 'flex',
+            justifyContent: 'space-between',
+            fontSize: 22,
+            fontWeight: 600,
+            letterSpacing: 3,
+            textTransform: 'uppercase',
+          },
+          [
+            el('div', { display: 'flex', color: ACCENT }, eyebrow ? clamp(eyebrow, 48) : ''),
+            el('div', { display: 'flex', color: MUTED }, meta ? clamp(meta, 32) : ''),
+          ],
+        ),
+        el(
+          'div',
+          { display: 'flex', fontSize: 62, fontWeight: 600, lineHeight: 1.1, letterSpacing: -2 },
           clamp(title, 120),
         ),
       ]),
       el('div', { display: 'flex', flexDirection: 'column', gap: 24 }, [
-        el('div', { display: 'flex', width: '100%', height: 2, backgroundColor: INK }),
+        el('div', { display: 'flex', width: '100%', height: 3, backgroundColor: ACCENT }),
         el('div', { display: 'flex', justifyContent: 'space-between', fontSize: 26 }, [
           el('div', { display: 'flex', fontWeight: 600 }, site.name),
           el('div', { display: 'flex', color: MUTED }, site.url.replace('https://', '')),

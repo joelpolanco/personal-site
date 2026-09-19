@@ -37,6 +37,22 @@ export const person = {
   worksFor: { name: 'Intel', url: 'https://www.intel.com' },
 } as const;
 
+/** Primary navigation, in header and footer order. */
+export const nav = [
+  { label: 'Home', href: '/' },
+  { label: 'Portfolio', href: '/portfolio' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Media', href: '/media' },
+  { label: 'Resources', href: '/resources' },
+  { label: 'Contact', href: '/contact' },
+] as const;
+
+export const footerLinks = [
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jpolanco', external: true },
+  { label: 'LogRocket blog', href: 'https://blog.logrocket.com/author/joelpolanco/', external: true },
+  { label: 'RSS feed', href: '/blog-feed.xml', external: false },
+] as const;
+
 /** Legacy Wix URLs that must keep resolving after cutover. */
 export const legacyRedirects = {
   '/contact-6': '/contact',

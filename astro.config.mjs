@@ -39,6 +39,17 @@ export default defineConfig({
     Object.entries(legacyRedirects).map(([from, to]) => [from, { status: 301, destination: to }]),
   ),
 
+  image: {
+    /**
+     * Applies to images inside MDX too, which is where it matters: post bodies
+     * carry 34 images straight off Wix, some of them several megapixels, and
+     * without this each one ships at full size to a phone.
+     */
+    layout: 'constrained',
+    responsiveStyles: true,
+    breakpoints: [360, 640, 828, 1080, 1400],
+  },
+
   vite: {
     plugins: [tailwindcss(), externalizeNativeAddons()],
   },

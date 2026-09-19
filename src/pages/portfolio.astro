@@ -1,0 +1,72 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHead from '../components/PageHead.astro';
+import ItemCard from '../components/ItemCard.astro';
+
+const portfolio = await getEntry('portfolio', 'portfolio');
+if (!portfolio) throw new Error('src/content/pages/portfolio.json is missing');
+const { groups } = portfolio.data;
+
+const total = groups.reduce((sum, group) => sum + group.items.length, 0);
+const missingLinks = groups
+  .flatMap((group) => group.items)
+  .filter((item) => item.link === null).length;
+---
+
+<BaseLayout
+  title="Portfolio"
+  description="Personal and professional product work by Joel Polanco: templates, case studies, podcasts and published writing."
+>
+  <PageHead
+    number="01"
+    title="Portfolio"
+    lede="Things I have built, shipped, written or advised on — three personal projects and seven from work."
+    count={`${total} projects`}
+  >
+    <Fragment slot="eyebrow">Selected work</Fragment>
+  </PageHead>
+
+  {
+    groups.map((group, index) => (
+      <section class={`sw-section${index === groups.length - 1 ? ' sw-section--flush' : ''}`}>
+        <div class="sw-shell">
+          <div class="sw-grid" style="margin-bottom: 2rem">
+            <div class="sw-c1-3">
+              <span class="sw-section__num">{String(index + 1).padStart(2, '0')}</span>
+              <h2 class="sw-section__title">
+                {group.group}
+                <span>
+                  {group.items.length} {group.items.length === 1 ? 'project' : 'projects'}
+                </span>
+              </h2>
+            </div>
+          </div>
+          <ul class="sw-cards">
+            {group.items.map((item) => (
+              <ItemCard
+                title={item.title}
+                description={item.description}
+                href={item.link}
+                image={item.image?.local ?? null}
+                imageAlt=""
+                goneLabel="Original link retired"
+              />
+            ))}
+          </ul>
+        </div>
+      </section>
+    ))
+  }
+
+  {
+    missingLinks > 0 && (
+      <div class="sw-shell" style="padding-bottom: 1rem">
+        <p class="sw-card__meta" style="max-width: 60ch; text-transform: none; letter-spacing: 0">
+          {missingLinks} of these entries no longer have a working destination — the two Intel
+          podcasts were taken down by their host. The work is listed anyway.
+        </p>
+      </div>
+    )
+  }
+</BaseLayout>

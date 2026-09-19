@@ -1,0 +1,41 @@
+---
+/**
+ * Six nav items fit on one line, so there is no hamburger: on narrow screens
+ * the list becomes a single scrollable rail rather than hiding the whole site
+ * behind a tap.
+ */
+import { nav } from '../config/site';
+
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+
+/** A post is "in" the blog, so `/blog` stays marked while reading one. */
+function isCurrent(href: string): boolean {
+  if (href === '/') return path === '/';
+  if (href === '/blog') return path === '/blog' || path.startsWith('/blog/') || path.startsWith('/post/');
+  return path === href || path.startsWith(`${href}/`);
+}
+---
+
+<header class="sw-header">
+  <div class="sw-shell sw-header__inner">
+    <a class="sw-wordmark" href="/">
+      <span class="sw-wordmark__dot" aria-hidden="true"></span>
+      Joel Polanco
+    </a>
+    <div class="sw-header__nav">
+      <nav aria-label="Primary">
+        <ul class="sw-nav">
+          {
+            nav.map((item) => (
+              <li>
+                <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>

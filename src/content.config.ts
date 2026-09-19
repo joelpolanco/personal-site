@@ -54,8 +54,20 @@ const posts = defineCollection({
       description: z.string(),
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().nullable().default(null),
+      /**
+       * Unused today — post covers are set typographically from the title
+       * rather than photographed. Kept so a post can carry real artwork later
+       * without a schema change.
+       */
       heroImage: image().nullable().default(null),
       heroImageAlt: z.string().nullable().default(null),
+      /**
+       * The Wix hero, recorded as a plain path rather than an `image()` so it
+       * stays provenance and never enters the build. Sixteen of the
+       * twenty-three were upscaled thumbnails; if Joel re-supplies artwork,
+       * this says which image each post used to have.
+       */
+      legacyHeroImage: z.string().nullable().default(null),
       /**
        * Wix exposed no taxonomy at all. These six categories were invented
        * from the posts themselves and every post is in exactly one, so `/blog`
