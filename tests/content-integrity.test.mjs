@@ -32,8 +32,13 @@ function pageImageRefs(name) {
   return [...raw.matchAll(/"local":\s*"([^"]+)"/g)].map((m) => path.resolve(pagesDir, m[1]));
 }
 
-test('all 23 posts are present', () => {
-  assert.equal(readdirSync(postsDir).filter((f) => /\.mdx?$/.test(f)).length, 23);
+test('all 23 migrated posts are present', () => {
+  // Posts published from Google Docs add to this directory, so count only the
+  // ones that came from Wix.
+  const migrated = readdirSync(postsDir)
+    .filter((file) => /\.mdx?$/.test(file))
+    .filter((file) => /^source:\s*"wix"/m.test(readFileSync(path.join(postsDir, file), 'utf8')));
+  assert.equal(migrated.length, 23);
 });
 
 test('every image a post references exists in src/assets', () => {

@@ -1,0 +1,13 @@
+{
+	"$schema": "../../node_modules/wrangler/config-schema.json",
+	"name": "joelpolanco-deploy-hook-cron",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-09-18",
+	"triggers": {
+		// Top of every hour. Publishing a Google Doc goes live within the hour.
+		"crons": ["0 * * * *"]
+	},
+	"observability": {
+		"enabled": true
+	}
+}
