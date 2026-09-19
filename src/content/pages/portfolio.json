@@ -1,0 +1,136 @@
+{
+  "page": "portfolio",
+  "path": "/portfolio",
+  "sourceUrl": "https://www.joelpolanco.me/portfolio",
+  "title": "Portfolio | Joel Polanco",
+  "description": "Joel Polanco's personal and professional projects.",
+  "ogTitle": "Portfolio | Joel Polanco",
+  "ogDescription": "Joel Polanco's personal and professional projects.",
+  "canonicalUrl": "https://www.joelpolanco.me/portfolio",
+  "groups": [
+    {
+      "group": "Personal Projects",
+      "repeaterId": "comp-m4xar8mu",
+      "count": 3,
+      "items": [
+        {
+          "title": "My Personal Operating Manual",
+          "description": "A guide to how I work. My mindset, quirks, etc. Feel free to copy it and make it your own.",
+          "link": "https://www.notion.so/jpolanco/Joel-s-Personal-Operating-Manual-fce6d093d56343f7a0975cff532679d2",
+          "image": {
+            "alt": "operating_manual.png",
+            "local": "../../assets/images/portfolio-c0cb3a-69d6bbcb3d6f416d8651bfb343657755-948a0278.png",
+            "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_69d6bbcb3d6f416d8651bfb343657755~mv2.png/v1/fill/w_199,h_113,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/operating_manual.png"
+          },
+          "extraText": null
+        },
+        {
+          "title": "Growth Mapping Actions",
+          "description": "Use this template to track the next big step in your career. Select file > \"make a copy\" to get started",
+          "link": "https://docs.google.com/presentation/d/1ciwh0dhKaN060yxKW-QCg1UvNsdhxo1b/edit#slide=id.p1",
+          "image": {
+            "alt": "growth_mapping_actions.png",
+            "local": "../../assets/images/portfolio-c0cb3a-9a288e3a20cb45a5a497e53a53e7aae2-a4112348.png",
+            "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_9a288e3a20cb45a5a497e53a53e7aae2~mv2.png/v1/fill/w_199,h_113,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/growth_mapping_actions.png"
+          },
+          "extraText": null
+        },
+        {
+          "title": "Organizational job search template",
+          "description": "Reduce your job search anxiety with this template that has built in databases and targeted search tips.",
+          "link": "https://mastering-the-job-search-template.notion.site/Mastering-the-job-search-template-35eb5ffb0d0e4425addcfca52e09527e",
+          "image": {
+            "alt": "job_search_template.png",
+            "local": "../../assets/images/portfolio-c0cb3a-2bee0c3922cf483bb310a665bff3a63d-9645d92d.png",
+            "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_2bee0c3922cf483bb310a665bff3a63d~mv2.png/v1/fill/w_199,h_113,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/job_search_template.png"
+          },
+          "extraText": null
+        }
+      ]
+    },
+    {
+      "group": "Professional Projects",
+      "repeaterId": "comp-m52olt6n2",
+      "count": 7,
+      "items": [
+        {
+          "title": "Intel RFID Sensor Platform",
+          "description": "I was the product manager for this hardware and software platform. Click on the image to learn more.",
+          "link": "/files/intel-rfid-sensor-platform.pdf",
+          "image": {
+            "alt": "Intel-RSP.jpg",
+            "local": "../../assets/images/portfolio-c0cb3a-c658f7832a4e44cf8e27c0ac88b45d89-5948d8ff.jpg",
+            "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_c658f7832a4e44cf8e27c0ac88b45d89~mv2.jpg/v1/fill/w_199,h_113,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Intel-RSP.jpg"
+          },
+          "extraText": null
+        },
+        {
+          "title": "Cleantech Executive in Residence (EIR)",
+          "description": "The Marylyand Energy Innovation Accelerator recruited me to help startup founders.",
+          "link": "https://mdeia.org/f/meia-spotlight---joel-polanco",
+          "image": {
+            "alt": "meia.jpg",
+            "local": "../../assets/images/portfolio-c0cb3a-1e875c9a127b48a69fdac506c03742bc-a3e4dd2e.jpg",
+            "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_1e875c9a127b48a69fdac506c03742bc~mv2.jpg/v1/fill/w_199,h_113,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/meia.jpg"
+          },
+          "extraText": null
+        },
+        {
+          "title": "Revenue and MSS Template",
+          "description": "Use this template to explore revenue and market segment share (MSS) .",
+          "link": "https://miro.com/miroverse/existing-market-strategy-blueprint-template/",
+          "image": {
+            "alt": "miro_mss_strategy.png",
+            "local": "../../assets/images/portfolio-c0cb3a-a58ff4161c574d03bfbbb7d4d6ba9db7-89609359.png",
+            "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_a58ff4161c574d03bfbbb7d4d6ba9db7~mv2.png/v1/fill/w_199,h_113,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/miro_mss_strategy.png"
+          },
+          "extraText": null
+        },
+        {
+          "title": "Intel's To the edge and beyond podcast",
+          "description": "I produced episodes of this podcast in 2021-22. I was responsible for bookings, questions, and editing.",
+          "link": "https://marketscale.com/shows/to-the-edge-and-beyond/",
+          "image": {
+            "alt": "edge-beyond.jpg",
+            "local": "../../assets/images/portfolio-c0cb3a-94a21f102f41427385e61f850981be36-6d5d2d1e.jpg",
+            "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_94a21f102f41427385e61f850981be36~mv2.jpg/v1/fill/w_199,h_113,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/edge-beyond.jpg"
+          },
+          "extraText": null
+        },
+        {
+          "title": "Logrocket Product Management Blog",
+          "description": "I am a freelance writer for Logrocket, a Boston-based product analytics startup.",
+          "link": "https://blog.logrocket.com/author/joelpolanco/",
+          "image": {
+            "alt": "logrocket-site.jpg",
+            "local": "../../assets/images/portfolio-c0cb3a-e8d349aab1ab44c385ba4c0706098316-9664d30c.jpg",
+            "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_e8d349aab1ab44c385ba4c0706098316~mv2.jpg/v1/fill/w_199,h_113,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/logrocket-site.jpg"
+          },
+          "extraText": null
+        },
+        {
+          "title": "Intel's Health & life sciences podcast",
+          "description": "I produced episodes of this podcast in 2021-22. I was responsible for bookings, questions, and editing.",
+          "link": "https://marketscale.com/shows/health-and-life-sciences-at-the-edge/",
+          "image": {
+            "alt": "health-beyond.jpg",
+            "local": "../../assets/images/portfolio-c0cb3a-75afd3f604994fb7975e7858347c8578-ce8749c7.jpg",
+            "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_75afd3f604994fb7975e7858347c8578~mv2.jpg/v1/fill/w_199,h_113,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/health-beyond.jpg"
+          },
+          "extraText": null
+        },
+        {
+          "title": "Boosting Intel.com website engagement",
+          "description": "I was able to increase website engagement by 48%  for a large campaign using look-a-like models.",
+          "link": "https://www.slideshare.net/slideshow/omc-intel-case-studyfinal-46324131/46324131",
+          "image": {
+            "alt": "look-a-like.jpg",
+            "local": "../../assets/images/portfolio-c0cb3a-8bfd43674a124c5d93b79e107b7d96ae-48ed818b.jpg",
+            "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_8bfd43674a124c5d93b79e107b7d96ae~mv2.jpg/v1/fill/w_199,h_113,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/look-a-like.jpg"
+          },
+          "extraText": null
+        }
+      ]
+    }
+  ]
+}

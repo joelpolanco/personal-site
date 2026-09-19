@@ -1,0 +1,103 @@
+/**
+ * Guards the counts and asset references the extraction established, so a
+ * later refactor cannot quietly drop content. The counts here are the ones
+ * `REPORT.md` verified against the live Wix site — notably ten portfolio
+ * projects (not the nine in the plan) and three homepage testimonials (not the
+ * one Wix server-renders).
+ */
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const postsDir = path.join(repoRoot, 'src/content/posts');
+const pagesDir = path.join(repoRoot, 'src/content/pages');
+
+const page = (name) => JSON.parse(readFileSync(path.join(pagesDir, `${name}.json`), 'utf8'));
+
+/** Every `![](...)` and `heroImage:` path in a post, resolved against the file. */
+function postImageRefs(file) {
+  const raw = readFileSync(path.join(postsDir, file), 'utf8');
+  const refs = [...raw.matchAll(/]\((\.\.[^)\s]+)\)/g)].map((m) => m[1]);
+  const hero = raw.match(/^heroImage:\s*"([^"]+)"/m);
+  if (hero) refs.push(hero[1]);
+  return refs.map((ref) => path.resolve(postsDir, ref));
+}
+
+/** Every `"local"` asset path in a page dataset, resolved against the file. */
+function pageImageRefs(name) {
+  const raw = readFileSync(path.join(pagesDir, `${name}.json`), 'utf8');
+  return [...raw.matchAll(/"local":\s*"([^"]+)"/g)].map((m) => path.resolve(pagesDir, m[1]));
+}
+
+test('all 23 posts are present', () => {
+  assert.equal(readdirSync(postsDir).filter((f) => /\.mdx?$/.test(f)).length, 23);
+});
+
+test('every image a post references exists in src/assets', () => {
+  const broken = readdirSync(postsDir)
+    .filter((f) => /\.mdx?$/.test(f))
+    .flatMap((file) => postImageRefs(file).filter((ref) => !existsSync(ref)).map((ref) => `${file} -> ${ref}`));
+  assert.deepEqual(broken, []);
+});
+
+test('every image a page dataset references exists in src/assets', () => {
+  const names = ['home', 'portfolio', 'media', 'resources', 'contact'];
+  const broken = names.flatMap((name) =>
+    pageImageRefs(name).filter((ref) => !existsSync(ref)).map((ref) => `${name} -> ${ref}`),
+  );
+  assert.deepEqual(broken, []);
+});
+
+test('the homepage carries all three testimonials', () => {
+  const section = page('home').sections.find((s) => Array.isArray(s.testimonials));
+  assert.ok(section, 'the testimonial section is missing');
+  assert.deepEqual(
+    section.testimonials.map((t) => t.name),
+    ['Marie Eric', 'Keith Gregorzyk Ph.D.', 'Mike Ducker'],
+  );
+});
+
+test('the portfolio carries all ten projects', () => {
+  const { groups } = page('portfolio');
+  assert.equal(
+    groups.reduce((total, group) => total + group.items.length, 0),
+    10,
+  );
+  for (const group of groups) {
+    assert.equal(group.items.length, group.count, `${group.group} count disagrees with its items`);
+  }
+});
+
+test('resources keeps all 22 entries and the homepage keeps four numbered skills', () => {
+  assert.equal(
+    page('resources').groups.reduce((total, group) => total + group.items.length, 0),
+    22,
+  );
+  const skills = page('home').sections.find((s) => s.heading === 'My Skills');
+  assert.deepEqual(
+    skills.items.map((item) => item.number),
+    ['01', '02', '03', '04'],
+  );
+});
+
+test('media keeps five appearances and three talk clips', () => {
+  const media = page('media');
+  assert.equal(media.appearances.length, 5);
+  assert.equal(media.talkClips.length, 3);
+});
+
+test('the Intel RSP case study is served from our own origin, not Wix', () => {
+  const links = page('portfolio').groups.flatMap((group) => group.items.map((item) => item.link));
+  assert.ok(
+    links.includes('/files/intel-rfid-sensor-platform.pdf'),
+    'the re-hosted PDF link was reverted to the Wix URL, which dies at cutover',
+  );
+  assert.deepEqual(
+    links.filter((link) => link?.includes('joelpolanco.me/_files/')),
+    [],
+    'a portfolio link still points at a Wix-hosted file',
+  );
+});

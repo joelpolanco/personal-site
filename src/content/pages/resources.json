@@ -1,0 +1,187 @@
+{
+  "page": "resources",
+  "path": "/resources",
+  "sourceUrl": "https://www.joelpolanco.me/resources",
+  "title": "Resources | Joel Polanco",
+  "description": "Tools, templates, book recommendations, podcast recommendations",
+  "ogTitle": "Resources | Joel Polanco",
+  "ogDescription": "Tools, templates, book recommendations, podcast recommendations",
+  "canonicalUrl": "https://www.joelpolanco.me/resources",
+  "groups": [
+    {
+      "group": "Resources",
+      "repeaterId": "comp-m546x82e",
+      "count": 8,
+      "items": [
+        {
+          "title": "Lenny's Newsletter & Podcast",
+          "description": "My favorite product management resource. A paid subscription gets you access to the Slack community.",
+          "link": "https://www.lennysnewsletter.com/",
+          "image": null,
+          "extraText": null
+        },
+        {
+          "title": "Reforge: Product & Growth Training",
+          "description": "Reforge provides training targeted for mid-career product and growth professionals. I took courses in 2021.",
+          "link": "https://www.reforge.com/",
+          "image": null,
+          "extraText": null
+        },
+        {
+          "title": "Nikhyl Singhal: The Skip Podcast",
+          "description": "My favorite career podcast. Nikhyl is a former VP of product with a superpower for coaching PMs/Execs.",
+          "link": "https://www.skip.show/",
+          "image": null,
+          "extraText": null
+        },
+        {
+          "title": "Shreyas' Managing your PM Career",
+          "description": "Shreyas Doshi is a legend in the product community. His 20 years of experience is unparalleled.",
+          "link": "https://maven.com/shreyas-doshi/product-management-career",
+          "image": null,
+          "extraText": null
+        },
+        {
+          "title": "General Assembly: Product Training",
+          "description": "I recommend General Assembly's product management course for early career professionals.",
+          "link": "https://generalassemb.ly/students/courses/product-management-short-course",
+          "image": null,
+          "extraText": null
+        },
+        {
+          "title": "Paul Merriman Website & Newsletter",
+          "description": "Paul Merriman is a retired financial advisor who advocates for factor-based DIY Index Fund Portfolios.",
+          "link": "https://www.paulmerriman.com",
+          "image": null,
+          "extraText": null
+        },
+        {
+          "title": "Never Search Alone Job Councils",
+          "description": "Instead of \"spray and pray\" join one of Phyl Terry's job councils and find your candidate-market fit.",
+          "link": "https://www.phyl.org/",
+          "image": null,
+          "extraText": null
+        },
+        {
+          "title": "FS Blog & Knowledge Project Podcast",
+          "description": "A newsletter and podcast produced by Shane Parrish. It is my go to for improving my decision-making.",
+          "link": "https://fs.blog/episodes/",
+          "image": null,
+          "extraText": null
+        }
+      ]
+    },
+    {
+      "group": "Templates",
+      "repeaterId": "comp-m573qolk",
+      "count": 2,
+      "items": [
+        {
+          "title": "Product-Market Fit Scale",
+          "description": "My favorite depiction of what it means to have product-market fit over the life of a startup",
+          "link": "https://iwantproductmarketfit.substack.com/p/the-product-market-fit-scale",
+          "image": null,
+          "extraText": null
+        },
+        {
+          "title": "Business Model Canvas Overview",
+          "description": "This overview from Alex Cowan will show you what a business model canvas is and how to fill it out.",
+          "link": "https://www.alexandercowan.com/business-model-canvas-templates/",
+          "image": null,
+          "extraText": null
+        }
+      ]
+    },
+    {
+      "group": "Books",
+      "repeaterId": "comp-m5489nra3",
+      "count": 12,
+      "items": [
+        {
+          "title": "Inspired",
+          "description": "My top recommended reading on what product management is. Written by Marty Cagan, a legend.",
+          "link": "https://www.amazon.com/INSPIRED-Create-Tech-Products-Customers/dp/1119387507",
+          "image": null,
+          "extraText": null
+        },
+        {
+          "title": "Good Strategy, Bad Strategy",
+          "description": "This book is the authority on strategy. The author breaks down good and bad ones with examples.",
+          "link": "https://www.joelpolanco.me/_files/ugd/c0cb3a_78f9c270e0bc408cb4d4f7e2b226d21f.pdf",
+          "image": null,
+          "extraText": null
+        },
+        {
+          "title": "Crossing the Chasm",
+          "description": "A must read for anyone in product or marketing. It highlights the importance of market segmentation.",
+          "link": "https://www.amazon.com/Crossing-Chasm-Geoffrey-A-Moore-audiobook/dp/B00A2ZHMKY/",
+          "image": null,
+          "extraText": null
+        },
+        {
+          "title": "The Minimalist Entrepreneur",
+          "description": "I like this author's backstory and his simple way of breaking down how to start a business.",
+          "link": "https://www.amazon.com/Minimalist-Entrepreneur-Great-Founders-More/dp/B08VPZX8GF/",
+          "image": null,
+          "extraText": null
+        },
+        {
+          "title": "Cracking the PM Interview",
+          "description": "Read this book if you are interviewing for a product management role. The examples a bit dated but still apply.",
+          "link": "https://marketscale.com/shows/to-the-edge-and-beyond/",
+          "image": null,
+          "extraText": null
+        },
+        {
+          "title": "The Cold Start Problem",
+          "description": "The best book I've read on growing a network effects business. If you are trying to start a community, read it.",
+          "link": "https://www.amazon.com/The-Cold-Start-Problem/dp/B08MKNHSWC/",
+          "image": null,
+          "extraText": null
+        },
+        {
+          "title": "Poor Charlie's Almanack",
+          "description": "\"Spend each day trying to be a little wiser than you were when you woke up.\" This book will help you do that.",
+          "link": "https://www.slideshare.net/slideshow/omc-intel-case-studyfinal-46324131/46324131",
+          "image": null,
+          "extraText": null
+        },
+        {
+          "title": "The E-Myth Revisited",
+          "description": "This book did a great job breaking down the misconceptions of starting a business.",
+          "link": "https://www.amazon.com/Myth-Revisited-Small-Businesses-About/dp/0887307280/",
+          "image": null,
+          "extraText": null
+        },
+        {
+          "title": "How will you measure your life?",
+          "description": "I recommend this book to individuals who plan their careers without taking their personal life into account.",
+          "link": "https://www.amazon.com/How-Will-Measure-Your-Life/dp/0062102419/",
+          "image": null,
+          "extraText": null
+        },
+        {
+          "title": "The score takes care of itself",
+          "description": "This book shifted my focus from being solely \"outcome over outputs\" to \"inputs achieve outcomes\"",
+          "link": "https://www.amazon.com/Score-Takes-Care-Itself-Philosophy/dp/1591843472/",
+          "image": null,
+          "extraText": null
+        },
+        {
+          "title": "The Psychology of Money",
+          "description": "My favorite book on personal finance. It highlights how to make better decisions with your money.",
+          "link": "https://www.slideshare.net/slideshow/omc-intel-case-studyfinal-46324131/46324131",
+          "image": null,
+          "extraText": null
+        },
+        {
+          "title": "Influence",
+          "description": "This book is the authority on ethical influence and persuasion. You will learn the universal principles.",
+          "link": "https://www.amazon.com/Influence-New-Expanded-Psychology-Persuasion/dp/0062937650/",
+          "image": null,
+          "extraText": null
+        }
+      ]
+    }
+  ]
+}

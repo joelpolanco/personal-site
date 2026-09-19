@@ -1,0 +1,98 @@
+{
+  "page": "media",
+  "path": "/media",
+  "sourceUrl": "https://www.joelpolanco.me/media",
+  "title": "Media | Joel Polanco",
+  "description": "Videos, recordings, and podcasts of Joel Polanco. Product management, growth, and semiconductor talks.",
+  "ogTitle": "Media | Joel Polanco",
+  "ogDescription": "Videos, recordings, and podcasts of Joel Polanco. Product management, growth, and semiconductor talks.",
+  "canonicalUrl": "https://www.joelpolanco.me/media",
+  "appearances": [
+    {
+      "title": "Product Management Online Summit'23 – Junior Track",
+      "youtubeId": "P8x2t5RcubI",
+      "url": "https://www.youtube.com/watch?v=P8x2t5RcubI",
+      "thumbnail": {
+        "original_url": "https://i.ytimg.com/vi/P8x2t5RcubI/maxresdefault.jpg",
+        "local": "../../assets/images/media-youtube-P8x2t5RcubI.jpg"
+      },
+      "videoAvailable": true
+    },
+    {
+      "title": "Understanding the value of new user acquisition vs. retention with Joel Polanco",
+      "youtubeId": "qWednDKUydM",
+      "url": "https://www.youtube.com/watch?v=qWednDKUydM",
+      "thumbnail": {
+        "original_url": "https://i.ytimg.com/vi/qWednDKUydM/maxresdefault.jpg",
+        "local": "../../assets/images/media-youtube-qWednDKUydM.jpg"
+      },
+      "videoAvailable": true
+    },
+    {
+      "title": "Episode 7 - Discovery Dive with Joel Polanco | Product Discovery with Zeda.io",
+      "youtubeId": "i7Gg6C8V02I",
+      "url": "https://www.youtube.com/watch?v=i7Gg6C8V02I",
+      "thumbnail": {
+        "original_url": "https://i.ytimg.com/vi/i7Gg6C8V02I/maxresdefault.jpg",
+        "local": null
+      },
+      "videoAvailable": false,
+      "note": "No YouTube thumbnail in any size; the video appears to be removed or private."
+    },
+    {
+      "title": "From Process Engineer to Product Veteran: Insights from Joel Polanco of Intel",
+      "youtubeId": "puOKcTLgh88",
+      "url": "https://www.youtube.com/watch?v=puOKcTLgh88",
+      "thumbnail": {
+        "original_url": "https://i.ytimg.com/vi/puOKcTLgh88/maxresdefault.jpg",
+        "local": "../../assets/images/media-youtube-puOKcTLgh88.jpg"
+      },
+      "videoAvailable": true
+    },
+    {
+      "title": "Build real solutions for real problems with effective customer discovery",
+      "youtubeId": "QoJs4WGvDAU",
+      "url": "https://www.youtube.com/watch?v=QoJs4WGvDAU",
+      "thumbnail": {
+        "original_url": "https://i.ytimg.com/vi/QoJs4WGvDAU/maxresdefault.jpg",
+        "local": "../../assets/images/media-youtube-QoJs4WGvDAU.jpg"
+      },
+      "videoAvailable": true
+    }
+  ],
+  "talkClips": [
+    {
+      "title": "My talk on AI Accelerators",
+      "description": "A small clip from an industry expert roundtable talk I did in 2024 on AI accelerators.",
+      "link": "https://marketscale.com/industries/experts-talk/tailored-ai-accelerators/",
+      "image": {
+        "alt": "ai-accelerator.jpg",
+        "local": "../../assets/images/media-c0cb3a-7bd8494685504ce097e7944ff2c0b840-7b58b823.jpg",
+        "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_7bd8494685504ce097e7944ff2c0b840~mv2.jpg/v1/fill/w_199,h_113,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/ai-accelerator.jpg"
+      },
+      "extraText": null
+    },
+    {
+      "title": "An additional clip on AI accelerators",
+      "description": "A second clip from my talk on AI accelerators.",
+      "link": "https://marketscale.com/industries/software-and-technology/heterogeneous-computing/",
+      "image": {
+        "alt": "ai-accelerator2.jpg",
+        "local": "../../assets/images/media-c0cb3a-3ddef0ef6dc9497f8a153941dd830824-1745c124.jpg",
+        "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_3ddef0ef6dc9497f8a153941dd830824~mv2.jpg/v1/fill/w_199,h_113,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/ai-accelerator2.jpg"
+      },
+      "extraText": null
+    },
+    {
+      "title": "Talk on networking and edge computing",
+      "description": "Discussion on the computing infrastructure requirements needed to enable smart cities.",
+      "link": null,
+      "image": {
+        "alt": "networking-edge-computing.jpg",
+        "local": "../../assets/images/media-c0cb3a-faaeef042942415eb4688791df54239f-5bcefdb7.jpg",
+        "renderedSrc": "https://static.wixstatic.com/media/c0cb3a_faaeef042942415eb4688791df54239f~mv2.jpg/v1/fill/w_199,h_113,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/networking-edge-computing.jpg"
+      },
+      "extraText": null
+    }
+  ]
+}

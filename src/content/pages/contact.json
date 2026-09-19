@@ -1,0 +1,58 @@
+{
+  "page": "contact-6",
+  "path": "/contact-6",
+  "sourceUrl": "https://www.joelpolanco.me/contact-6",
+  "title": "Contact | Joel Polanco",
+  "description": "Contact Joel Polanco about product management career coaching, customer discovery coaching, or media requests here",
+  "ogTitle": "Contact | Joel Polanco",
+  "ogDescription": "Contact Joel Polanco about product management career coaching, customer discovery coaching, or media requests here",
+  "canonicalUrl": "https://www.joelpolanco.me/contact-6",
+  "blocks": [
+    {
+      "id": "comp-m51epiie",
+      "heading": "How can I help?",
+      "body": [
+        "1. You want help with your product management career\n\n2. You have a blog that supports guest writers (like myself!)\n\n3. You are a future founder looking for customer discovery advice\n\n4. You are a reporter or you work in media\n\n5. Something else"
+      ]
+    },
+    {
+      "id": "comp-m51er7oa",
+      "heading": "Let's talk",
+      "body": [
+        "## I'd love to hear from you. Fill out your info and I will get back to you in the next 24-48 hours.",
+        "Thanks for submitting! I will get back to you in 24-48 hours."
+      ]
+    }
+  ],
+  "form": {
+    "fields": [
+      {
+        "label": "First Name",
+        "name": "first-name",
+        "type": "text",
+        "required": false
+      },
+      {
+        "label": "Last Name",
+        "name": "last-name",
+        "type": "text",
+        "required": false
+      },
+      {
+        "label": "Email",
+        "name": "email",
+        "type": "email",
+        "required": true
+      },
+      {
+        "label": "Message",
+        "name": "message",
+        "type": "textarea",
+        "required": false
+      }
+    ],
+    "submitLabel": "Send",
+    "successMessage": "Thanks for submitting! I will get back to you in 24-48 hours.",
+    "wixAction": "Wix Forms (server-side); needs a replacement backend"
+  }
+}
