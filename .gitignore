@@ -24,3 +24,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# local Cloudflare worker vars/secrets
+.dev.vars
+.dev.vars.*
