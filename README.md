@@ -3,23 +3,37 @@
 The Astro rebuild of [joelpolanco.me](https://www.joelpolanco.me), migrating off Wix onto
 Cloudflare Pages. Minimalist, fast, content-first, and cheap to run.
 
-Current state: all the content is in the repo and everything that does not depend on a visual
-design — content collections, SEO, the contact form backend, the Google Docs publishing pipeline —
-is built. **Three homepage design directions** are ready to pick between at `/design`. The pages
-themselves (home, portfolio, media, resources, blog index, the 23 posts, contact) get built once a
-direction is chosen.
+Current state: the site is complete and building cleanly. Every page is built, all 23 posts are
+migrated at their original URLs, and the SEO, contact and publishing plumbing is in place. What is
+left is the cutover — moving the domain — which needs a Cloudflare account. See
+[Cutover checklist](#cutover-checklist).
 
 ## Stack
 
 | Piece       | Choice                                                     |
 | ----------- | ---------------------------------------------------------- |
 | Framework   | [Astro](https://astro.build) 7, TypeScript (strict)         |
-| Styling     | Tailwind CSS 4 plus per-direction scoped CSS custom properties |
+| Design      | Swiss grid — see [Design system](#design-system)            |
+| Styling     | Tailwind CSS 4 preflight plus CSS custom properties          |
 | Content     | Typed content collections, MDX via `@astrojs/mdx`           |
 | SEO         | `@astrojs/sitemap`, `@astrojs/rss`, satori + resvg for OG cards |
 | Hosting     | Cloudflare Pages via `@astrojs/cloudflare`                  |
 | Email       | [Resend](https://resend.com) from a Cloudflare function     |
-| Fonts       | Self-hosted variable fonts (Fraunces, Source Serif 4, Inter, JetBrains Mono) |
+| Fonts       | Self-hosted Inter Variable, no third-party CDN               |
+
+## Pages
+
+| Route              | What it is                                                  |
+| ------------------ | ----------------------------------------------------------- |
+| `/`                | Intro, background, current role, what Joel is hired for, testimonials, latest posts |
+| `/portfolio`       | Ten projects in two groups                                   |
+| `/media`           | Five appearances and three talk clips                        |
+| `/resources`       | Twenty-two recommendations in three groups                   |
+| `/blog`            | All 23 posts, filterable by category                         |
+| `/blog/<category>` | One of the six categories                                    |
+| `/post/<slug>`     | A post. **These URLs are load-bearing** — see below          |
+| `/contact`         | The form, posting to `/api/contact`                          |
+| `/404`             | Styled not-found page pointing at the blog                   |
 
 ## Run it locally
 
@@ -60,6 +74,28 @@ src/assets/images/             67 images, optimized by Astro at build time
 Page datasets get a schema each rather than one loose shape, so templates get real types: the
 homepage's sections and testimonials, the grouped portfolio and resources repeaters, the media
 appearances, and the contact form field definitions.
+
+`home.json` is the one dataset that is authored rather than migrated — it carries Joel's current
+facts, not the Wix copy — so it has a shape built for its template.
+
+### Categories
+
+Wix exposed no categories or tags at all, so the taxonomy in `src/config/categories.ts` was
+invented from the posts themselves. Six buckets, every post in exactly one, none with fewer than
+three posts.
+
+| Category                | Posts | Covers                                                       |
+| ----------------------- | ----- | ------------------------------------------------------------ |
+| Customer Discovery      | 4     | Talking to customers before you build                        |
+| Growth & Revenue        | 5     | Acquisition, retention, pricing, how products make money      |
+| Frameworks & Process    | 5     | Frameworks and rituals worth keeping                          |
+| Communication & Craft   | 3     | Writing, listening, judgement                                 |
+| The PM Career           | 3     | Career paths, lateral moves, where the role is going          |
+| Industry & AI           | 3     | Launches, org shake-ups, hands-on AI experiments              |
+
+The schema takes a zod enum, so a typo fails the build rather than quietly creating a seventh
+category, and `npm test` fails if a category ends up with no posts. Renaming an `id` changes a
+URL, so treat them as fixed now that they exist.
 
 ### Blog URLs are load-bearing
 
@@ -288,23 +324,21 @@ git add -A && git commit -m "Add post" && git push
 It produces exactly what the automated sync produces — both call the same converter — and the push
 triggers a deploy.
 
-## Design directions
+## Design system
 
-Three complete homepage designs, all rendering identical copy taken from the live Wix site, so the
-comparison is purely about design.
+Swiss grid: tight Inter, a visible twelve-column grid, hairline rules, numbered sections, and one
+saturated red against monochrome. It was picked from three directions built on Joel's real
+homepage copy; the other two are gone from the repo.
 
-| Route       | Direction     | Character                                                                        |
-| ----------- | ------------- | -------------------------------------------------------------------------------- |
-| `/design`   | Comparison    | Side-by-side live previews with desktop and mobile viewports                      |
-| `/design/a` | Editorial     | Large serif display type, warm paper tone, one terracotta ink accent, wide measure |
-| `/design/b` | Swiss grid    | Tight sans, visible 12-column grid, hairline rules, numbered sections, red accent  |
-| `/design/c` | Technical     | Monospace accents, dark-first with a light toggle, dense information blocks        |
+Tokens live at `:root` in `src/styles/global.css`, components in `src/styles/site.css`. Every class
+is prefixed `sw-` because the obvious names — `.grid`, `.card`, `.label` — collide with Tailwind
+utilities. Tailwind is here for its preflight reset and the occasional utility, not for composing
+the design.
 
-Each direction keeps its design tokens in its own scoped block
-(`src/styles/direction-{a,b,c}.css`, scoped to `[data-direction='…']`). Promoting the winner to the
-site design system means lifting one token block to `:root` and deleting the other two.
-
-The `/design` routes are review-only: they are marked `noindex` and excluded from the sitemap.
+Post covers are typographic, generated from each title in one of four variants chosen from the
+slug, so a post keeps the same cover across builds. There is no stock photography anywhere: the
+Wix hero images were mostly upscaled thumbnails, and `src/components/PostCover.astro` and
+`src/lib/og-image.ts` render the same idea for the page and for social cards.
 
 ## Layout
 
@@ -312,28 +346,40 @@ The `/design` routes are review-only: they are marked `noindex` and excluded fro
 integrations/
   sitemap-alias.mjs        Mirrors sitemap-index.xml to sitemap.xml
 scripts/
-  ingest-archive.mjs       One-shot import of the Wix extraction archive
+  ingest-archive.mjs       First import of the Wix extraction archive
   sync-gdocs.mjs           Build-time Google Drive to MDX sync
   import-doc.mjs           Manual "Download as Markdown" import
   lib/                     Shared converter and the minimal Drive client
 src/
-  config/site.ts           Canonical site identity, redirects, feed path
+  config/
+    site.ts                Site identity, nav, redirects, feed path
+    categories.ts          The six blog categories
   content.config.ts        Collection schemas
   content/posts/           23 migrated posts
   content/pages/           Page datasets as JSON
-  content/home.ts          Homepage copy for the three design directions
   assets/images/           Migrated imagery
   assets/fonts/            Inter subsets for OG card rendering
-  components/seo/          JSON-LD components
-  lib/contact/             Validation, rate limiting, Resend delivery
-  lib/og-image.ts          OG card rendering
+  components/
+    seo/                   JSON-LD components
+    SiteHeader / SiteFooter / PageHead
+    PostCover / PostCard / ItemCard / CategoryNav
+    ContactForm.astro      Form markup and progressive enhancement
+  layouts/BaseLayout.astro Head metadata, chrome, grid guides
+  lib/
+    contact/               Validation, rate limiting, Resend delivery
+    inline-markdown.ts     Renders the short markdown strings in page JSON
+    og-image.ts            OG card rendering
+    posts.ts               Shared post queries
   pages/
+    index / portfolio / media / resources / contact / 404
+    blog/                  Index and one page per category
+    post/[slug].astro      The 23 posts
     api/contact.ts         Contact form backend
     blog-feed.xml.ts       RSS at the path Wix used
     og/[slug].png.ts       Per-post OG cards
-    index.astro            Placeholder pointing at the design review
-    design/                The three directions and the comparison page
-  styles/                  Tailwind plus per-direction tokens
+  styles/
+    global.css             Tailwind, Inter, tokens, base layer
+    site.css               The design system
 tests/                     Slug parity and content integrity
 workers/deploy-hook-cron/  Hourly rebuild trigger
 ```
@@ -344,6 +390,102 @@ Configured for Cloudflare through the Cloudflare adapter, with `wrangler.jsonc` 
 settings. `npm run build` produces the static site in `dist/client`, the worker in `dist/server`,
 and a deploy-ready `dist/server/wrangler.json` that points at both.
 
-Nothing is deployed yet — that happens at cutover, after a design direction is picked. The
-redirects, feed and sitemap above are all in the build output already and can be verified with
-`npm run preview` before any DNS moves.
+## Cutover checklist
+
+Nothing below has been done — all of it needs a Cloudflare account, which only Joel can create.
+**Wix stays live and paid until the last step.** Work top to bottom.
+
+### 1. Get the site deploying
+
+1. Create a free account at <https://dash.cloudflare.com/sign-up>.
+2. **Workers & Pages → Create → Pages → Connect to Git**, authorise GitHub, and pick this
+   repository.
+3. Build settings: framework preset **Astro**, build command `npm run build`, build output
+   directory `dist`. Leave the root directory blank.
+4. Deploy. Cloudflare gives the site a `*.pages.dev` address.
+5. Open that address and click through every page. At this point it is a working copy of the new
+   site on a temporary URL, with the real domain untouched.
+
+### 2. Add the environment variables
+
+Set the contact form and Google Docs variables from
+[Environment variables](#environment-variables). Redeploy, then send yourself a test message
+through the form to confirm delivery.
+
+### 3. Decide how the domain moves
+
+Two routes, and the right one depends on how recently `joelpolanco.me` was registered or
+transferred:
+
+- **Transfer to Cloudflare Registrar** — $16.56/yr at cost. Not possible if the domain was
+  registered or last transferred within 60 days; ICANN locks it. Check the registration date in
+  the Wix domain settings first.
+- **Keep it registered at Wix and point the nameservers at Cloudflare** — works immediately, no
+  lock, and can be converted to a full transfer later.
+
+Either way the DNS lives at Cloudflare, which is what the rest of this needs.
+
+**To transfer:** in Wix, unlock the domain and request the authorisation (EPP) code. In Cloudflare,
+**Domain Registration → Transfer Domains**, paste the code, and pay. Transfers take up to seven
+days and the site keeps resolving from Wix throughout.
+
+**To point nameservers only:** in Cloudflare, **Add a site**, enter `joelpolanco.me`, take the
+free plan, and let it scan the existing records. Copy the two nameservers it gives you into the
+Wix domain settings. Propagation is usually under an hour.
+
+### 4. Check the DNS records before switching
+
+In the Cloudflare DNS list, confirm anything that is not the website still points where it did at
+Wix — in particular any `MX` records, or email stops arriving. Add the site itself:
+
+- In the Pages project, **Custom domains → Set up a custom domain**, add `joelpolanco.me` and then
+  `www.joelpolanco.me`. Cloudflare creates the records and issues the certificate.
+- Wix served the site from `www.joelpolanco.me`. Keep `www` working and redirect it to the apex
+  (or the reverse — pick one and be consistent), so there is a single canonical hostname.
+
+### 5. Verify every legacy URL before cancelling anything
+
+With the domain live on Cloudflare, check each of these by hand. Every one of them was indexed by
+Google on the Wix site:
+
+- All 23 `https://joelpolanco.me/post/<slug>` URLs return **200**. The slugs are the filenames in
+  `src/content/posts/`; `npm test` checks them against the captured Wix sitemap, but confirm a few
+  in a browser.
+- `/blog`, `/portfolio`, `/media`, `/resources` return 200.
+- `/contact-6` returns a **301** to `/contact`, and `/project-1` a **301** to `/portfolio`.
+- `/blog-feed.xml` returns the feed. Paste it into a reader and confirm it loads.
+- `/sitemap.xml` and `/robots.txt` resolve.
+- A made-up URL returns the styled 404.
+
+A quick pass from a terminal:
+
+```bash
+for p in / /blog /portfolio /media /resources /contact /blog-feed.xml /sitemap.xml \
+         /contact-6 /project-1 /post/what-is-customer-discovery; do
+  printf '%-40s ' "$p"
+  curl -s -o /dev/null -w '%{http_code} %{redirect_url}\n' "https://joelpolanco.me$p"
+done
+```
+
+### 6. Tell Google
+
+1. Add `joelpolanco.me` at <https://search.google.com/search-console> and verify it (the DNS TXT
+   method is easiest now that DNS is at Cloudflare).
+2. Submit `https://joelpolanco.me/sitemap.xml`.
+3. Use **URL Inspection** on two or three post URLs to confirm Google sees the new pages.
+
+### 7. Only then, cancel Wix
+
+Wait until the new site has been live and correct for a week and Search Console shows no spike in
+404s. Then cancel the Wix plan. If the domain is still registered at Wix, make sure cancelling the
+*site* plan does not cancel the *domain* — they are billed separately, and losing the registration
+is not recoverable.
+
+### Running cost afterwards
+
+| Item | Cost |
+| --- | --- |
+| Cloudflare Pages hosting | $0 |
+| `joelpolanco.me` at Cloudflare Registrar | $16.56/yr |
+| Contact form via Resend | $0 up to 3,000 emails/month |
+| Deploy hook cron worker | $0 |
