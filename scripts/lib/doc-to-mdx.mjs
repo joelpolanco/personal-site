@@ -22,6 +22,18 @@ const WORDS_PER_MINUTE = 220;
  */
 const PREAMBLE_KEYS = new Set(['slug', 'description', 'published', 'updated', 'tags', 'category']);
 
+/**
+ * Read the blog category ids out of the site config rather than repeating them
+ * here, so the two can never disagree. A post with no valid category would
+ * fail content validation at build time with a much less helpful message.
+ */
+async function categoryIds(repoRoot) {
+  const source = await readFile(path.join(repoRoot, 'src/config/categories.ts'), 'utf8');
+  const ids = [...source.matchAll(/^\s*id: '([a-z0-9-]+)',$/gm)].map((match) => match[1]);
+  if (ids.length === 0) throw new Error('could not read categories from src/config/categories.ts');
+  return ids;
+}
+
 /** `Charting the PM's career path` -> `charting-the-pm-s-career-path`. */
 export function slugify(text) {
   return text
@@ -181,6 +193,14 @@ export async function convertDocToPost({
   if (!slug) throw new Error(`could not derive a slug for "${docName}"`);
   await assertNotMigratedPost(slug, repoRoot);
 
+  const validCategories = await categoryIds(repoRoot);
+  const category = (meta.category ?? '').trim();
+  if (!validCategories.includes(category)) {
+    throw new Error(
+      `needs a "Category:" line at the top of the document. One of: ${validCategories.join(', ')}`,
+    );
+  }
+
   const { body: tokenized, images } = collectImages(withoutTitle);
   const saved = await downloadImages(images, slug, repoRoot, fetchImpl);
 
@@ -217,7 +237,7 @@ export async function convertDocToPost({
     `updatedDate: ${quote(isoDate(meta.updated ?? modifiedTime))}`,
     'heroImage: null',
     'heroImageAlt: null',
-    `category: ${meta.category ? quote(meta.category) : 'null'}`,
+    `category: ${quote(category)}`,
     `tags: [${tags.map(quote).join(', ')}]`,
     'author: "Joel Polanco"',
     `readingTime: ${quote(readingTime(body))}`,

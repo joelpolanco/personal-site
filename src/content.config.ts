@@ -1,6 +1,7 @@
 import { defineCollection, type SchemaContext } from 'astro:content';
 import * as z from 'astro/zod';
 import { glob } from 'astro/loaders';
+import { categoryIds } from './config/categories';
 
 /** Every page dataset lives here; posts sit alongside in `posts/`. */
 const PAGES_BASE = './src/content/pages';
@@ -55,8 +56,12 @@ const posts = defineCollection({
       updatedDate: z.coerce.date().nullable().default(null),
       heroImage: image().nullable().default(null),
       heroImageAlt: z.string().nullable().default(null),
-      /** Wix exposed no taxonomy; both are empty on every migrated post. */
-      category: z.string().nullable().default(null),
+      /**
+       * Wix exposed no taxonomy at all. These six categories were invented
+       * from the posts themselves and every post is in exactly one, so `/blog`
+       * can never have an unfiled post. A typo fails the build.
+       */
+      category: z.enum(categoryIds),
       tags: z.array(z.string()).default([]),
       author: z.string().default('Joel Polanco'),
       readingTime: z.string().nullable().default(null),
