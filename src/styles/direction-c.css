@@ -431,6 +431,10 @@ a.tc-em:hover {
   border-bottom: 1px solid var(--border);
 }
 
+.tc-section:last-child {
+  border-bottom: 0;
+}
+
 .tc-section__head {
   display: flex;
   align-items: baseline;
@@ -494,11 +498,15 @@ a.tc-em:hover {
   font-weight: 600;
 }
 
+.tc-aside__label {
+  margin-bottom: 0.625rem;
+}
+
 .tc-chips {
   display: flex;
   flex-wrap: wrap;
   gap: 0.375rem;
-  margin: 1rem 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -654,6 +662,22 @@ a.tc-em:hover {
 
 .tc-footer__nav a:hover {
   color: var(--accent-ink);
+}
+
+.tc-footer__connect {
+  margin: 0;
+  color: var(--fg-faint);
+}
+
+.tc-footer__connect a {
+  margin-left: 0.375rem;
+  color: var(--accent-ink);
+  text-decoration: none;
+}
+
+.tc-footer__connect a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 .tc-footer__meta {

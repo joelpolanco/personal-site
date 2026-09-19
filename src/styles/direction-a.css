@@ -201,17 +201,8 @@ a.ed-em:hover {
 
 /* --- Sections ------------------------------------------------------------ */
 
-.ed-rule {
-  border: 0;
-  border-top: 1px solid var(--rule);
-  margin: 0;
-}
-
 .ed-section {
   padding-block: var(--space-section);
-}
-
-.ed-section + .ed-section {
   border-top: 1px solid var(--rule);
 }
 

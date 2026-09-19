@@ -170,8 +170,8 @@ const facts = [
 
     <section class="sw-section">
       <div class="sw-shell">
-        <div class="sw-grid" style="margin-bottom: 2rem;">
-          <div class="sw-c1-3 ">
+        <div class="sw-grid sw-skills-head">
+          <div class="sw-c1-3">
             <span class="sw-section__num">03</span>
             <h2 class="sw-section__title">
               {skills.heading}
@@ -201,7 +201,7 @@ const facts = [
     <figure class="sw-quote">
       <div class="sw-shell sw-grid">
         <div class="sw-c1-8">
-          <span class="sw-section__num" style="max-width: 3rem;">04</span>
+          <span class="sw-section__num sw-quote__num">04</span>
           <blockquote class="sw-quote__text">{testimonial.quote}</blockquote>
         </div>
         <figcaption class="sw-c10-3 sw-quote__cite">
@@ -220,7 +220,7 @@ const facts = [
       </div>
       <nav class="sw-c5-8 sw-footer__col" aria-label="Footer">
         <h2>Pages</h2>
-        <ul class="sw-footer__list" style="flex-flow: row wrap; gap: 0.5rem 1.5rem;">
+        <ul class="sw-footer__list sw-footer__list--inline">
           {
             nav.map((item) => (
               <li>
@@ -229,7 +229,7 @@ const facts = [
             ))
           }
         </ul>
-        <h2 style="margin-top: 1.75rem;">{footer.connect}</h2>
+        <h2>{footer.connect}</h2>
         <ul class="sw-footer__list">
           <li><a href={site.linkedin} rel="me noopener">LinkedIn &#8599;</a></li>
         </ul>

@@ -231,8 +231,8 @@ const interests = [
             <p>{currentRole.body[0]}</p>
           </div>
           <div>
-            <p class="tc-eyebrow" style="margin-bottom: 0.625rem;">Other interests</p>
-            <ul class="tc-chips" style="margin-top: 0;">
+            <p class="tc-eyebrow tc-aside__label">Other interests</p>
+            <ul class="tc-chips">
               {interests.map((interest) => <li class="tc-chip">{interest}</li>)}
             </ul>
           </div>
@@ -263,7 +263,7 @@ const interests = [
         </div>
       </section>
 
-      <section class="tc-section" style="border-bottom: 0;">
+      <section class="tc-section">
         <div class="tc-section__head">
           <span class="tc-section__num">04</span>
           <h2 class="tc-section__title">What people say</h2>
@@ -297,15 +297,9 @@ const interests = [
             }
           </ul>
         </nav>
-        <p class="tc-mono" style="margin: 0; color: var(--fg-faint);">
+        <p class="tc-mono tc-footer__connect">
           {footer.connect}
-          <a
-            href={site.linkedin}
-            rel="me noopener"
-            style="color: var(--accent-ink); text-decoration: none; margin-left: 0.375rem;"
-          >
-            LinkedIn &#8599;
-          </a>
+          <a href={site.linkedin} rel="me noopener">LinkedIn &#8599;</a>
         </p>
       </div>
       <p class="tc-footer__meta">{site.copyright}</p>
