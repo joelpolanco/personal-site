@@ -1297,13 +1297,19 @@ a.sw-em:hover {
 
 .sw-prose table {
   width: 100%;
-  /*
-   * Five columns squeezed into a phone would be one word per line, so the
-   * table keeps a readable floor and the wrapper scrolls instead.
-   */
-  min-width: 34rem;
   border-collapse: collapse;
   font-size: 0.9375rem;
+}
+
+/*
+ * The readable floor lives on the cells, not the table, so it scales with the
+ * column count: a two- or three-column table still fits a phone, while the
+ * five- and six-column ones pass 390px and the wrapper scrolls. A fixed floor
+ * on the table made every table scroll, however few columns it had.
+ */
+.sw-prose th,
+.sw-prose td {
+  min-width: 7rem;
 }
 
 
