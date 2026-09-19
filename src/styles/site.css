@@ -881,9 +881,9 @@ a.sw-em:hover {
   color: var(--accent);
 }
 
+/* A real muted colour rather than opacity, which would drop this below 3:1. */
 .sw-cover__meta span:last-child {
-  color: inherit;
-  opacity: 0.55;
+  color: var(--fg-faint);
   font-variant-numeric: tabular-nums;
 }
 
@@ -917,13 +917,18 @@ a.sw-em:hover {
   color: #ff6a52;
 }
 
+.sw-cover--2 .sw-cover__meta span:last-child {
+  color: #a8a8a8;
+}
+
 .sw-cover--3 {
   background: var(--accent);
   color: #ffffff;
   border-color: var(--accent);
 }
 
-.sw-cover--3 .sw-cover__meta {
+.sw-cover--3 .sw-cover__meta,
+.sw-cover--3 .sw-cover__meta span:last-child {
   color: #ffffff;
 }
 
@@ -974,7 +979,11 @@ a.sw-em:hover {
 .sw-cats__count {
   font-size: 0.6875rem;
   font-variant-numeric: tabular-nums;
-  opacity: 0.6;
+  color: var(--fg-faint);
+}
+
+.sw-cats a[aria-current='page'] .sw-cats__count {
+  color: #c4c4c4;
 }
 
 .sw-posts {
@@ -1404,7 +1413,7 @@ a.sw-em:hover {
 
 .sw-field input::placeholder,
 .sw-field textarea::placeholder {
-  color: #8c8c8c;
+  color: var(--fg-faint);
 }
 
 .sw-field input:focus-visible,

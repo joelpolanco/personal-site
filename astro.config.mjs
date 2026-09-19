@@ -31,6 +31,9 @@ function externalizeNativeAddons() {
 export default defineConfig({
   site: 'https://joelpolanco.me',
 
+  /** `/post/<slug>` is how Google has these URLs indexed. No trailing slash. */
+  trailingSlash: 'never',
+
   /**
    * Legacy Wix URLs. The Cloudflare adapter turns these into real 301s in
    * `_redirects`, served at the edge before the worker runs.

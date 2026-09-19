@@ -6,7 +6,12 @@
 	"main": "@astrojs/cloudflare/entrypoints/server",
 	"assets": {
 		"directory": "./dist",
-		"binding": "ASSETS"
+		"binding": "ASSETS",
+		// The 23 indexed post URLs have no trailing slash, and neither do the
+		// canonical tags. Without this, Workers Assets 307s every one of them to
+		// a slashed variant before serving it.
+		"html_handling": "drop-trailing-slash",
+		"not_found_handling": "404-page"
 	},
 	"observability": {
 		"enabled": true
