@@ -1,0 +1,44 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Applied to <html> so each direction can scope its own token block. */
+  direction?: string;
+  bodyClass?: string;
+  colorScheme?: 'light' | 'dark' | 'light dark';
+  themeColor?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  direction,
+  bodyClass = '',
+  colorScheme = 'light',
+  themeColor = '#ffffff',
+  noindex = false,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-direction={direction} style={`color-scheme: ${colorScheme}`}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content={themeColor} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <slot name="head" />
+  </head>
+  <body class={bodyClass}>
+    <slot />
+  </body>
+</html>

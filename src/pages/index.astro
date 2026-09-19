@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="joelpolanco.me — rebuild in progress"
+  description="The new joelpolanco.me, being rebuilt on Astro. Three homepage design directions are up for review."
+  bodyClass="min-h-svh bg-neutral-50 font-sans text-neutral-900 antialiased"
+  themeColor="#fafafa"
+  noindex
+>
+  <main class="mx-auto flex min-h-svh max-w-2xl flex-col justify-center px-6 py-20">
+    <p class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-neutral-500">
+      joelpolanco.me
+    </p>
+    <h1 class="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+      The new site is being built here.
+    </h1>
+    <p class="mt-4 text-base leading-relaxed text-neutral-600">
+      This repository is the Astro rebuild of joelpolanco.me, moving off Wix. The homepage,
+      portfolio, media, resources, blog and contact pages get built once a design direction is
+      chosen.
+    </p>
+    <p class="mt-4 text-base leading-relaxed text-neutral-600">
+      Three complete directions are live for review, each rendering the real homepage content.
+    </p>
+    <a
+      href="/design"
+      class="mt-8 inline-flex w-fit items-center gap-2 rounded-lg bg-neutral-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-neutral-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900"
+    >
+      Compare the three design directions
+      <span aria-hidden="true">&#8594;</span>
+    </a>
+  </main>
+</BaseLayout>
