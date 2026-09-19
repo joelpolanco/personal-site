@@ -139,8 +139,8 @@ archive. It is here so the import is reproducible, not because it needs running 
 ### Open graph images
 
 One 1200×630 card per post, rendered at build time by satori and resvg and written as a static PNG.
-The card is deliberately plain — black type on warm white — because it should not pre-empt the
-design pick. It is a single small file (`src/lib/og-image.ts`) to restyle later.
+It is the same idea as the on-page post cover, in a format Twitter and LinkedIn can read: the
+category as a red eyebrow, the title set tight, one rule.
 
 Two subset Inter TTFs in `src/assets/fonts/` back it; satori cannot read the WOFF2 files the rest of
 the site uses. Rasterizing needs a native addon, which is why `astro.config.mjs` prerenders in Node
@@ -239,18 +239,24 @@ Markdown, no terminal.
 4. To unpublish, move the doc back into `Drafts` and delete the matching file from
    `src/content/posts/`.
 
-Optionally, the first lines of the doc — before the title — can set fields. Type them as plain
-lines, one per line, then leave a blank line:
+Start the doc with a few plain lines setting its fields, then a blank line, then the title as
+**Heading 1**, then the post:
 
 ```
+Category: growth-and-revenue
 Slug: a-shorter-url-than-the-title
 Description: The one or two sentences Google and Twitter show under the link.
 Published: 2026-10-02
 Tags: pricing, strategy
 ```
 
-Then the title as **Heading 1**, then the post. All four are optional: without them the title
-becomes the slug, the first real paragraph becomes the description, and today becomes the date.
+**`Category` is the only required one.** It has to be one of the six ids from
+[Categories](#categories): `customer-discovery`, `growth-and-revenue`, `frameworks-and-process`,
+`communication-and-craft`, `the-pm-career`, `industry-and-ai`. A doc without one is skipped and
+the build log says so, naming the valid ids.
+
+The rest are optional: without them the title becomes the slug, the first real paragraph becomes
+the description, and today becomes the date.
 
 Images pasted into the doc are copied into the repo during the sync, because Google's image links
 expire.
