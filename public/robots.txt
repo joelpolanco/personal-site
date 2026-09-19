@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Internal design-comparison routes, not content.
+Disallow: /design/
+
+Sitemap: https://joelpolanco.me/sitemap.xml

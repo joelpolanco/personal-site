@@ -1,0 +1,56 @@
+---
+/**
+ * `Article` structured data for a blog post. Takes the post entry itself so a
+ * template cannot drift from the frontmatter:
+ *
+ *   <ArticleJsonLd post={post} image={post.data.heroImage?.src} />
+ *
+ * `mainEntityOfPage` points at the new site, not the Wix original — these
+ * posts move with the domain, so the new URL is the canonical one.
+ */
+import type { CollectionEntry } from 'astro:content';
+import { person, site, absoluteUrl, ogImagePath } from '../../config/site';
+import JsonLd from './JsonLd.astro';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+  /** Resolved hero image URL; falls back to the post's generated OG card. */
+  image?: string | null;
+}
+
+const { post, image = null } = Astro.props;
+const { data } = post;
+
+const url = absoluteUrl(`/post/${post.id}`);
+
+const schema: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  '@id': `${url}#article`,
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+  url,
+  headline: data.title,
+  description: data.description,
+  datePublished: data.pubDate.toISOString(),
+  dateModified: (data.updatedDate ?? data.pubDate).toISOString(),
+  inLanguage: site.language,
+  image: [absoluteUrl(image ?? ogImagePath(post.id))],
+  author: {
+    '@type': 'Person',
+    '@id': `${site.url}/#person`,
+    name: data.author,
+    url: person.url,
+  },
+  publisher: {
+    '@type': 'Person',
+    '@id': `${site.url}/#person`,
+    name: person.name,
+    url: person.url,
+  },
+};
+
+if (data.tags.length > 0) schema.keywords = data.tags.join(', ');
+if (data.category) schema.articleSection = data.category;
+---
+
+<JsonLd schema={schema} />

@@ -1,0 +1,19 @@
+---
+/**
+ * Emits one `application/ld+json` block. The other SEO components build their
+ * graph object and hand it here so escaping is handled in exactly one place.
+ */
+interface Props {
+  schema: Record<string, unknown>;
+}
+
+const { schema } = Astro.props;
+
+/**
+ * `</script>` inside a JSON string would close the tag early; escaping the
+ * slash keeps the JSON valid and the document intact.
+ */
+const json = JSON.stringify(schema, null, 2).replace(/</g, '\\u003c');
+---
+
+<script is:inline type="application/ld+json" set:html={json} />

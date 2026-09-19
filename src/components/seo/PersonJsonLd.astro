@@ -1,0 +1,40 @@
+---
+/**
+ * `Person` structured data for Joel. Belongs on the homepage and anywhere else
+ * that is about him rather than about an article; `sameAs` is what ties the
+ * site and his profiles together as one entity for search engines.
+ *
+ *   <PersonJsonLd image={headshot.src} />
+ */
+import { person, site, absoluteUrl } from '../../config/site';
+import JsonLd from './JsonLd.astro';
+
+interface Props {
+  /** Site-relative or absolute URL of the headshot. */
+  image?: string | null;
+  /** Override the default `@id`, e.g. when the page is not the homepage. */
+  id?: string;
+}
+
+const { image = null, id = `${site.url}/#person` } = Astro.props;
+
+const schema: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': id,
+  name: person.name,
+  url: person.url,
+  jobTitle: person.jobTitle,
+  description: person.description,
+  sameAs: [...person.sameAs],
+  worksFor: {
+    '@type': 'Organization',
+    name: person.worksFor.name,
+    url: person.worksFor.url,
+  },
+};
+
+if (image) schema.image = absoluteUrl(image);
+---
+
+<JsonLd schema={schema} />
