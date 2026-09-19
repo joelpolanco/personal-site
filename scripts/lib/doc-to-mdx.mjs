@@ -79,6 +79,30 @@ function escapeMdx(markdown) {
     .join('\n');
 }
 
+/**
+ * Put each markdown table in a scroll container, matching the migrated posts.
+ * Astro 7's Markdown processor takes no rehype plugins without swapping the
+ * whole pipeline, so the wrapper goes into the source instead — and a table
+ * without one squeezes to one word per line on a phone.
+ */
+function wrapTables(markdown) {
+  const out = [];
+  let inTable = false;
+  for (const line of markdown.split('\n')) {
+    const isRow = line.trimStart().startsWith('|');
+    if (isRow && !inTable) {
+      out.push('<div class="sw-tablewrap" tabindex="0">', '');
+      inTable = true;
+    } else if (!isRow && inTable) {
+      out.push('', '</div>');
+      inTable = false;
+    }
+    out.push(line);
+  }
+  if (inTable) out.push('', '</div>');
+  return out.join('\n');
+}
+
 /** Pull `Key: value` lines off the top of the doc. */
 function splitPreamble(markdown) {
   const lines = markdown.split('\n');
@@ -252,7 +276,7 @@ export async function convertDocToPost({
 
   const file = path.join(POSTS_DIR, `${slug}.mdx`);
   await mkdir(path.join(repoRoot, POSTS_DIR), { recursive: true });
-  await writeFile(path.join(repoRoot, file), `${frontmatter}${escapeMdx(body)}\n`);
+  await writeFile(path.join(repoRoot, file), `${frontmatter}${wrapTables(escapeMdx(body))}\n`);
 
   return { slug, file, title, imageCount: saved.length };
 }

@@ -1282,17 +1282,31 @@ a.sw-em:hover {
  * matters because Astro 7's default Markdown processor takes no rehype
  * plugins without swapping the whole pipeline.
  */
-.sw-prose table {
-  display: block;
+.sw-prose .sw-tablewrap {
   max-width: 100%;
-  min-width: min(100%, 34rem);
-  width: max-content;
   overflow-x: auto;
   margin: 2em 0;
   border: 1px solid var(--hairline);
+}
+
+/* It is a keyboard-scrollable region, so the focus ring belongs on it. */
+.sw-prose .sw-tablewrap:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.sw-prose table {
+  width: 100%;
+  /*
+   * Five columns squeezed into a phone would be one word per line, so the
+   * table keeps a readable floor and the wrapper scrolls instead.
+   */
+  min-width: 34rem;
   border-collapse: collapse;
   font-size: 0.9375rem;
 }
+
+
 
 .sw-prose th,
 .sw-prose td {
