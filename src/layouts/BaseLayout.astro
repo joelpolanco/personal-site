@@ -89,7 +89,8 @@ const documentTitle = title.includes(site.name) ? title : `${title} — ${site.n
 
     <SiteHeader />
 
-    <main id="main" class="sw-main sw-layer">
+    <!-- tabindex allows the skip link to move keyboard focus, not just scroll. -->
+    <main id="main" class="sw-main sw-layer" tabindex="-1">
       <slot />
     </main>
 

@@ -39,6 +39,11 @@
   flex: 1 0 auto;
 }
 
+/* It carries tabindex=-1 for the skip link; that must not draw a ring. */
+.sw-main:focus {
+  outline: none;
+}
+
 .sw-shell {
   position: relative;
   width: 100%;
