@@ -32,7 +32,7 @@ left is the cutover — moving the domain — which needs a Cloudflare account. 
 | `/blog`            | All 23 posts, filterable by category                         |
 | `/blog/<category>` | One of the six categories                                    |
 | `/post/<slug>`     | A post. **These URLs are load-bearing** — see below          |
-| `/contact`         | The form, posting to `/api/contact`                          |
+| `/contact`         | Reasons he is useful, and a LinkedIn message button          |
 | `/404`             | Styled not-found page pointing at the blog                   |
 
 ## Run it locally
@@ -369,7 +369,6 @@ src/
     seo/                   JSON-LD components
     SiteHeader / SiteFooter / PageHead
     PostCover / PostCard / ItemCard / CategoryNav
-    ContactForm.astro      Form markup and progressive enhancement
   layouts/BaseLayout.astro Head metadata, chrome, grid guides
   lib/
     contact/               Validation, rate limiting, Resend delivery

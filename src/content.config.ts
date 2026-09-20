@@ -215,20 +215,22 @@ const contact = defineCollection({
         body: z.array(z.string()).default([]),
       }),
     ),
-    form: z.object({
-      fields: z.array(
-        z.object({
-          label: z.string(),
-          name: z.string(),
-          type: z.enum(['text', 'email', 'textarea']),
-          required: z.boolean(),
-        }),
-      ),
-      submitLabel: z.string(),
-      successMessage: z.string(),
-      /** Records what Wix did; the replacement is `src/pages/api/contact.ts`. */
-      wixAction: z.string().optional(),
-    }),
+    /** Unused on the page — LinkedIn is the only contact path now. */
+    form: z
+      .object({
+        fields: z.array(
+          z.object({
+            label: z.string(),
+            name: z.string(),
+            type: z.enum(['text', 'email', 'textarea']),
+            required: z.boolean(),
+          }),
+        ),
+        submitLabel: z.string(),
+        successMessage: z.string(),
+        wixAction: z.string().optional(),
+      })
+      .optional(),
   }),
 });
 

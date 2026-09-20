@@ -2,11 +2,15 @@
 import { getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHead from '../components/PageHead.astro';
-import ContactForm from '../components/ContactForm.astro';
+import { person } from '../config/site';
 
 const contact = await getEntry('contact', 'contact');
 if (!contact) throw new Error('src/content/pages/contact.json is missing');
-const { blocks, form } = contact.data;
+const { blocks } = contact.data;
+
+const linkedInUrl =
+  person.sameAs.find((url) => url.includes('linkedin.com')) ??
+  'https://www.linkedin.com/in/jpolanco';
 
 /**
  * Joel's five reasons came out of Wix as one numbered blob in a single string.
@@ -26,7 +30,7 @@ const reasons = (blocks[0]?.body[0] ?? '')
   <PageHead
     number="05"
     title="Let's talk"
-    lede="Fill in your details and I'll get back to you in the next 24–48 hours."
+    lede="The fastest way to reach me is a LinkedIn message."
   >
     <Fragment slot="eyebrow">Get in touch</Fragment>
   </PageHead>
@@ -45,16 +49,16 @@ const reasons = (blocks[0]?.body[0] ?? '')
       </div>
 
       <div class="sw-c5-8">
-        <ContactForm submitLabel={form.submitLabel} successMessage={form.successMessage} />
-
-        <p class="sw-contact-alt">
-          Prefer somewhere else? I'm on
+        <p style="margin-top: 0">
           <a
-            class="sw-textlink"
-            href="https://www.linkedin.com/in/jpolanco"
+            class="sw-btn"
+            href={linkedInUrl}
             rel="me noopener noreferrer"
-            target="_blank">LinkedIn<span aria-hidden="true"> &#8599;</span></a
-          >.
+            target="_blank"
+          >
+            Message me on LinkedIn
+            <span class="sw-btn__arrow" aria-hidden="true">&#8599;</span>
+          </a>
         </p>
       </div>
     </div>
@@ -90,14 +94,5 @@ const reasons = (blocks[0]?.body[0] ?? '')
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.1em;
     padding-top: 0.2rem;
-  }
-
-  .sw-contact-alt {
-    margin: 2rem 0 0;
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--hairline);
-    font-size: 0.9375rem;
-    color: var(--fg-soft);
-    max-width: 40rem;
   }
 </style>
