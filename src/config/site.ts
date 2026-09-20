@@ -50,7 +50,6 @@ export const nav = [
 export const footerLinks = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jpolanco', external: true },
   { label: 'LogRocket blog', href: 'https://blog.logrocket.com/author/joelpolanco/', external: true },
-  { label: 'RSS feed', href: '/blog-feed.xml', external: false },
 ] as const;
 
 /** Legacy Wix URLs that must keep resolving after cutover. */

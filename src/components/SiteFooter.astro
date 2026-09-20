@@ -2,20 +2,12 @@
 import { nav, footerLinks, site } from '../config/site';
 
 const year = new Date().getFullYear();
-const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
-const isHome = path === '/';
-const links = isHome ? footerLinks.filter((item) => item.label !== 'RSS feed') : footerLinks;
 ---
 
 <footer class="sw-footer sw-layer">
   <div class="sw-shell sw-grid">
     <div class="sw-c1-4">
       <p class="sw-footer__brand">{site.name}</p>
-      {
-        !isHome && (
-          <p class="sw-footer__meta">Senior Product Manager &middot; Intel, Data Center and AI Group</p>
-        )
-      }
       <p class="sw-footer__meta">&copy; {year} {site.name}</p>
     </div>
 
@@ -30,7 +22,7 @@ const links = isHome ? footerLinks.filter((item) => item.label !== 'RSS feed') :
         <h2>Elsewhere</h2>
         <ul class="sw-footer__list">
           {
-            links.map((item) => (
+            footerLinks.map((item) => (
               <li>
                 <a
                   href={item.href}
