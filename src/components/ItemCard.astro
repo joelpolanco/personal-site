@@ -21,6 +21,8 @@ interface Props {
   goneLabel?: string;
   /** `16/9` for media thumbnails, `1/1` for square logos. */
   aspect?: string;
+  /** Optional second destination, shown as “Code” in the meta row. */
+  extraHref?: string | null;
 }
 
 const {
@@ -31,10 +33,12 @@ const {
   imageAlt = null,
   goneLabel = 'Link no longer available',
   aspect = '16 / 9',
+  extraHref = null,
 } = Astro.props;
 
 const isExternal = href !== null && /^https?:\/\//.test(href);
 const host = isExternal ? new URL(href).hostname.replace(/^www\./, '') : null;
+const extraIsUrl = extraHref !== null && /^https?:\/\//.test(extraHref);
 ---
 
 <li class="sw-card">
@@ -81,5 +85,13 @@ const host = isExternal ? new URL(href).hostname.replace(/^www\./, '') : null;
       )
     }
     {href && isExternal && <span aria-hidden="true">&#8599;</span>}
+    {
+      extraIsUrl && (
+        <a href={extraHref} rel="noopener noreferrer" target="_blank">
+          Code
+          <span aria-hidden="true"> &#8599;</span>
+        </a>
+      )
+    }
   </p>
 </li>

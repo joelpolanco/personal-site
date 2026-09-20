@@ -11,11 +11,11 @@
     {
       "group": "Personal Projects",
       "repeaterId": "comp-m4xar8mu",
-      "count": 4,
+      "count": 6,
       "items": [
         {
           "title": "VTI & Chill",
-          "description": "VTI & Chill was a content-led financial education venture I conceived, designed, and shipped solo using AI tooling. The premise: most investors lose to their own behavior and to fee-laden advice, so the product taught one durable idea ... own the whole market, tilt deliberately, and stay the course. The site combined interactive portfolio builders (Good/Better/Best tiers with US and worldwide allocations), an 8-class course called The Chill Investor's Blueprint (two classes free, six paid at $79), a weekly AI Class P/E Monitor tracking a 33-name AI basket, and a blog/newsletter funnel. Monetization layered a free tier with $9/mo and $29/mo memberships. Built on GitHub and Vercel with automated email sequences and a navy/mint design system using Perplexity Computer.\n\nI retired the site due to trademark issues and low conversion.\n\nYou can view the code here: https://github.com/joelpolanco/vti-and-chill",
+          "description": "VTI & Chill was a content-led financial education venture I conceived, designed, and shipped solo using AI tooling. The premise: most investors lose to their own behavior and to fee-laden advice, so the product taught one durable idea ... own the whole market, tilt deliberately, and stay the course. The site combined interactive portfolio builders (Good/Better/Best tiers with US and worldwide allocations), an 8-class course called The Chill Investor's Blueprint (two classes free, six paid at $79), a weekly AI Class P/E Monitor tracking a 33-name AI basket, and a blog/newsletter funnel. Monetization layered a free tier with $9/mo and $29/mo memberships. Built on GitHub and Vercel with automated email sequences and a navy/mint design system using Perplexity Computer.\n\nI retired the site due to trademark issues and low conversion.",
           "link": "https://vti-and-chill.vercel.app/",
           "extraText": "https://github.com/joelpolanco/vti-and-chill",
           "featured": true,
@@ -23,6 +23,28 @@
             "alt": "VTI & Chill",
             "local": "../../assets/images/portfolio-vti-and-chill.png",
             "renderedSrc": "https://vti-and-chill.vercel.app/assets/og/og-home.png"
+          }
+        },
+        {
+          "title": "Vera Rubin App",
+          "description": "Nvidia's Vera Rubin Supply Chain, Built with Perplexity Computer and deployed to my github and vercel",
+          "link": "https://vera-rubin-supply-chain.vercel.app/",
+          "extraText": "https://github.com/joelpolanco/vera-rubin-app",
+          "image": {
+            "alt": "Vera Rubin App",
+            "local": "../../assets/images/portfolio-vera-rubin.png",
+            "renderedSrc": "https://vera-rubin-supply-chain.vercel.app/og-image.png"
+          }
+        },
+        {
+          "title": "POS Upgrade Analyzer",
+          "description": "Increased performance leads to decreased energy consumption when you upgrade your processor. This was built for retailers to estimate how much energy they would save by upgrading their Point-of-Sale to Intel's latest generation of processors. Built with Lovable.",
+          "link": "https://pos-upgrade-analyzer.lovable.app/",
+          "extraText": "https://github.com/joelpolanco/pos-upgrade-analyzer",
+          "image": {
+            "alt": "POS Upgrade Analyzer",
+            "local": "../../assets/images/portfolio-pos-upgrade-analyzer.png",
+            "renderedSrc": "https://pos-upgrade-analyzer.lovable.app/"
           }
         },
         {
@@ -63,8 +85,19 @@
     {
       "group": "Professional Projects",
       "repeaterId": "comp-m52olt6n2",
-      "count": 7,
+      "count": 8,
       "items": [
+        {
+          "title": "Intel(r) RSP Software Toolkit",
+          "description": "After several rounds of UX Studies, our team was able to get customers started on our product in less than 30 minutes (down from several hours).",
+          "link": "https://github.com/joelpolanco/cb-gsg",
+          "extraText": "https://github.com/joelpolanco/rsp-sw-toolkit-gw/tree/master/examples/use-cases/retail",
+          "image": {
+            "alt": "Intel(r) RSP Software Toolkit",
+            "local": "../../assets/images/portfolio-intel-rsp-toolkit.png",
+            "renderedSrc": "https://opengraph.githubassets.com/e594f572d48c9d25ffde367a15c209dc518f6ef180c2e30b247612bb9cbe5b39/joelpolanco/cb-gsg"
+          }
+        },
         {
           "title": "Intel RFID Sensor Platform",
           "description": "I was the product manager for this hardware and software platform. Click on the image to learn more.",

@@ -145,6 +145,7 @@ function linkifyUrls(html: string): string {
                   href={item.link}
                   image={item.image?.local ?? null}
                   imageAlt=""
+                  extraHref={item.extraText}
                   goneLabel="Original link retired"
                 />
               ))}

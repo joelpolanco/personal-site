@@ -64,18 +64,30 @@ test('homepage JSON still keeps the three testimonials, even though they are not
   );
 });
 
-test('the portfolio carries eleven projects with VTI & Chill featured first', () => {
+test('the portfolio carries fourteen projects with VTI & Chill featured first', () => {
   const { groups } = page('portfolio');
   assert.equal(
     groups.reduce((total, group) => total + group.items.length, 0),
-    11,
+    14,
   );
   for (const group of groups) {
     assert.equal(group.items.length, group.count, `${group.group} count disagrees with its items`);
   }
   const personal = groups.find((group) => group.group === 'Personal Projects');
-  assert.equal(personal?.items[0]?.title, 'VTI & Chill');
+  assert.deepEqual(
+    personal?.items.map((item) => item.title),
+    [
+      'VTI & Chill',
+      'Vera Rubin App',
+      'POS Upgrade Analyzer',
+      'My Personal Operating Manual',
+      'Growth Mapping Actions',
+      'Organizational job search template',
+    ],
+  );
   assert.equal(personal?.items[0]?.featured, true);
+  const professional = groups.find((group) => group.group === 'Professional Projects');
+  assert.equal(professional?.items[0]?.title, 'Intel(r) RSP Software Toolkit');
 });
 
 test('resources keeps all 22 entries and the homepage keeps four numbered skills', () => {

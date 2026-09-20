@@ -26,7 +26,7 @@ left is the cutover — moving the domain — which needs a Cloudflare account. 
 | Route              | What it is                                                  |
 | ------------------ | ----------------------------------------------------------- |
 | `/`                | Intro, spec table, background, current role, what Joel is hired for, latest posts |
-| `/portfolio`       | Eleven projects in two groups                                |
+| `/portfolio`       | Fourteen projects in two groups                              |
 | `/media`           | Eight appearances and three talk clips                       |
 | `/resources`       | Twenty-two recommendations in three groups                   |
 | `/blog`            | All 23 posts, filterable by category                         |
@@ -68,7 +68,7 @@ Everything from the Wix site lives in typed collections, defined with zod schema
 ```
 src/content/posts/<slug>.mdx   23 blog posts
 src/content/pages/*.json       home, portfolio, media, resources, contact, project-1
-src/assets/images/             72 images, optimized by Astro at build time
+src/assets/images/             75 images, optimized by Astro at build time
 ```
 
 Page datasets get a schema each rather than one loose shape, so templates get real types: the
@@ -108,7 +108,7 @@ extraction time, byte for byte. It runs on `npm test` and again automatically be
 production build, so a broken slug cannot ship.
 
 `tests/content-integrity.test.mjs` guards the counts the extraction verified against the live site:
-eleven portfolio projects, three homepage testimonials, 22 resources, eight media appearances, three
+fourteen portfolio projects, three homepage testimonials, 22 resources, eight media appearances, three
 talk clips, and every image reference resolving to a file on disk.
 
 ### Re-importing the archive
