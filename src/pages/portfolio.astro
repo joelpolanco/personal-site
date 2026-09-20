@@ -1,14 +1,25 @@
 ---
+import { Image } from 'astro:assets';
 import { getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHead from '../components/PageHead.astro';
 import ItemCard from '../components/ItemCard.astro';
+import { renderInline } from '../lib/inline-markdown';
 
 const portfolio = await getEntry('portfolio', 'portfolio');
 if (!portfolio) throw new Error('src/content/pages/portfolio.json is missing');
 const { groups } = portfolio.data;
 
 const total = groups.reduce((sum, group) => sum + group.items.length, 0);
+const personalCount = groups.find((group) => group.group === 'Personal Projects')?.items.length ?? 0;
+const professionalCount = groups.find((group) => group.group === 'Professional Projects')?.items.length ?? 0;
+
+function linkifyUrls(html: string): string {
+  return html.replace(
+    /(https?:\/\/[^\s<]+)/g,
+    '<a class="sw-textlink" href="$1" rel="noopener noreferrer" target="_blank">$1</a>',
+  );
+}
 ---
 
 <BaseLayout
@@ -18,41 +29,129 @@ const total = groups.reduce((sum, group) => sum + group.items.length, 0);
   <PageHead
     number="01"
     title="Portfolio"
-    lede="Things I have built, shipped, written or advised on — three personal projects and seven from work."
+    lede={`Things I have built, shipped, written or advised on — ${personalCount} personal projects and ${professionalCount} from work.`}
     count={`${total} projects`}
   >
     <Fragment slot="eyebrow">Selected work</Fragment>
   </PageHead>
 
   {
-    groups.map((group, index) => (
-      <section class={`sw-section${index === groups.length - 1 ? ' sw-section--flush' : ''}`}>
-        <div class="sw-shell">
-          <div class="sw-grid" style="margin-bottom: 2rem">
-            <div class="sw-c1-3">
-              <span class="sw-section__num">{String(index + 1).padStart(2, '0')}</span>
-              <h2 class="sw-section__title">
-                {group.group}
-                <span>
-                  {group.items.length} {group.items.length === 1 ? 'project' : 'projects'}
-                </span>
-              </h2>
+    groups.map((group, index) => {
+      const featured = group.items.find((item) => item.featured);
+      const rest = group.items.filter((item) => item !== featured);
+      const paragraphs = (featured?.description ?? '')
+        .split(/\n\n+/)
+        .map((block) => block.trim())
+        .filter(Boolean);
+
+      return (
+        <section class={`sw-section${index === groups.length - 1 ? ' sw-section--flush' : ''}`}>
+          <div class="sw-shell">
+            <div class="sw-grid" style="margin-bottom: 2rem">
+              <div class="sw-c1-3">
+                <span class="sw-section__num">{String(index + 1).padStart(2, '0')}</span>
+                <h2 class="sw-section__title">
+                  {group.group}
+                  <span>
+                    {group.items.length} {group.items.length === 1 ? 'project' : 'projects'}
+                  </span>
+                </h2>
+              </div>
             </div>
+
+            {
+              featured && (
+                <article class="sw-card sw-featured">
+                  <div class="sw-grid">
+                    <a
+                      class="sw-card__media sw-featured__media sw-c1-6"
+                      href={featured.link ?? undefined}
+                      rel={featured.link ? 'noopener noreferrer' : undefined}
+                      target={featured.link ? '_blank' : undefined}
+                    >
+                      {featured.image?.local ? (
+                        <Image
+                          src={featured.image.local}
+                          alt=""
+                          width={1200}
+                          height={630}
+                          widths={[600, 1200]}
+                          sizes="(max-width: 64rem) 100vw, 40vw"
+                          loading="eager"
+                        />
+                      ) : (
+                        <div class="sw-cover sw-cover--3" aria-hidden="true">
+                          <p class="sw-cover__meta">
+                            <span>Featured</span>
+                          </p>
+                          <div>
+                            <p class="sw-cover__title">{featured.title}</p>
+                            <div class="sw-cover__rule"></div>
+                          </div>
+                        </div>
+                      )}
+                    </a>
+                    <div class="sw-c7-6 sw-featured__copy">
+                      <p class="sw-featured__kicker">Featured</p>
+                      <h3 class="sw-card__title sw-featured__title">
+                        {
+                          featured.link ? (
+                            <a href={featured.link} rel="noopener noreferrer" target="_blank">
+                              {featured.title}
+                            </a>
+                          ) : (
+                            featured.title
+                          )
+                        }
+                      </h3>
+                      {
+                        paragraphs.length > 0 && (
+                          <div class="sw-featured__desc">
+                            {paragraphs.map((block) => (
+                              <p set:html={linkifyUrls(renderInline(block))} />
+                            ))}
+                          </div>
+                        )
+                      }
+                      <p class="sw-card__meta sw-featured__links">
+                        {
+                          featured.link && (
+                            <a href={featured.link} rel="noopener noreferrer" target="_blank">
+                              Live site
+                              <span aria-hidden="true"> &#8599;</span>
+                            </a>
+                          )
+                        }
+                        {
+                          featured.extraText && (
+                            <a href={featured.extraText} rel="noopener noreferrer" target="_blank">
+                              Code
+                              <span aria-hidden="true"> &#8599;</span>
+                            </a>
+                          )
+                        }
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              )
+            }
+
+            <ul class="sw-cards">
+              {rest.map((item) => (
+                <ItemCard
+                  title={item.title}
+                  description={item.description}
+                  href={item.link}
+                  image={item.image?.local ?? null}
+                  imageAlt=""
+                  goneLabel="Original link retired"
+                />
+              ))}
+            </ul>
           </div>
-          <ul class="sw-cards">
-            {group.items.map((item) => (
-              <ItemCard
-                title={item.title}
-                description={item.description}
-                href={item.link}
-                image={item.image?.local ?? null}
-                imageAlt=""
-                goneLabel="Original link retired"
-              />
-            ))}
-          </ul>
-        </div>
-      </section>
-    ))
+        </section>
+      );
+    })
   }
 </BaseLayout>

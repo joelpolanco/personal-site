@@ -26,6 +26,7 @@ const linkedItem = (ctx: SchemaContext) =>
     link: z.string().nullable().default(null),
     image: archivedImage(ctx).nullable().default(null),
     extraText: z.string().nullable().default(null),
+    featured: z.boolean().default(false),
   });
 
 /** Title, description and canonical URL carried over from the Wix page. */

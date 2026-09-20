@@ -47,7 +47,7 @@ function hostOf(url: string): string {
         featured && (
           <article class="sw-card sw-featured">
             <div class="sw-grid">
-              <div class="sw-card__media sw-featured__media sw-c1-6">
+              <div class="sw-card__media sw-featured__media sw-featured__media--portrait sw-c1-6">
                 {featured.thumbnail.local ? (
                   <Image
                     src={featured.thumbnail.local}
@@ -158,51 +158,3 @@ function hostOf(url: string): string {
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  .sw-featured {
-    margin-bottom: 2.5rem;
-    padding-bottom: 2.25rem;
-  }
-
-  .sw-featured__media {
-    aspect-ratio: 3 / 4;
-    margin-bottom: 1.25rem;
-  }
-
-  .sw-featured__media img,
-  .sw-featured__media :global(.sw-cover) {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-  }
-
-  .sw-featured__copy {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding-bottom: 0.25rem;
-  }
-
-  .sw-featured__kicker {
-    margin: 0 0 0.75rem;
-    font-size: 0.625rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent-ink);
-  }
-
-  .sw-featured__title {
-    font-size: clamp(1.375rem, 2.6vw, 2rem);
-    line-height: 1.12;
-    margin-bottom: 0.75rem;
-  }
-
-  @media (min-width: 64rem) {
-    .sw-featured__media {
-      margin-bottom: 0;
-    }
-  }
-</style>

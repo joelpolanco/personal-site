@@ -855,6 +855,89 @@ a.sw-em:hover {
   white-space: nowrap;
 }
 
+.sw-featured {
+  margin-bottom: 2.5rem;
+  padding-bottom: 2.25rem;
+}
+
+.sw-featured .sw-card__title a::after {
+  content: none;
+}
+
+.sw-featured__media {
+  aspect-ratio: 16 / 9;
+  margin-bottom: 1.25rem;
+}
+
+.sw-featured__media--portrait {
+  aspect-ratio: 3 / 4;
+}
+
+.sw-featured__media img,
+.sw-featured__media .sw-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.sw-featured__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-bottom: 0.25rem;
+}
+
+.sw-featured__kicker {
+  margin: 0 0 0.75rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+
+.sw-featured__title {
+  font-size: clamp(1.375rem, 2.6vw, 2rem);
+  line-height: 1.12;
+  margin-bottom: 0.75rem;
+}
+
+.sw-featured__desc {
+  margin: 0;
+}
+
+.sw-featured__desc p {
+  margin: 0 0 0.85rem;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--fg-soft);
+}
+
+.sw-featured__desc p:last-child {
+  margin-bottom: 0;
+}
+
+.sw-featured__links {
+  flex-wrap: wrap;
+  gap: 0.875rem 1.25rem;
+}
+
+.sw-featured__links a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.sw-featured__links a:hover {
+  color: var(--accent-ink);
+}
+
+@media (min-width: 64rem) {
+  .sw-featured__media {
+    margin-bottom: 0;
+  }
+}
+
 /* --- 8. Post covers ------------------------------------------------------ */
 
 /*

@@ -11,8 +11,20 @@
     {
       "group": "Personal Projects",
       "repeaterId": "comp-m4xar8mu",
-      "count": 3,
+      "count": 4,
       "items": [
+        {
+          "title": "VTI & Chill",
+          "description": "VTI & Chill was a content-led financial education venture I conceived, designed, and shipped solo using AI tooling. The premise: most investors lose to their own behavior and to fee-laden advice, so the product taught one durable idea ... own the whole market, tilt deliberately, and stay the course. The site combined interactive portfolio builders (Good/Better/Best tiers with US and worldwide allocations), an 8-class course called The Chill Investor's Blueprint (two classes free, six paid at $79), a weekly AI Class P/E Monitor tracking a 33-name AI basket, and a blog/newsletter funnel. Monetization layered a free tier with $9/mo and $29/mo memberships. Built on GitHub and Vercel with automated email sequences and a navy/mint design system using Perplexity Computer.\n\nI retired the site due to trademark issues and low conversion.\n\nYou can view the code here: https://github.com/joelpolanco/vti-and-chill",
+          "link": "https://vti-and-chill.vercel.app/",
+          "extraText": "https://github.com/joelpolanco/vti-and-chill",
+          "featured": true,
+          "image": {
+            "alt": "VTI & Chill",
+            "local": "../../assets/images/portfolio-vti-and-chill.png",
+            "renderedSrc": "https://vti-and-chill.vercel.app/assets/og/og-home.png"
+          }
+        },
         {
           "title": "My Personal Operating Manual",
           "description": "A guide to how I work. My mindset, quirks, etc. Feel free to copy it and make it your own.",
