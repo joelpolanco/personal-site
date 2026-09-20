@@ -7,8 +7,6 @@ import ItemCard from '../components/ItemCard.astro';
 const resources = await getEntry('resources', 'resources');
 if (!resources) throw new Error('src/content/pages/resources.json is missing');
 const { groups } = resources.data;
-
-const total = groups.reduce((sum, group) => sum + group.items.length, 0);
 ---
 
 <BaseLayout
@@ -19,7 +17,6 @@ const total = groups.reduce((sum, group) => sum + group.items.length, 0);
     number="02"
     title="Resources"
     lede="The newsletters, courses, templates and books I actually recommend when someone asks."
-    count={`${total} recommendations`}
   >
     <Fragment slot="eyebrow">Worth your time</Fragment>
   </PageHead>
@@ -31,10 +28,7 @@ const total = groups.reduce((sum, group) => sum + group.items.length, 0);
           <div class="sw-grid" style="margin-bottom: 2rem">
             <div class="sw-c1-3">
               <span class="sw-section__num">{String(index + 1).padStart(2, '0')}</span>
-              <h2 class="sw-section__title">
-                {group.group}
-                <span>{group.items.length} entries</span>
-              </h2>
+              <h2 class="sw-section__title">{group.group}</h2>
             </div>
           </div>
           <ul class={`sw-cards${group.group === 'Books' ? '' : ' sw-cards--two'}`}>

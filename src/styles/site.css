@@ -1076,16 +1076,6 @@ a.sw-em:hover {
   color: #ffffff;
 }
 
-.sw-cats__count {
-  font-size: 0.6875rem;
-  font-variant-numeric: tabular-nums;
-  color: var(--fg-faint);
-}
-
-.sw-cats a[aria-current='page'] .sw-cats__count {
-  color: #c4c4c4;
-}
-
 .sw-posts {
   list-style: none;
   margin: 0;

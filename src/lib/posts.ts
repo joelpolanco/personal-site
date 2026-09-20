@@ -4,7 +4,6 @@
  * has to agree between them for previous/next links to make sense.
  */
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { categories, type CategoryId } from '../config/categories';
 
 export type Post = CollectionEntry<'posts'>;
 
@@ -12,15 +11,6 @@ export type Post = CollectionEntry<'posts'>;
 export async function getPublishedPosts(): Promise<Post[]> {
   const posts = await getCollection('posts', ({ data }) => !data.draft);
   return posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
-}
-
-export function countByCategory(posts: Post[]): Record<CategoryId, number> {
-  const counts = Object.fromEntries(categories.map((category) => [category.id, 0])) as Record<
-    CategoryId,
-    number
-  >;
-  for (const post of posts) counts[post.data.category] += 1;
-  return counts;
 }
 
 const dateFormat = new Intl.DateTimeFormat('en-US', {

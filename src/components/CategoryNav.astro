@@ -2,20 +2,18 @@
 import { categories, type CategoryId } from '../config/categories';
 
 interface Props {
-  counts: Record<CategoryId, number>;
   /** Undefined on `/blog`, where "All" is the current filter. */
   current?: CategoryId;
-  total: number;
 }
 
-const { counts, current, total } = Astro.props;
+const { current } = Astro.props;
 ---
 
 <nav aria-label="Post categories">
   <ul class="sw-cats">
     <li>
       <a href="/blog" aria-current={current ? undefined : 'page'}>
-        All<span class="sw-cats__count">{total}</span>
+        All
       </a>
     </li>
     {
@@ -26,7 +24,6 @@ const { counts, current, total } = Astro.props;
             aria-current={current === category.id ? 'page' : undefined}
           >
             {category.name}
-            <span class="sw-cats__count">{counts[category.id] ?? 0}</span>
           </a>
         </li>
       ))

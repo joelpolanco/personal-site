@@ -5,7 +5,7 @@ import PageHead from '../../components/PageHead.astro';
 import PostCard from '../../components/PostCard.astro';
 import CategoryNav from '../../components/CategoryNav.astro';
 import { categories } from '../../config/categories';
-import { countByCategory, getPublishedPosts, type Post } from '../../lib/posts';
+import { getPublishedPosts, type Post } from '../../lib/posts';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getPublishedPosts();
@@ -14,8 +14,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
     props: {
       category,
       posts: posts.filter((post) => post.data.category === category.id),
-      counts: countByCategory(posts),
-      total: posts.length,
     },
   }));
 };
@@ -23,29 +21,19 @@ export const getStaticPaths: GetStaticPaths = async () => {
 type Props = {
   category: (typeof categories)[number];
   posts: Post[];
-  counts: ReturnType<typeof countByCategory>;
-  total: number;
 };
 
-const { category, posts, counts, total } = Astro.props as Props;
+const { category, posts } = Astro.props as Props;
 ---
 
-<BaseLayout
-  title={`${category.name} — Blog`}
-  description={`${category.summary} ${posts.length} posts by Joel Polanco.`}
->
-  <PageHead
-    number={category.number}
-    title={category.name}
-    lede={category.summary}
-    count={`${posts.length} of ${total} posts`}
-  >
+<BaseLayout title={`${category.name} — Blog`} description={category.summary}>
+  <PageHead number={category.number} title={category.name} lede={category.summary}>
     <Fragment slot="eyebrow">Blog category</Fragment>
   </PageHead>
 
   <section class="sw-section sw-section--flush">
     <div class="sw-shell">
-      <CategoryNav counts={counts} current={category.id} total={total} />
+      <CategoryNav current={category.id} />
 
       {
         posts.length > 0 ? (

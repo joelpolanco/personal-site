@@ -10,8 +10,6 @@ const portfolio = await getEntry('portfolio', 'portfolio');
 if (!portfolio) throw new Error('src/content/pages/portfolio.json is missing');
 const { groups } = portfolio.data;
 
-const total = groups.reduce((sum, group) => sum + group.items.length, 0);
-
 function linkifyUrls(html: string): string {
   return html.replace(
     /(https?:\/\/[^\s<]+)/g,
@@ -28,7 +26,6 @@ function linkifyUrls(html: string): string {
     number="01"
     title="Portfolio"
     lede="Things I have built, shipped, written or advised on."
-    count={`${total} projects`}
   >
     <Fragment slot="eyebrow">Selected work</Fragment>
   </PageHead>
@@ -48,12 +45,7 @@ function linkifyUrls(html: string): string {
             <div class="sw-grid" style="margin-bottom: 2rem">
               <div class="sw-c1-3">
                 <span class="sw-section__num">{String(index + 1).padStart(2, '0')}</span>
-                <h2 class="sw-section__title">
-                  {group.group}
-                  <span>
-                    {group.items.length} {group.items.length === 1 ? 'project' : 'projects'}
-                  </span>
-                </h2>
+                <h2 class="sw-section__title">{group.group}</h2>
               </div>
             </div>
 
