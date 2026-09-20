@@ -334,6 +334,12 @@
   text-wrap: balance;
 }
 
+/* Homepage hero name only: two steps down the title ladder
+   (display 6rem → pagehead 4rem → posthead 3.5rem). */
+.sw-display--home {
+  font-size: clamp(2rem, 1.3rem + 3.2vw, 3.5rem);
+}
+
 .sw-display__greeting {
   display: block;
   font-size: clamp(0.9375rem, 0.85rem + 0.4vw, 1.125rem);
