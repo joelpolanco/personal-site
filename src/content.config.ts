@@ -196,7 +196,7 @@ const media = defineCollection({
             original_url: z.url(),
             local: ctx.image().nullable().default(null),
           }),
-          /** False for the Zeda.io episode, which YouTube no longer serves. */
+          /** False when a listed appearance is no longer on YouTube. */
           videoAvailable: z.boolean().default(true),
           note: z.string().optional(),
         }),

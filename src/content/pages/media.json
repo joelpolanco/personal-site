@@ -29,17 +29,6 @@
       "videoAvailable": true
     },
     {
-      "title": "Episode 7 - Discovery Dive with Joel Polanco | Product Discovery with Zeda.io",
-      "youtubeId": "i7Gg6C8V02I",
-      "url": "https://www.youtube.com/watch?v=i7Gg6C8V02I",
-      "thumbnail": {
-        "original_url": "https://i.ytimg.com/vi/i7Gg6C8V02I/maxresdefault.jpg",
-        "local": null
-      },
-      "videoAvailable": false,
-      "note": "No YouTube thumbnail in any size; the video appears to be removed or private."
-    },
-    {
       "title": "From Process Engineer to Product Veteran: Insights from Joel Polanco of Intel",
       "youtubeId": "puOKcTLgh88",
       "url": "https://www.youtube.com/watch?v=puOKcTLgh88",
@@ -56,6 +45,26 @@
       "thumbnail": {
         "original_url": "https://i.ytimg.com/vi/QoJs4WGvDAU/maxresdefault.jpg",
         "local": "../../assets/images/media-youtube-QoJs4WGvDAU.jpg"
+      },
+      "videoAvailable": true
+    },
+    {
+      "title": "Why You Can’t Ignore AI Moving to the Edge | Joel Polanco, Senior Hardware Product Manager (Intel)",
+      "youtubeId": "nPGZUJPEELI",
+      "url": "https://www.youtube.com/watch?v=nPGZUJPEELI",
+      "thumbnail": {
+        "original_url": "https://i.ytimg.com/vi/nPGZUJPEELI/maxresdefault.jpg",
+        "local": "../../assets/images/media-youtube-nPGZUJPEELI.jpg"
+      },
+      "videoAvailable": true
+    },
+    {
+      "title": "The AI Gold Rush Is Creating a Massive Chip Problem | Joel Polanco of Intel",
+      "youtubeId": "mlG_-OOGY9E",
+      "url": "https://www.youtube.com/watch?v=mlG_-OOGY9E",
+      "thumbnail": {
+        "original_url": "https://i.ytimg.com/vi/mlG_-OOGY9E/maxresdefault.jpg",
+        "local": "../../assets/images/media-youtube-mlG_-OOGY9E.jpg"
       },
       "videoAvailable": true
     }

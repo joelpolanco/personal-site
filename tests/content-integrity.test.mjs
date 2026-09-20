@@ -87,10 +87,18 @@ test('resources keeps all 22 entries and the homepage keeps four numbered skills
   );
 });
 
-test('media keeps five appearances and three talk clips', () => {
+test('media keeps six appearances and three talk clips', () => {
   const media = page('media');
-  assert.equal(media.appearances.length, 5);
+  assert.equal(media.appearances.length, 6);
   assert.equal(media.talkClips.length, 3);
+  const ids = media.appearances.map((item) => item.youtubeId);
+  assert.ok(ids.includes('nPGZUJPEELI'));
+  assert.ok(ids.includes('mlG_-OOGY9E'));
+  assert.ok(!ids.includes('i7Gg6C8V02I'));
+  assert.equal(
+    media.appearances.every((item) => item.videoAvailable && item.thumbnail.local),
+    true,
+  );
 });
 
 test('the Intel RSP case study is served from our own origin, not Wix', () => {

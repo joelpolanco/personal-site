@@ -10,12 +10,6 @@ if (!media) throw new Error('src/content/pages/media.json is missing');
 const { appearances, talkClips } = media.data;
 
 const available = appearances.filter((item) => item.videoAvailable);
-/**
- * The Zeda.io episode was deleted or made private: YouTube serves no thumbnail
- * in any size and has no oEmbed record. It stays listed as an appearance Joel
- * made, with no link and no invented artwork.
- */
-const retired = appearances.filter((item) => !item.videoAvailable);
 ---
 
 <BaseLayout
@@ -73,21 +67,6 @@ const retired = appearances.filter((item) => !item.videoAvailable);
           ))
         }
       </ul>
-
-      {
-        retired.length > 0 && (
-          <div class="sw-empty" style="margin-top: 2.5rem">
-            <h3 class="sw-empty__title">Also appeared on</h3>
-            {retired.map((item) => (
-              <p style="color: var(--fg); font-weight: 500; margin-bottom: 0.5rem">{item.title}</p>
-            ))}
-            <p>
-              This one is no longer on YouTube — the video was removed or made private, so there is
-              nothing to link to and no thumbnail to show.
-            </p>
-          </div>
-        )
-      }
     </div>
   </section>
 
