@@ -9,20 +9,26 @@ const media = await getEntry('media', 'media');
 if (!media) throw new Error('src/content/pages/media.json is missing');
 const { appearances, talkClips } = media.data;
 
-const available = appearances.filter((item) => item.videoAvailable);
+const listed = appearances.filter((item) => item.videoAvailable);
+const featured = listed.find((item) => item.featured) ?? listed[0];
+const rest = listed.filter((item) => item !== featured);
+
+function hostOf(url: string): string {
+  return new URL(url).hostname.replace(/^www\./, '');
+}
 ---
 
 <BaseLayout
   title="Media"
-  description="Talks, podcasts and video appearances by Joel Polanco on product management, customer discovery and edge computing."
+  description="Talks, podcasts, interviews and press featuring Joel Polanco on product management, customer discovery and edge computing."
 >
   <PageHead
     number="03"
     title="Media"
-    lede="Podcasts, summit talks and roundtables — mostly about customer discovery and how products actually get built."
+    lede="Podcasts, summit talks, roundtables and press — mostly about customer discovery, edge computing and how products actually get built."
     count={`${appearances.length} appearances · ${talkClips.length} clips`}
   >
-    <Fragment slot="eyebrow">Talks and podcasts</Fragment>
+    <Fragment slot="eyebrow">Talks and press</Fragment>
   </PageHead>
 
   <section class="sw-section">
@@ -32,17 +38,66 @@ const available = appearances.filter((item) => item.videoAvailable);
           <span class="sw-section__num">01</span>
           <h2 class="sw-section__title">
             Appearances
-            <span>Video and podcast</span>
+            <span>Press, video and podcast</span>
           </h2>
         </div>
       </div>
 
+      {
+        featured && (
+          <article class="sw-card sw-featured">
+            <div class="sw-grid">
+              <a
+                class="sw-card__media sw-featured__media sw-c1-6"
+                href={featured.url}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {featured.thumbnail.local ? (
+                  <Image
+                    src={featured.thumbnail.local}
+                    alt=""
+                    width={900}
+                    height={1164}
+                    widths={[400, 800, 1200]}
+                    sizes="(max-width: 64rem) 100vw, 40vw"
+                    loading="eager"
+                  />
+                ) : (
+                  <div class="sw-cover sw-cover--2" aria-hidden="true">
+                    <p class="sw-cover__meta">
+                      <span>{hostOf(featured.url)}</span>
+                    </p>
+                    <div>
+                      <p class="sw-cover__title">{featured.title}</p>
+                      <div class="sw-cover__rule"></div>
+                    </div>
+                  </div>
+                )}
+              </a>
+              <div class="sw-c7-6 sw-featured__copy">
+                <p class="sw-featured__kicker">Featured</p>
+                <h3 class="sw-card__title sw-featured__title">
+                  <a href={featured.url} rel="noopener noreferrer" target="_blank">
+                    {featured.title}
+                  </a>
+                </h3>
+                <p class="sw-card__meta">
+                  <span class="sw-card__host">{hostOf(featured.url)}</span>
+                  <span aria-hidden="true">&#8599;</span>
+                </p>
+              </div>
+            </div>
+          </article>
+        )
+      }
+
       <ul class="sw-cards sw-cards--two">
         {
-          available.map((item) => (
+          rest.map((item) => (
             <li class="sw-card">
               <a class="sw-card__media" href={item.url} rel="noopener noreferrer" target="_blank">
-                {item.thumbnail.local && (
+                {item.thumbnail.local ? (
                   <Image
                     src={item.thumbnail.local}
                     alt=""
@@ -52,6 +107,16 @@ const available = appearances.filter((item) => item.videoAvailable);
                     sizes="(max-width: 40rem) 100vw, 45vw"
                     loading="lazy"
                   />
+                ) : (
+                  <div class="sw-cover sw-cover--1" aria-hidden="true">
+                    <p class="sw-cover__meta">
+                      <span>{hostOf(item.url)}</span>
+                    </p>
+                    <div>
+                      <p class="sw-cover__title">{item.title}</p>
+                      <div class="sw-cover__rule"></div>
+                    </div>
+                  </div>
                 )}
               </a>
               <h3 class="sw-card__title">
@@ -60,7 +125,7 @@ const available = appearances.filter((item) => item.videoAvailable);
                 </a>
               </h3>
               <p class="sw-card__meta">
-                <span class="sw-card__host">youtube.com</span>
+                <span class="sw-card__host">{hostOf(item.url)}</span>
                 <span aria-hidden="true">&#8599;</span>
               </p>
             </li>
@@ -98,3 +163,51 @@ const available = appearances.filter((item) => item.videoAvailable);
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .sw-featured {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.25rem;
+  }
+
+  .sw-featured__media {
+    aspect-ratio: 3 / 4;
+    margin-bottom: 1.25rem;
+  }
+
+  .sw-featured__media img,
+  .sw-featured__media :global(.sw-cover) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .sw-featured__copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 0.25rem;
+  }
+
+  .sw-featured__kicker {
+    margin: 0 0 0.75rem;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+  }
+
+  .sw-featured__title {
+    font-size: clamp(1.375rem, 2.6vw, 2rem);
+    line-height: 1.12;
+    margin-bottom: 0.75rem;
+  }
+
+  @media (min-width: 64rem) {
+    .sw-featured__media {
+      margin-bottom: 0;
+    }
+  }
+</style>

@@ -190,13 +190,14 @@ const media = defineCollection({
       appearances: z.array(
         z.object({
           title: z.string(),
-          youtubeId: z.string(),
+          youtubeId: z.string().optional(),
           url: z.url(),
+          featured: z.boolean().default(false),
           thumbnail: z.object({
-            original_url: z.url(),
+            original_url: z.url().nullable().default(null),
             local: ctx.image().nullable().default(null),
           }),
-          /** False when a listed appearance is no longer on YouTube. */
+          /** False when a listed YouTube appearance is no longer available. */
           videoAvailable: z.boolean().default(true),
           note: z.string().optional(),
         }),

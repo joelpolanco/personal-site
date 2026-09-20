@@ -9,6 +9,16 @@
   "canonicalUrl": "https://www.joelpolanco.me/media",
   "appearances": [
     {
+      "title": "Joel Polanco’s Intel career is defined by reinvention",
+      "url": "https://www.facebook.com/weareIntel/posts/joel-polancos-intel-career-is-defined-by-reinvention-over-nearly-two-decades-he-/1453095866859079/",
+      "featured": true,
+      "thumbnail": {
+        "original_url": "https://scontent-ord5-1.xx.fbcdn.net/v/t39.30808-6/662663937_1453095823525750_3304684315097763650_n.jpg",
+        "local": "../../assets/images/media-facebook-weareintel-1453095866859079.jpg"
+      },
+      "videoAvailable": true
+    },
+    {
       "title": "Product Management Online Summit'23 – Junior Track",
       "youtubeId": "P8x2t5RcubI",
       "url": "https://www.youtube.com/watch?v=P8x2t5RcubI",
@@ -65,6 +75,15 @@
       "thumbnail": {
         "original_url": "https://i.ytimg.com/vi/mlG_-OOGY9E/maxresdefault.jpg",
         "local": "../../assets/images/media-youtube-mlG_-OOGY9E.jpg"
+      },
+      "videoAvailable": true
+    },
+    {
+      "title": "Q&A: Senior Product Manager Joel Polanco Driving Edge Computing at Intel",
+      "url": "https://digitalitnews.com/qa-senior-product-manager-joel-polanco-driving-edge-computing-at-intel/",
+      "thumbnail": {
+        "original_url": "https://digitalitnews.com/wp-content/uploads/2025/10/Digital-IT-News-Images-22.jpg",
+        "local": "../../assets/images/media-digitalitnews-joel-polanco.webp"
       },
       "videoAvailable": true
     }

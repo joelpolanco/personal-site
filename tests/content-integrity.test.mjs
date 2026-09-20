@@ -86,11 +86,15 @@ test('resources keeps all 22 entries and the homepage keeps four numbered skills
   );
 });
 
-test('media keeps six appearances and three talk clips', () => {
+test('media keeps eight appearances and three talk clips', () => {
   const media = page('media');
-  assert.equal(media.appearances.length, 6);
+  assert.equal(media.appearances.length, 8);
   assert.equal(media.talkClips.length, 3);
-  const ids = media.appearances.map((item) => item.youtubeId);
+  assert.equal(media.appearances[0].featured, true);
+  assert.match(media.appearances[0].url, /facebook\.com/);
+  const urls = media.appearances.map((item) => item.url);
+  assert.ok(urls.some((url) => url.includes('digitalitnews.com')));
+  const ids = media.appearances.map((item) => item.youtubeId).filter(Boolean);
   assert.ok(ids.includes('nPGZUJPEELI'));
   assert.ok(ids.includes('mlG_-OOGY9E'));
   assert.ok(!ids.includes('i7Gg6C8V02I'));
