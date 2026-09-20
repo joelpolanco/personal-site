@@ -261,6 +261,10 @@
   color: var(--fg-faint);
 }
 
+.sw-footer .sw-grid {
+  align-items: start;
+}
+
 .sw-footer__col h2 {
   font-size: 0.625rem;
   font-weight: 600;
@@ -272,14 +276,9 @@
   border-bottom: 1px solid var(--hairline);
 }
 
-.sw-footer__col + .sw-footer__col h2,
-.sw-footer__col h2 + .sw-footer__list + h2 {
-  margin-top: 1.75rem;
-}
-
 @media (max-width: 63.999rem) {
-  .sw-footer__col {
-    margin-top: 1.5rem;
+  .sw-footer__col + .sw-footer__col {
+    margin-top: 0.25rem;
   }
 }
 

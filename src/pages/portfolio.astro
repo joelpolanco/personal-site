@@ -11,8 +11,6 @@ if (!portfolio) throw new Error('src/content/pages/portfolio.json is missing');
 const { groups } = portfolio.data;
 
 const total = groups.reduce((sum, group) => sum + group.items.length, 0);
-const personalCount = groups.find((group) => group.group === 'Personal Projects')?.items.length ?? 0;
-const professionalCount = groups.find((group) => group.group === 'Professional Projects')?.items.length ?? 0;
 
 function linkifyUrls(html: string): string {
   return html.replace(
@@ -29,7 +27,7 @@ function linkifyUrls(html: string): string {
   <PageHead
     number="01"
     title="Portfolio"
-    lede={`Things I have built, shipped, written or advised on — ${personalCount} personal projects and ${professionalCount} from work.`}
+    lede="Things I have built, shipped, written or advised on."
     count={`${total} projects`}
   >
     <Fragment slot="eyebrow">Selected work</Fragment>
