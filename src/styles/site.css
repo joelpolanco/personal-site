@@ -334,10 +334,10 @@
   text-wrap: balance;
 }
 
-/* Homepage hero name only: three steps down the title ladder
-   (display 6rem → pagehead 4rem → posthead 3.5rem → featured 2rem). */
+/* Homepage hero name only: two steps down the title ladder
+   (display 6rem → pagehead 4rem → posthead 3.5rem). */
 .sw-display--home {
-  font-size: clamp(1.375rem, 2.6vw, 2rem);
+  font-size: clamp(2rem, 1.3rem + 3.2vw, 3.5rem);
 }
 
 .sw-display__greeting {
