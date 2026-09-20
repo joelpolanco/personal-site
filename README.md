@@ -25,7 +25,7 @@ left is the cutover — moving the domain — which needs a Cloudflare account. 
 
 | Route              | What it is                                                  |
 | ------------------ | ----------------------------------------------------------- |
-| `/`                | Intro, background, current role, what Joel is hired for, testimonials, latest posts |
+| `/`                | Intro, spec table, background, current role, what Joel is hired for, latest posts |
 | `/portfolio`       | Ten projects in two groups                                   |
 | `/media`           | Six appearances and three talk clips                         |
 | `/resources`       | Twenty-two recommendations in three groups                   |

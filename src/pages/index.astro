@@ -8,7 +8,7 @@ import { renderInline } from '../lib/inline-markdown';
 
 const home = await getEntry('home', 'home');
 if (!home) throw new Error('src/content/pages/home.json is missing');
-const { hero, partners, sections, skills, testimonials, writing } = home.data;
+const { hero, sections, skills, writing } = home.data;
 
 const posts = await getCollection('posts', ({ data }) => !data.draft);
 posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
@@ -75,29 +75,6 @@ const portraitForSchema = hero.image.local
           }
         </ul>
       </div>
-    </div>
-  </section>
-
-  <section class="sw-partners" aria-label={partners.heading}>
-    <div class="sw-shell sw-partners__inner">
-      <p class="sw-partners__label">{partners.heading}</p>
-      {
-        partners.items.map(
-          (partner) =>
-            partner.image.local && (
-              <Image
-                class="sw-partners__logo"
-                src={partner.image.local}
-                alt={partner.title}
-                width={128}
-                height={128}
-                widths={[64, 128]}
-                sizes="4rem"
-                loading="lazy"
-              />
-            ),
-        )
-      }
     </div>
   </section>
 
@@ -190,32 +167,6 @@ const portraitForSchema = hero.image.local
           ))
         }
       </ol>
-    </div>
-  </section>
-
-  <section class="sw-section" aria-labelledby="testimonials-heading">
-    <div class="sw-shell">
-      <div class="sw-grid">
-        <div class="sw-c1-3">
-          <span class="sw-section__num">{testimonials.number}</span>
-          <h2 class="sw-section__title" id="testimonials-heading">{testimonials.heading}</h2>
-        </div>
-      </div>
-      <ul class="sw-quotes">
-        {
-          testimonials.items.map((item) => (
-            <li>
-              <figure class="sw-quote">
-                <blockquote class="sw-quote__text">{item.quote}</blockquote>
-                <figcaption class="sw-quote__cite">
-                  <strong>{item.name}</strong>
-                  {item.role}, {item.company}
-                </figcaption>
-              </figure>
-            </li>
-          ))
-        }
-      </ul>
     </div>
   </section>
 

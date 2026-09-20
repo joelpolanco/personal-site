@@ -56,9 +56,8 @@ test('every image a page dataset references exists in src/assets', () => {
   assert.deepEqual(broken, []);
 });
 
-test('the homepage carries all three testimonials', () => {
-  // Wix server-rendered one carousel slide; the other two were only found by
-  // driving a browser, so losing them again would be easy and invisible.
+test('homepage JSON still keeps the three testimonials, even though they are not shown', () => {
+  // Stored so the quotes are not lost; / no longer renders the section.
   assert.deepEqual(
     page('home').testimonials.items.map((t) => t.name),
     ['Marie Eric', 'Keith Gregorzyk Ph.D.', 'Mike Ducker'],
