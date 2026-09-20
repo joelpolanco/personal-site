@@ -9,9 +9,6 @@ if (!portfolio) throw new Error('src/content/pages/portfolio.json is missing');
 const { groups } = portfolio.data;
 
 const total = groups.reduce((sum, group) => sum + group.items.length, 0);
-const missingLinks = groups
-  .flatMap((group) => group.items)
-  .filter((item) => item.link === null).length;
 ---
 
 <BaseLayout
@@ -57,16 +54,5 @@ const missingLinks = groups
         </div>
       </section>
     ))
-  }
-
-  {
-    missingLinks > 0 && (
-      <div class="sw-shell" style="padding-bottom: 1rem">
-        <p class="sw-card__meta" style="max-width: 60ch; text-transform: none; letter-spacing: 0">
-          {missingLinks} of these entries no longer have a working destination — the two Intel
-          podcasts were taken down by their host. The work is listed anyway.
-        </p>
-      </div>
-    )
   }
 </BaseLayout>
