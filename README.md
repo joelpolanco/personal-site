@@ -3,10 +3,10 @@
 The Astro rebuild of [joelpolanco.me](https://www.joelpolanco.me), migrating off Wix onto
 Cloudflare Pages. Minimalist, fast, content-first, and cheap to run.
 
-Current state: the site is complete and building cleanly. Every page is built, all 23 posts are
-migrated at their original URLs, and the SEO, contact and publishing plumbing is in place. What is
-left is the cutover — moving the domain — which needs a Cloudflare account. See
-[Cutover checklist](#cutover-checklist).
+Current state: the site is complete and building cleanly. Every page is built, all 23 Wix posts
+are migrated at their original URLs, eight later Google Docs posts sit alongside them, and the
+SEO, contact and publishing plumbing is in place. What is left is the cutover — moving the domain
+— which needs a Cloudflare account. See [Cutover checklist](#cutover-checklist).
 
 ## Stack
 
@@ -29,7 +29,7 @@ left is the cutover — moving the domain — which needs a Cloudflare account. 
 | `/portfolio`       | Fourteen projects in two groups                              |
 | `/media`           | Eight appearances and three talk clips                       |
 | `/resources`       | Twenty-two recommendations in three groups                   |
-| `/blog`            | All 23 posts, filterable by category                         |
+| `/blog`            | All 31 posts, filterable by category                         |
 | `/blog/<category>` | One of the six categories                                    |
 | `/post/<slug>`     | A post. **These URLs are load-bearing** — see below          |
 | `/contact`         | Reasons he is useful, and a LinkedIn message button          |
@@ -66,9 +66,9 @@ Everything from the Wix site lives in typed collections, defined with zod schema
 `src/content.config.ts`.
 
 ```
-src/content/posts/<slug>.mdx   23 blog posts
+src/content/posts/<slug>.mdx   31 blog posts (23 from Wix, 8 from Google Docs)
 src/content/pages/*.json       home, portfolio, media, resources, contact, project-1
-src/assets/images/             75 images, optimized by Astro at build time
+src/assets/images/             images, optimized by Astro at build time
 ```
 
 Page datasets get a schema each rather than one loose shape, so templates get real types: the
@@ -86,12 +86,12 @@ three posts.
 
 | Category                | Posts | Covers                                                       |
 | ----------------------- | ----- | ------------------------------------------------------------ |
-| Customer Discovery      | 4     | Talking to customers before you build                        |
-| Growth & Revenue        | 5     | Acquisition, retention, pricing, how products make money      |
-| Frameworks & Process    | 5     | Frameworks and rituals worth keeping                          |
-| Communication & Craft   | 3     | Writing, listening, judgement                                 |
+| Customer Discovery      | 8     | Talking to customers before you build                        |
+| Growth & Revenue        | 6     | Acquisition, retention, pricing, how products make money      |
+| Frameworks & Process    | 6     | Frameworks and rituals worth keeping                          |
+| Communication & Craft   | 4     | Writing, listening, judgement                                 |
 | The PM Career           | 3     | Career paths, lateral moves, where the role is going          |
-| Industry & AI           | 3     | Launches, org shake-ups, hands-on AI experiments              |
+| Industry & AI           | 4     | Launches, org shake-ups, hands-on AI experiments              |
 
 The schema takes a zod enum, so a typo fails the build rather than quietly creating a seventh
 category, and `npm test` fails if a category ends up with no posts. Renaming an `id` changes a
@@ -361,7 +361,7 @@ src/
     site.ts                Site identity, nav, redirects, feed path
     categories.ts          The six blog categories
   content.config.ts        Collection schemas
-  content/posts/           23 migrated posts
+  content/posts/           31 posts (23 Wix + 8 Google Docs)
   content/pages/           Page datasets as JSON
   assets/images/           Migrated imagery
   assets/fonts/            Inter subsets for OG card rendering
@@ -378,7 +378,7 @@ src/
   pages/
     index / portfolio / media / resources / contact / 404
     blog/                  Index and one page per category
-    post/[slug].astro      The 23 posts
+    post/[slug].astro      One page per post
     api/contact.ts         Contact form backend
     blog-feed.xml.ts       RSS at the path Wix used
     og/[slug].png.ts       Per-post OG cards
