@@ -1,8 +1,10 @@
 ---
+import { Image } from 'astro:assets';
 import { getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHead from '../components/PageHead.astro';
 import { person } from '../config/site';
+import portrait from '../assets/joel-polanco-headshot.jpg';
 
 const contact = await getEntry('contact', 'contact');
 if (!contact) throw new Error('src/content/pages/contact.json is missing');
@@ -37,6 +39,19 @@ const reasons = (blocks[0]?.body[0] ?? '')
 
   <section class="sw-section sw-section--flush">
     <div class="sw-shell sw-grid">
+      <div class="sw-c10-3">
+        <Image
+          src={portrait}
+          alt="Joel Polanco in a dark suit"
+          width={720}
+          height={720}
+          widths={[240, 480, 720]}
+          sizes="(max-width: 64rem) 12rem, 20vw"
+          class="sw-contact-portrait"
+          loading="eager"
+        />
+      </div>
+
       <div class="sw-c1-3 sw-section__head">
         <span class="sw-section__num">01</span>
         <h2 class="sw-section__title">
@@ -48,7 +63,7 @@ const reasons = (blocks[0]?.body[0] ?? '')
         </ol>
       </div>
 
-      <div class="sw-c5-8">
+      <div class="sw-contact-cta">
         <p style="margin-top: 0">
           <a
             class="sw-btn"
@@ -66,6 +81,26 @@ const reasons = (blocks[0]?.body[0] ?? '')
 </BaseLayout>
 
 <style>
+  .sw-contact-portrait {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border: 1px solid var(--fg);
+  }
+
+  @media (max-width: 63.999rem) {
+    .sw-contact-portrait {
+      max-width: 12rem;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .sw-contact-cta {
+      grid-column: 5 / span 5;
+    }
+  }
+
   .sw-reasons {
     margin: 1.5rem 0 0;
     padding: 0;
