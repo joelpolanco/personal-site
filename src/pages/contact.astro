@@ -39,7 +39,7 @@ const reasons = (blocks[0]?.body[0] ?? '')
 
   <section class="sw-section sw-section--flush">
     <div class="sw-shell sw-grid">
-      <div class="sw-c10-3">
+      <div class="sw-c10-3 sw-contact-photo">
         <Image
           src={portrait}
           alt="Joel Polanco in a dark suit"
@@ -52,7 +52,7 @@ const reasons = (blocks[0]?.body[0] ?? '')
         />
       </div>
 
-      <div class="sw-c1-3 sw-section__head">
+      <div class="sw-c1-3 sw-section__head sw-contact-reasons">
         <span class="sw-section__num">01</span>
         <h2 class="sw-section__title">
           {blocks[0]?.heading ?? 'How can I help?'}
@@ -96,6 +96,12 @@ const reasons = (blocks[0]?.body[0] ?? '')
   }
 
   @media (min-width: 64rem) {
+    .sw-contact-photo,
+    .sw-contact-reasons,
+    .sw-contact-cta {
+      grid-row: 1;
+    }
+
     .sw-contact-cta {
       grid-column: 5 / span 5;
     }
