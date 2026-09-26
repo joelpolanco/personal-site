@@ -57,7 +57,7 @@ const reasons = (blocks[0]?.body[0] ?? '')
           width={720}
           height={720}
           widths={[240, 480, 720]}
-          sizes="(max-width: 64rem) 12rem, 16rem"
+          sizes="15rem"
           class="sw-contact-portrait"
           loading="eager"
         />
@@ -77,26 +77,26 @@ const reasons = (blocks[0]?.body[0] ?? '')
 
 <style>
   .sw-contact-aside {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: min-content;
+    justify-items: stretch;
+    justify-self: start;
     gap: 1.5rem;
+    max-width: 100%;
+  }
+
+  .sw-contact-aside .sw-btn {
+    white-space: nowrap;
   }
 
   .sw-contact-portrait {
-    width: 16rem;
-    max-width: 100%;
+    display: block;
+    width: 100%;
     min-width: 0;
     height: auto;
     aspect-ratio: 1;
     object-fit: cover;
     border: 1px solid var(--fg);
-  }
-
-  @media (max-width: 63.999rem) {
-    .sw-contact-portrait {
-      width: 12rem;
-    }
   }
 
   .sw-reasons {
