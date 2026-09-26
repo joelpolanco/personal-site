@@ -1,6 +1,6 @@
 ---
 /**
- * The site shell: head metadata, skip link, grid guides, header, footer.
+ * The site shell: head metadata, skip link, header, footer.
  *
  * Every page goes through here, so canonical URLs, OG tags and the feed link
  * are declared once rather than per page.
@@ -80,12 +80,6 @@ const documentTitle = title.includes(site.name) ? title : `${title} — ${site.n
   </head>
   <body class={`sw ${bodyClass}`.trim()}>
     <a class="skip-link" href="#main">Skip to content</a>
-
-    <div class="sw-guides" aria-hidden="true">
-      <div class="sw-guides__inner">
-        {Array.from({ length: 12 }).map(() => <div class="sw-guides__col"></div>)}
-      </div>
-    </div>
 
     <SiteHeader />
 

@@ -60,40 +60,6 @@
   column-gap: var(--gap);
 }
 
-/* Visible column guides — the structural signature of the direction. */
-.sw-guides {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  display: none;
-}
-
-@media (min-width: 64rem) {
-  .sw-guides {
-    display: block;
-  }
-
-  .sw-guides__inner {
-    height: 100%;
-    display: grid;
-    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
-    column-gap: var(--gap);
-    width: 100%;
-    max-width: var(--maxw);
-    margin-inline: auto;
-    padding-inline: var(--gutter);
-  }
-
-  .sw-guides__col {
-    border-left: 1px solid var(--grid-line);
-  }
-
-  .sw-guides__col:last-child {
-    border-right: 1px solid var(--grid-line);
-  }
-}
-
 .sw-layer {
   position: relative;
   z-index: 1;

@@ -369,7 +369,7 @@ src/
     seo/                   JSON-LD components
     SiteHeader / SiteFooter / PageHead
     PostCover / PostCard / ItemCard / CategoryNav
-  layouts/BaseLayout.astro Head metadata, chrome, grid guides
+  layouts/BaseLayout.astro Head metadata, chrome
   lib/
     contact/               Validation, rate limiting, Resend delivery
     inline-markdown.ts     Renders the short markdown strings in page JSON

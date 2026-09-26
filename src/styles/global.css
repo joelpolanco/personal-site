@@ -28,7 +28,6 @@
   --fg-soft: #5b5b5b;
   --fg-faint: #6e6e6e;
   --hairline: #e3e3e1;
-  --grid-line: #f0f0ee;
   --accent: #e5230c;
   /* Darker cut of the accent, for text that must clear 4.5:1 on white. */
   --accent-ink: #c81c08;
