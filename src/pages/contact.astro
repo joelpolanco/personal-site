@@ -39,20 +39,7 @@ const reasons = (blocks[0]?.body[0] ?? '')
 
   <section class="sw-section sw-section--flush">
     <div class="sw-shell sw-grid">
-      <div class="sw-c10-3 sw-contact-photo">
-        <Image
-          src={portrait}
-          alt="Joel Polanco in a dark suit"
-          width={720}
-          height={720}
-          widths={[240, 480, 720]}
-          sizes="(max-width: 64rem) 12rem, 20vw"
-          class="sw-contact-portrait"
-          loading="eager"
-        />
-      </div>
-
-      <div class="sw-c1-3 sw-section__head sw-contact-reasons">
+      <div class="sw-c1-3 sw-section__head">
         <span class="sw-section__num">01</span>
         <h2 class="sw-section__title">
           {blocks[0]?.heading ?? 'How can I help?'}
@@ -63,26 +50,42 @@ const reasons = (blocks[0]?.body[0] ?? '')
         </ol>
       </div>
 
-      <div class="sw-contact-cta">
-        <p style="margin-top: 0">
-          <a
-            class="sw-btn"
-            href={linkedInUrl}
-            rel="me noopener noreferrer"
-            target="_blank"
-          >
-            Message me on LinkedIn
-            <span class="sw-btn__arrow" aria-hidden="true">&#8599;</span>
-          </a>
-        </p>
+      <div class="sw-c5-8 sw-contact-aside">
+        <Image
+          src={portrait}
+          alt="Joel Polanco in a dark suit"
+          width={720}
+          height={720}
+          widths={[240, 480, 720]}
+          sizes="(max-width: 64rem) 12rem, 16rem"
+          class="sw-contact-portrait"
+          loading="eager"
+        />
+        <a
+          class="sw-btn"
+          href={linkedInUrl}
+          rel="me noopener noreferrer"
+          target="_blank"
+        >
+          Message me on LinkedIn
+          <span class="sw-btn__arrow" aria-hidden="true">&#8599;</span>
+        </a>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
+  .sw-contact-aside {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
   .sw-contact-portrait {
     width: 100%;
+    max-width: 16rem;
     height: auto;
     aspect-ratio: 1;
     object-fit: cover;
@@ -92,18 +95,6 @@ const reasons = (blocks[0]?.body[0] ?? '')
   @media (max-width: 63.999rem) {
     .sw-contact-portrait {
       max-width: 12rem;
-    }
-  }
-
-  @media (min-width: 64rem) {
-    .sw-contact-photo,
-    .sw-contact-reasons,
-    .sw-contact-cta {
-      grid-row: 1;
-    }
-
-    .sw-contact-cta {
-      grid-column: 5 / span 5;
     }
   }
 
