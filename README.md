@@ -26,7 +26,7 @@ SEO, contact and publishing plumbing is in place. What is left is the cutover â€
 | Route              | What it is                                                  |
 | ------------------ | ----------------------------------------------------------- |
 | `/`                | Intro, spec table, background, current role, what Joel is hired for, latest posts |
-| `/portfolio`       | Fourteen projects in two groups                              |
+| `/portfolio`       | Sixteen projects in two groups                               |
 | `/media`           | Eight appearances and three talk clips                       |
 | `/resources`       | Twenty-two recommendations in three groups                   |
 | `/blog`            | All 31 posts, filterable by category                         |
@@ -108,7 +108,7 @@ extraction time, byte for byte. It runs on `npm test` and again automatically be
 production build, so a broken slug cannot ship.
 
 `tests/content-integrity.test.mjs` guards the counts the extraction verified against the live site:
-fourteen portfolio projects, three homepage testimonials, 22 resources, eight media appearances, three
+sixteen portfolio projects, three homepage testimonials, 22 resources, eight media appearances, three
 talk clips, and every image reference resolving to a file on disk.
 
 ### Re-importing the archive

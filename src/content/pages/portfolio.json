@@ -85,7 +85,7 @@
     {
       "group": "Professional Projects",
       "repeaterId": "comp-m52olt6n2",
-      "count": 8,
+      "count": 10,
       "items": [
         {
           "title": "Intel(r) RSP Software Toolkit",
@@ -97,6 +97,28 @@
             "local": "../../assets/images/portfolio-intel-rsp-toolkit.png",
             "renderedSrc": "https://opengraph.githubassets.com/e594f572d48c9d25ffde367a15c209dc518f6ef180c2e30b247612bb9cbe5b39/joelpolanco/cb-gsg"
           }
+        },
+        {
+          "title": "Intel vPro\u00ae Technology for Point-of-Sale Environments",
+          "description": "Enhance in-band POS manageability solutions with Intel vPro\u00ae out-of-band control to reduce service calls and boost uptime.",
+          "link": "https://builders.intel.com/solutionslibrary/intel-vpro-technology-for-point-of-sale-environments",
+          "image": {
+            "alt": "Intel vPro\u00ae Technology for Point-of-Sale Environments",
+            "local": "../../assets/images/portfolio-intel-vpro-pos.png",
+            "renderedSrc": "https://d289b7jkymoqv6.cloudfront.net/document-library/png/intel-vpro-technology-for-point-of-sale-environments.png"
+          },
+          "extraText": null
+        },
+        {
+          "title": "Resilient Retail Operations through Out-of-Band Remote Remediation with HP Workforce Experience Platform (WXP) and Intel vPro\u00ae Platform",
+          "description": "HP and Intel join forces to deliver secure, revolutionary remote management and remediation with the HP Workforce Experience Platform (WXP) and Intel vPro\u00ae technology supporting business continuity.",
+          "link": "https://builders.intel.com/solutionslibrary/resilient-retail-operations-through-out-of-band-remote-remediation-with-hp-workforce-experience-platform-wxp-and-intel-vpro-platform",
+          "image": {
+            "alt": "Resilient Retail Operations through Out-of-Band Remote Remediation with HP Workforce Experience Platform (WXP) and Intel vPro\u00ae Platform",
+            "local": "../../assets/images/portfolio-intel-vpro-hp-wxp.png",
+            "renderedSrc": "https://d289b7jkymoqv6.cloudfront.net/document-library/png/resilient-retail-operations-through-out-of-band-remote-remediation-with-hp-workforce-experience-platform-wxp-and-intel-vpro-platform.png"
+          },
+          "extraText": null
         },
         {
           "title": "Intel RFID Sensor Platform",

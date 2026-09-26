@@ -64,11 +64,11 @@ test('homepage JSON still keeps the three testimonials, even though they are not
   );
 });
 
-test('the portfolio carries fourteen projects with VTI & Chill featured first', () => {
+test('the portfolio carries sixteen projects with VTI & Chill featured first', () => {
   const { groups } = page('portfolio');
   assert.equal(
     groups.reduce((total, group) => total + group.items.length, 0),
-    14,
+    16,
   );
   for (const group of groups) {
     assert.equal(group.items.length, group.count, `${group.group} count disagrees with its items`);
@@ -88,6 +88,22 @@ test('the portfolio carries fourteen projects with VTI & Chill featured first', 
   assert.equal(personal?.items[0]?.featured, true);
   const professional = groups.find((group) => group.group === 'Professional Projects');
   assert.equal(professional?.items[0]?.title, 'Intel(r) RSP Software Toolkit');
+  assert.equal(
+    professional?.items[1]?.title,
+    'Intel vPro® Technology for Point-of-Sale Environments',
+  );
+  assert.equal(
+    professional?.items[1]?.link,
+    'https://builders.intel.com/solutionslibrary/intel-vpro-technology-for-point-of-sale-environments',
+  );
+  assert.equal(
+    professional?.items[2]?.title,
+    'Resilient Retail Operations through Out-of-Band Remote Remediation with HP Workforce Experience Platform (WXP) and Intel vPro® Platform',
+  );
+  assert.equal(
+    professional?.items[2]?.link,
+    'https://builders.intel.com/solutionslibrary/resilient-retail-operations-through-out-of-band-remote-remediation-with-hp-workforce-experience-platform-wxp-and-intel-vpro-platform',
+  );
 });
 
 test('resources keeps all 22 entries and the homepage keeps four numbered skills', () => {

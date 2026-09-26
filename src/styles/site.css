@@ -306,15 +306,6 @@
   font-size: clamp(2rem, 1.3rem + 3.2vw, 3.5rem);
 }
 
-.sw-display__greeting {
-  display: block;
-  font-size: clamp(0.9375rem, 0.85rem + 0.4vw, 1.125rem);
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: var(--fg-faint);
-  margin-bottom: 0.625rem;
-}
-
 .sw-lede {
   font-size: clamp(1.0625rem, 0.98rem + 0.45vw, 1.3125rem);
   line-height: 1.45;

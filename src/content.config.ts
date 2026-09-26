@@ -100,7 +100,6 @@ const home = defineCollection({
   schema: (ctx) =>
     pageMeta.extend({
       hero: z.object({
-        greeting: z.string(),
         name: z.string(),
         /** Markdown paragraphs; `**bold**` gets the accent treatment. */
         body: z.array(z.string()).min(1),
