@@ -84,8 +84,9 @@ const reasons = (blocks[0]?.body[0] ?? '')
   }
 
   .sw-contact-portrait {
-    width: 100%;
-    max-width: 16rem;
+    width: 16rem;
+    max-width: 100%;
+    min-width: 0;
     height: auto;
     aspect-ratio: 1;
     object-fit: cover;
@@ -94,7 +95,7 @@ const reasons = (blocks[0]?.body[0] ?? '')
 
   @media (max-width: 63.999rem) {
     .sw-contact-portrait {
-      max-width: 12rem;
+      width: 12rem;
     }
   }
 
