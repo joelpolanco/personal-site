@@ -1,4 +1,4 @@
-# joelpolanco.me
+# www.joelpolanco.me
 
 The Astro rebuild of [joelpolanco.me](https://www.joelpolanco.me), migrating off Wix onto
 Cloudflare Pages. Minimalist, fast, content-first, and cheap to run.
